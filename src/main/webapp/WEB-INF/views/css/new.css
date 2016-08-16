@@ -1,0 +1,54 @@
+body{
+    background: #DCDCDC;
+}
+
+/* Блок меню*/
+ul{
+    margin: 0;
+    padding: 0;
+}
+ul.nav li {
+    background: #B3B3FF;
+    border-right: 1px solid #FFFFFF;
+    float: left; /*делаем меню горизонтальным*/
+    height: 30px;
+    list-style: none;
+}
+ul.nav li a {
+    text-decoration: none;
+    display: block;
+    padding: 5px 5px 5px 15px;
+}
+ul.nav li ul {
+    display: none;	/*скрываем вложенные пункты*/
+}
+ul.nav { /*задаём высоту и ширину меню*/
+    background: #B3B3FF;
+    height: 30px;
+    width: 600px;
+}
+
+/*Выпадающее меню*/
+
+ul.nav li:hover {
+    background: yellow;
+    position: relative;
+}
+ul.nav li:hover > ul {
+    border-top: 1px solid white;
+    display: block;
+    position: absolute;
+    top: 30px; /*первый уровень меню раскрывается вниз*/
+    left: 0;
+}
+/*Второй и последующие уровни вложенности*/
+ul.nav li ul li{
+    border-bottom: 1px solid white;
+    height: auto;
+    width: 150px;
+}
+ul.nav li:hover ul li ul{
+    position: absolute;
+    top: 0;
+    left: 150px; /*второй и последующие уровни расскрываются вправо*/
+}
