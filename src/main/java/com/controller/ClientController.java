@@ -27,7 +27,12 @@ public class ClientController {
         model.addAttribute("client", "Магазин для покупателя");
         List<Product> productList = productService.listProducts();
         model.addAttribute("productList", productList);
-        model.addAttribute("discountNow", productService.getNowDiscountProduct().getProduct().getProductName());
+        if(productService.getNowDiscountProduct() != null){
+            model.addAttribute("discountNow", productService.getNowDiscountProduct().getProduct().getProductName());
+        } else {
+            model.addAttribute("discountNow", "Товара по скидки пока нет");
+        }
+
         return "client";
     }
 

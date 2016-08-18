@@ -2,7 +2,6 @@ package com.service;
 
 import com.dao.SaleDAO;
 import com.dto.SaleProductInRangeDetailed;
-import com.dto.SumDiscountByRange;
 import com.dto.TotalSaleReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,4 @@ public class SaleServiceImpl implements SaleService {
         return saleDAO.totalSaleReport();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<SumDiscountByRange> sumDiscountByRange() {
-        return saleDAO.sumDiscountByRange();
-    }
 }

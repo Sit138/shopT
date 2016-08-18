@@ -2,12 +2,22 @@ package com.dto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class TotalSaleReport {
     private Timestamp saleDate;
     private Long saleCount;
     private BigDecimal saleSum;
-    private BigDecimal averageCheck;
+    private BigDecimal saleAverageCheck;
+    private Long countSaleProductByDiscount;
+    private BigDecimal discountSum;
+
+    public String getSaleDateStringFormat(){
+        Timestamp date = getSaleDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy HH:mm");
+        String dateString = simpleDateFormat.format(date);
+        return dateString;
+    }
 
     public Timestamp getSaleDate() {
         return saleDate;
@@ -33,11 +43,27 @@ public class TotalSaleReport {
         this.saleSum = saleSum;
     }
 
-    public BigDecimal getAverageCheck() {
-        return averageCheck;
+    public BigDecimal getSaleAverageCheck() {
+        return saleAverageCheck;
     }
 
-    public void setAverageCheck(BigDecimal averageCheck) {
-        this.averageCheck = averageCheck;
+    public void setSaleAverageCheck(BigDecimal saleAverageCheck) {
+        this.saleAverageCheck = saleAverageCheck;
+    }
+
+    public Long getCountSaleProductByDiscount() {
+        return countSaleProductByDiscount;
+    }
+
+    public void setCountSaleProductByDiscount(Long countSaleProductByDiscount) {
+        this.countSaleProductByDiscount = countSaleProductByDiscount;
+    }
+
+    public BigDecimal getDiscountSum() {
+        return discountSum;
+    }
+
+    public void setDiscountSum(BigDecimal discountSum) {
+        this.discountSum = discountSum;
     }
 }

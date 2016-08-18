@@ -11,18 +11,22 @@
     <%@include file="include/header.html"%>
     <h1>Отчет по продажам</h1>
     <table border="1px">
+        <th>№</th>
         <th>Дата</th>
         <th>Продано</th>
         <th>Сумма</th>
         <th>Средний чек</th>
+        <th>Куплено товаров по скидке</th>
         <th>Сумма скидок</th>
         <c:forEach var="saleReport" items="${totalSaleReport}" varStatus="status">
             <tr>
+                <td>${status.index + 1}</td>
                 <td>${saleReport.saleDate}</td>
                 <td>${saleReport.saleCount}</td>
                 <td>${saleReport.saleSum}</td>
-                <td>${saleReport.averageCheck}</td>
-                <td>${sumDiscountByRangeList.get(status.index).sumDiscount}</td>
+                <td>${saleReport.saleAverageCheck}</td>
+                <td>${saleReport.countSaleProductByDiscount}</td>
+                <td>${saleReport.discountSum}</td>
             </tr>
         </c:forEach>
     </table>

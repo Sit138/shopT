@@ -136,9 +136,9 @@ public class ProductDAOImpl implements ProductDAO{
         Date currentDate = new Date();
         BigDecimal saleAmount = productSale.getProductPrice();
         Discount discountProduct = getNowDiscountProduct();
-        int idDiscount = discountProduct.getId();
-        double valueDiscount = discountProduct.getDiscount_value() / 100;
-        if(id == discountProduct.getProduct().getId()){
+        if(discountProduct != null && (id == discountProduct.getProduct().getId())){
+            int idDiscount = discountProduct.getId();
+            double valueDiscount = discountProduct.getDiscount_value() / 100;
             saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
         }
         Sale sale = new Sale(saleAmount, currentDate);
