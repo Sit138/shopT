@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 import com.service.ProductService;
@@ -25,7 +26,7 @@ public class ClientController {
     @RequestMapping(value = "/client")
     public String shopClient(Model model){
         model.addAttribute("client", "Магазин для покупателя");
-        List<Product> productList = productService.listProducts();
+        List<ProductDTO> productList = productService.listProducts();
         model.addAttribute("productList", productList);
         if(productService.getNowDiscountProduct() != null){
             model.addAttribute("discountNow", productService.getNowDiscountProduct().getProduct().getProductName());

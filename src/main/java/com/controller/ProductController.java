@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.dto.ProductDTO;
 import com.model.Product;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,17 @@ public class ProductController {
 
     @RequestMapping("/home")
     public String home(Model model){
-        List<Product> productList = productService.listProducts();
+        List<ProductDTO> productList = productService.listProducts();
         model.addAttribute("productList", productList);
 
-        Product product = productService.getProduct(41);
+        ProductDTO product = productService.getProduct(41);
         if (product == null){
             model.addAttribute("prod", "-");
         } else {
             model.addAttribute("prod", product.getProductName());
         }
 
-        Product lasProduct = productService.getLastProduct();
+        ProductDTO lasProduct = productService.getLastProduct();
         if (lasProduct == null){
             model.addAttribute("lastP", "-");
         } else {
@@ -72,7 +73,7 @@ public class ProductController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        Product product = productService.getProduct(product_id);
+        ProductDTO product = productService.getProduct(product_id);
         model.addAttribute("product", product);
         return "productForm";
     }

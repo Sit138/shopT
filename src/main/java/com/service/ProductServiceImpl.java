@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dao.ProductDAO;
+import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Product> listProducts() {
+    public List<ProductDTO> listProducts() {
         return productDAO.listProducts();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Product getProduct(int id) {
+    public ProductDTO getProduct(int id) {
         return productDAO.getProduct(id);
     }
 
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Product getLastProduct() {
+    public ProductDTO getLastProduct() {
         return productDAO.getLastProduct();
     }
 

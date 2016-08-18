@@ -1,12 +1,14 @@
 package com.dao;
 
 import com.controller.ProductController;
+import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,15 +34,13 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<Product> listProducts() {
+    public List<ProductDTO> listProducts() {
 
-        /*
-        List<Product> productList = (List<Product>) sessionFactory.getCurrentSession()
-                .createCriteria(Product.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                .list();*/
-
-        List<Product> productList = sessionFactory.getCurrentSession().createQuery("from Product order by id ASC").list();
+        List<ProductDTO> productList = sessionFactory.getCurrentSession()
+                .createQuery("select p.id as id, p.productName as productName, p.productPrice as productPrice\n" +
+                             "from Product p order by id ASC")
+                .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
+                .list();
         if (productList.isEmpty()){
             logger.info("Product list is empty");
         } else {
@@ -49,14 +49,14 @@ public class ProductDAOImpl implements ProductDAO{
         return productList;
     }
 
-
-
     @Override
-    public Product getProduct(int id) {
-        String hql = "from Product where id=" + id;
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-
-        List<Product> productList = (List<Product>) query.list();
+    public ProductDTO getProduct(int id) {
+        String hql = "select p.id as id, p.productName as productName, p.productPrice as productPrice\n" +
+                     "from Product p where id=" + id;
+        List<ProductDTO> productList = sessionFactory.getCurrentSession()
+                .createQuery(hql)
+                .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
+                .list();
 
         if (productList != null && !productList.isEmpty()){
             logger.info("Return Product to id = " + id);
@@ -64,7 +64,6 @@ public class ProductDAOImpl implements ProductDAO{
         } else {
             logger.info("Product to id=" + id + " null");
         }
-
         return null;
     }
 
@@ -81,8 +80,12 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public Product getLastProduct() {
-        List<Product> lastProduct = sessionFactory.getCurrentSession().createQuery("from Product").list();
+    public ProductDTO getLastProduct() {
+        List<ProductDTO> lastProduct = sessionFactory.getCurrentSession()
+                .createQuery("select p.id as id, p.productName as productName, p.productPrice as productPrice\n" +
+                        "from Product p")
+                .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
+                .list();
         if (lastProduct != null && !lastProduct.isEmpty()){
             return lastProduct.get(lastProduct.size() - 1);
         }
@@ -99,9 +102,7 @@ public class ProductDAOImpl implements ProductDAO{
         Date currentDate = new Date();
         int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
         double newDiscount = min + (Math.random() * (max - min) + 1);
-        //productsDiscount.getProduct().getProductPrice()
-       // - ((productsDiscount.getDiscount_value()/100)
-         //       * productsDiscount.getProduct().getProductPrice())
+
         BigDecimal productDiscountPrice = productDiscount.getProductPrice()
                 .subtract(productDiscount.getProductPrice()
                         .multiply(new BigDecimal(newDiscount / 100)));

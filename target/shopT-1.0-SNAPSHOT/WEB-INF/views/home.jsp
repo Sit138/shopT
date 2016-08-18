@@ -41,6 +41,6 @@
     </table>
 
     <a href="/new">Добавить новый товар</a>
-
+<h3>${lastP}</h3>
 </body>
 </html>

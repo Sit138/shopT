@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 
@@ -7,15 +8,15 @@ import java.util.List;
 
 public interface ProductService {
 
-    public List<Product> listProducts();
+    public List<ProductDTO> listProducts();
 
-    public Product getProduct(int id);
+    public ProductDTO getProduct(int id);
 
     public void saveOrUpdate(Product product);
 
     public void deleteProduct(int id);
 
-    public Product getLastProduct();
+    public ProductDTO getLastProduct();
 
     public void insertProductDiscount();
 
