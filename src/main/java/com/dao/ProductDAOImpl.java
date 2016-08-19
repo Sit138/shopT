@@ -50,12 +50,28 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public ProductDTO getProduct(int id) {
+    public ProductDTO getProductDTO(int id) {
         String hql = "select p.id as id, p.productName as productName, p.productPrice as productPrice\n" +
                      "from Product p where id=" + id;
         List<ProductDTO> productList = sessionFactory.getCurrentSession()
                 .createQuery(hql)
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
+                .list();
+
+        if (productList != null && !productList.isEmpty()){
+            logger.info("Return Product to id = " + id);
+            return productList.get(0);
+        } else {
+            logger.info("Product to id=" + id + " null");
+        }
+        return null;
+    }
+
+    @Override
+    public Product getProduct(int id) {
+        String hql = "from Product p where id=" + id;
+        List<Product> productList = sessionFactory.getCurrentSession()
+                .createQuery(hql)
                 .list();
 
         if (productList != null && !productList.isEmpty()){
@@ -91,6 +107,7 @@ public class ProductDAOImpl implements ProductDAO{
         }
         return null;
     }
+
 
     @Override
     public void insertProductDiscount() {

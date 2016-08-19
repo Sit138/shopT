@@ -13,6 +13,12 @@
     <h1>Магазин</h1>
     <h2>Список товаров</h2>
 
+    <c:if test="${info == 'errorDelete'}">
+        <script>
+            alert("Удаление невозможно!");
+        </script>
+    </c:if>
+
     <table border="1px">
         <th>№</th>
         <th>Наименование</th>

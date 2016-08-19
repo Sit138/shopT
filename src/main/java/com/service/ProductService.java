@@ -10,7 +10,9 @@ public interface ProductService {
 
     public List<ProductDTO> listProducts();
 
-    public ProductDTO getProduct(int id);
+    public ProductDTO getProductDTO(int id);
+
+    public Product getProduct(int id);
 
     public void saveOrUpdate(Product product);
 

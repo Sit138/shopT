@@ -15,7 +15,7 @@
 
 <table>
     <h1>Новый товар</h1>
-    <form:form action="save" method="post" modelAttribute="product">
+    <form:form action="save" method="post" modelAttribute="productDTO">
         <form:hidden path="id"/>
         <tr>
             <th>Наименование:</th>

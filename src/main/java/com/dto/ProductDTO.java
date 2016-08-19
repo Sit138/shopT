@@ -1,17 +1,22 @@
 package com.dto;
 
 import com.model.Product;
-import com.model.Sale;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ProductDTO extends Product {
+
     private int id;
+
+    @Size(min = 3, max = 15, message = "Поле наименование продукта должно содержать от 3 до 15 знаков")
     private String productName;
+
+    @NotNull(message = "Empty")
+    @Range(min = 10, message = "Цена не может быть менее 10")
     private BigDecimal productPrice;
-    private Set<Sale> sales = new HashSet<Sale>();
 
     public int getId() {
         return id;
@@ -37,12 +42,5 @@ public class ProductDTO extends Product {
         this.productPrice = productPrice;
     }
 
-    public Set<Sale> getSales() {
-        return sales;
-    }
-
-    public void setSales(Set<Sale> sales) {
-        this.sales = sales;
-    }
 
 }

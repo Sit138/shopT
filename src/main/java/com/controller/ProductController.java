@@ -26,25 +26,12 @@ public class ProductController {
         return "index";
     }
 
-    @RequestMapping("/home")
-    public String home(Model model){
+    @RequestMapping(value = "/home")
+    public String home(Model model, HttpServletRequest request){
+        String info = request.getParameter("info");
+        model.addAttribute("info", info);
         List<ProductDTO> productList = productService.listProducts();
         model.addAttribute("productList", productList);
-
-        ProductDTO product = productService.getProduct(41);
-        if (product == null){
-            model.addAttribute("prod", "-");
-        } else {
-            model.addAttribute("prod", product.getProductName());
-        }
-
-        ProductDTO lasProduct = productService.getLastProduct();
-        if (lasProduct == null){
-            model.addAttribute("lastP", "-");
-        } else {
-            model.addAttribute("lastP", lasProduct.getProductName());
-        }
-
         return "home";
     }
 
@@ -56,32 +43,49 @@ public class ProductController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newProduct(Model model){
-        Product product = new Product();
-        model.addAttribute("product", product);
+        ProductDTO productDTO = new ProductDTO();
+        model.addAttribute("productDTO", productDTO);
         return "productForm";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveProduct(@Valid Product product, BindingResult bindingResult){
+    public String saveProduct(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult){
+        Product productEntity;
+        int id = productDTO.getId();
         if(bindingResult.hasErrors()){
             return "productForm";
         }
-        productService.saveOrUpdate(product);
+        if(productService.getProduct(id) == null){
+            productEntity = new Product();
+        } else {
+            productEntity = productService.getProduct(id);
+        }
+
+        System.out.println("ID = " + productDTO.getId());
+        productEntity.setProductName(productDTO.getProductName());
+        productEntity.setProductPrice(productDTO.getProductPrice());
+        productService.saveOrUpdate(productEntity);
         return "redirect:/home";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        ProductDTO product = productService.getProduct(product_id);
-        model.addAttribute("product", product);
+        ProductDTO productDTO = productService.getProductDTO(product_id);
+        model.addAttribute("productDTO", productDTO);
         return "productForm";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteProduct(HttpServletRequest request){
+    public String deleteProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        productService.deleteProduct(product_id);
-        return "redirect:/home";
+        if(productService.getProduct(product_id).getSales().isEmpty() & productService.getProduct(product_id).getDiscounts().isEmpty()){
+            model.addAttribute("info", "true");
+            productService.deleteProduct(product_id);
+            return "redirect:/home";
+        } else {
+            model.addAttribute("info", "errorDelete");
+            return "redirect:/home";
+        }
     }
 }

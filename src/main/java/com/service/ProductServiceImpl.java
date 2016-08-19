@@ -24,7 +24,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProductDTO getProduct(int id) {
+    public ProductDTO getProductDTO(int id) {
+        return productDAO.getProductDTO(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Product getProduct(int id) {
         return productDAO.getProduct(id);
     }
 
