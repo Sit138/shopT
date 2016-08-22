@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
@@ -22,9 +23,9 @@ public interface ProductService {
 
     public void insertProductDiscount();
 
-    public List<Discount> selectHistoryProductDiscounts();
+    public List<DiscountDTO> selectHistoryProductDiscounts();
 
-    public Discount getNowDiscountProduct();
+    public DiscountDTO getNowDiscountProduct();
 
     public void insertProductSale(int id);
 

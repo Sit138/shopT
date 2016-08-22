@@ -1,3 +1,7 @@
+table {
+    border-color: blue;
+
+}
 .c {
     border: 1px solid #333; /* Рамка */
     display: inline-block;

@@ -11,11 +11,11 @@ public class ProductDTO extends Product {
 
     private int id;
 
-    @Size(min = 3, max = 15, message = "Поле наименование продукта должно содержать от 3 до 15 знаков")
+    @Size(min = 3, max = 15, message = "Поле \"Наименование\" продукта должно содержать от 3 до 15 знаков")
     private String productName;
 
-    @NotNull(message = "Empty")
-    @Range(min = 10, message = "Цена не может быть менее 10")
+    @NotNull(message = "Поле \"Цена\" не может быть пустым!")
+    @Range(min = 10, message = "Цена не может быть менее 10!")
     private BigDecimal productPrice;
 
     public int getId() {

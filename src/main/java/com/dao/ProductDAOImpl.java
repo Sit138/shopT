@@ -1,21 +1,21 @@
 package com.dao;
 
 import com.controller.ProductController;
+import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO{
@@ -133,17 +133,35 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<Discount> selectHistoryProductDiscounts() {
+    public List<DiscountDTO> selectHistoryProductDiscounts() {
         return sessionFactory.getCurrentSession()
-                .createQuery("select distinct d from Discount d left outer join d.product p on p.id=d.product.id order by d.id asc").list();
+                .createQuery("select d.discountValue AS discountValue, d.discountDate AS discountDate,\n" +
+                        "d.productDiscountPrice AS productDiscountPrice, d.discountPriceSpread AS discountPriceSpread,\n" +
+                        "d.product.id AS productId, d.product.productName AS productName, d.product.productPrice AS productPrice\n" +
+                        "from Discount d left outer join d.product p on p.id=d.product.id order by d.id asc")
+                .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
+                .list();
     }
 
     @Override
-    public Discount getNowDiscountProduct() {
-        List<Discount> discounts = sessionFactory.getCurrentSession()
-                .createQuery("select distinct d from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc").list();
-        if (discounts != null && !discounts.isEmpty()){
-            return discounts.get(0);
+    public DiscountDTO getNowDiscountProduct() {
+
+        List<DiscountDTO> discountProductNowDTO = sessionFactory.getCurrentSession()
+                .createSQLQuery("SELECT  d.discount_value AS discountValue, date_trunc('hour', d.discount_date) AS discountDate, \n" +
+                        "d.product_discount_price AS productDiscountPrice, d.discount_price_spread AS discountPriceSpread, \n" +
+                        "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice\n" +
+                        "FROM discount d LEFT OUTER JOIN product p ON p.id=d.product_id \n" +
+                        "WHERE date_trunc('hour', d.discount_date) = date_trunc('hour', now())")
+                .addScalar("discountValue", new DoubleType())
+                .addScalar("discountDate", new TimestampType())
+                .addScalar("productDiscountPrice", new BigDecimalType())
+                .addScalar("discountPriceSpread", new BigDecimalType())
+                .addScalar("productId", new IntegerType())
+                .addScalar("productName", new StringType())
+                .addScalar("productPrice", new BigDecimalType())
+                .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class)).list();
+        if (discountProductNowDTO != null && !discountProductNowDTO.isEmpty()){
+            return discountProductNowDTO.get(0);
         }
         return null;
     }
@@ -153,10 +171,9 @@ public class ProductDAOImpl implements ProductDAO{
         Product productSale = getProduct(id);//продукт на продажу
         Date currentDate = new Date();
         BigDecimal saleAmount = productSale.getProductPrice();
-        Discount discountProduct = getNowDiscountProduct();
-        if(discountProduct != null && (id == discountProduct.getProduct().getId())){
-            int idDiscount = discountProduct.getId();
-            double valueDiscount = discountProduct.getDiscount_value() / 100;
+        DiscountDTO discountProduct = getNowDiscountProduct();
+        if(discountProduct != null && (id == discountProduct.getProductId())){
+            double valueDiscount = discountProduct.getDiscountValue() / 100;
             saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
         }
         Sale sale = new Sale(saleAmount, currentDate);

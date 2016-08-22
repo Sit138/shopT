@@ -25,11 +25,11 @@ public class ClientController {
 
     @RequestMapping(value = "/client")
     public String shopClient(Model model){
-        model.addAttribute("client", "Магазин для покупателя");
+        model.addAttribute("client", "Магазин");
         List<ProductDTO> productList = productService.listProducts();
         model.addAttribute("productList", productList);
         if(productService.getNowDiscountProduct() != null){
-            model.addAttribute("discountNow", productService.getNowDiscountProduct().getProduct().getProductName());
+            model.addAttribute("discountNow", productService.getNowDiscountProduct());
         } else {
             model.addAttribute("discountNow", "Товара по скидки пока нет");
         }

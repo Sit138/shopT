@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.dto.DiscountDTO;
 import com.model.Discount;
 import com.model.Product;
 import com.service.ProductService;
@@ -18,7 +19,7 @@ public class DiscountController {
 
     @RequestMapping(value = "/discountHistory")
     public String discountHistory(Model model){
-        List<Discount> productsDiscount = productService.selectHistoryProductDiscounts();
+        List<DiscountDTO> productsDiscount = productService.selectHistoryProductDiscounts();
         model.addAttribute("productsDiscount", productsDiscount);
         return "discountHistory";
     }

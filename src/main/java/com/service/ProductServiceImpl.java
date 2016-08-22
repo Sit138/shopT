@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dao.ProductDAO;
+import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
@@ -60,13 +61,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Discount> selectHistoryProductDiscounts() {
+    public List<DiscountDTO> selectHistoryProductDiscounts() {
         return productDAO.selectHistoryProductDiscounts();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Discount getNowDiscountProduct() {
+    public DiscountDTO getNowDiscountProduct() {
         return productDAO.getNowDiscountProduct();
     }
 

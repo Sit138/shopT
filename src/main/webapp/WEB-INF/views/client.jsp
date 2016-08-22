@@ -9,8 +9,7 @@
 </head>
 <body>
     <h1>${client}</h1>
-
-    <table border="1px">
+    <table border="1px" class="table_price">
         <th>№</th>
         <th>Наименование</th>
         <th>Цена</th>
@@ -21,7 +20,7 @@
                 <td>
                         ${status.index}
                 </td>
-                <td>
+                <td <c:if test="${discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if></td>
                         ${product.productName}
                 </td>
                 <td>
@@ -35,7 +34,7 @@
 
     </table>
 
-<h2>Товар по акции: ${discountNow}</h2>
+<h2>Товар по акции: ${discountNow.productName}</h2>
 
 </body>
 </html>
