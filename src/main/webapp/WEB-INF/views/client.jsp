@@ -18,13 +18,14 @@
         <c:forEach var="product" items="${productList}" varStatus="status">
             <tr>
                 <td>
-                        ${status.index}
+                    ${status.index}
                 </td>
-                <td <c:if test="${discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if></td>
-                        ${product.productName}
+                <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
+                    ${product.productName}
                 </td>
+
                 <td>
-                        ${product.productPrice}
+                    ${product.productPrice}
                 </td>
                 <td>
                     <a href="/sale?id=${product.id}" class="c" onclick="alert('Товар приобретен!');">Купить</a>
@@ -34,7 +35,7 @@
 
     </table>
 
-<h2>Товар по акции: ${discountNow.productName}</h2>
+<a href="/">Вернуться на главную</a>
 
 </body>
 </html>

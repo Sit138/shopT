@@ -31,7 +31,7 @@ public class ClientController {
         if(productService.getNowDiscountProduct() != null){
             model.addAttribute("discountNow", productService.getNowDiscountProduct());
         } else {
-            model.addAttribute("discountNow", "Товара по скидки пока нет");
+            model.addAttribute("discountNow", null);
         }
 
         return "client";
