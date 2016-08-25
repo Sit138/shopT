@@ -25,12 +25,12 @@
         <c:forEach var="productsDiscount" items="${productsDiscount}" varStatus="status">
                 <tr>
                     <td>${status.index}</td>
-                    <td>${productsDiscount.product.productName}</td>
-                    <td>${productsDiscount.discount_value}</td>
-                    <td>${productsDiscount.product.productPrice}</td>
+                    <td>${productsDiscount.productName}</td>
+                    <td>${productsDiscount.discountValue}</td>
+                    <td>${productsDiscount.productPrice}</td>
                     <td>${productsDiscount.productDiscountPrice}</td>
                     <td>${productsDiscount.discountPriceSpread}</td>
-                    <td>${productsDiscount.discount_date}</td>
+                    <td>${productsDiscount.discountDate}</td>
                 </tr>
         </c:forEach>
     </table>

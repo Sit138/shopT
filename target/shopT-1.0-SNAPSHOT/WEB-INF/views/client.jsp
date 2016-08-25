@@ -9,8 +9,7 @@
 </head>
 <body>
     <h1>${client}</h1>
-
-    <table border="1px">
+    <table border="1px" class="table_price">
         <th>№</th>
         <th>Наименование</th>
         <th>Цена</th>
@@ -19,13 +18,14 @@
         <c:forEach var="product" items="${productList}" varStatus="status">
             <tr>
                 <td>
-                        ${status.index}
+                    ${status.index}
                 </td>
-                <td>
-                        ${product.productName}
+                <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
+                    ${product.productName}
                 </td>
+
                 <td>
-                        ${product.productPrice}
+                    ${product.productPrice}
                 </td>
                 <td>
                     <a href="/sale?id=${product.id}" class="c" onclick="alert('Товар приобретен!');">Купить</a>
@@ -35,7 +35,7 @@
 
     </table>
 
-<h2>Товар по акции: ${discountNow}</h2>
+<a href="/">Вернуться на главную</a>
 
 </body>
 </html>
