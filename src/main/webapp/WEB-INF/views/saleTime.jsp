@@ -34,6 +34,8 @@
             </tr>
         </c:forEach>
     </table>
-
+    <c:forEach begin="0" end="${maxPageId}" varStatus="stat">
+        <a href="/saleTime?pageId=${stat.index}">${stat.index + 1} | </a>
+    </c:forEach>
 </body>
 </html>

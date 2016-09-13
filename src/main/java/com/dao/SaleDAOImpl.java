@@ -46,6 +46,25 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
+    public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
+        List<SaleProductInRangeDetailed> saleInRangeDetailedList = sessionFactory.getCurrentSession()
+                .createSQLQuery("SELECT p.id AS productId, p.product_name AS productName, date_trunc('hour', s.sale_date) AS saleDate, count(s.product_id) AS saleCount, sum(s.sale_amount) AS saleAmount\n" +
+                        "FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id \n" +
+                        "GROUP BY date_trunc('hour', s.sale_date), p.id \n" +
+                        "ORDER BY date_trunc('hour', s.sale_date) ASC, p.id ASC")
+                .addScalar("productId", new IntegerType())
+                .addScalar("productName", new StringType())
+                .addScalar("saleDate", new TimestampType())
+                .addScalar("saleCount", new LongType())
+                .addScalar("saleAmount", new BigDecimalType())
+                .setResultTransformer(Transformers.aliasToBean(SaleProductInRangeDetailed.class))
+                .setFirstResult(pageId)
+                .setMaxResults(maxResults)
+                .list();
+        return saleInRangeDetailedList;
+    }
+
+    @Override
     public List<TotalSaleReport> totalSaleReport() {
 
         List<TotalSaleReport> totalSaleReportList = sessionFactory.getCurrentSession()
@@ -66,6 +85,17 @@ public class SaleDAOImpl implements SaleDAO {
                 .setResultTransformer(Transformers.aliasToBean(TotalSaleReport.class)).list();
 
         return totalSaleReportList;
+    }
+
+    @Override
+    public int numberItemsTheSaleRangeReport() {
+        int num = (Integer) sessionFactory.getCurrentSession()
+                .createSQLQuery("SELECT  count(result.id) AS num FROM\n" +
+                        "(SELECT p.id AS id FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id\n" +
+                        "GROUP BY date_trunc('hour', s.sale_date), p.id) AS result")
+                .addScalar("num", new IntegerType())
+                .uniqueResult();
+        return num;
     }
 
 }

@@ -23,8 +23,20 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
+        return saleDAO.saleListInRangePagination(pageId, maxResults);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<TotalSaleReport> totalSaleReport() {
         return saleDAO.totalSaleReport();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int numberItemsTheSaleRangeReport() {
+        return saleDAO.numberItemsTheSaleRangeReport();
     }
 
 }
