@@ -28,9 +28,10 @@ public class SaleController {
         int num = saleService.numberItemsTheSaleRangeReport();
         int maxPageId = num / maxResult;
         model.addAttribute("maxPageId", maxPageId);
-        pageId = pageId * maxResult;
-        List<SaleProductInRangeDetailed> saleInRangeDetailedList = saleService.saleListInRangePagination(pageId, maxResult);
+        int pageShowResult = pageId * maxResult;
+        List<SaleProductInRangeDetailed> saleInRangeDetailedList = saleService.saleListInRangePagination(pageShowResult, maxResult);
         model.addAttribute("sale", saleInRangeDetailedList);
+        model.addAttribute("pageId", pageId);
 
         return "saleTime";
     }

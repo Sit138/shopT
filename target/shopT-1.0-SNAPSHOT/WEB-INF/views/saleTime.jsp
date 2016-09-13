@@ -34,9 +34,15 @@
             </tr>
         </c:forEach>
     </table>
-<h2>${maxPageId}</h2>
-<c:forEach begin="0" end="${maxPageId}" varStatus="stat">
-    <a href="/saleTime?pageId=${stat.index}">${stat.index + 1} | </a>
-</c:forEach>
+    <c:forEach begin="0" end="${maxPageId}" varStatus="stat">
+        <c:choose>
+            <c:when test="${pageId == stat.index}">
+                <a style="color: red" href="/saleTime?pageId=${stat.index}">${stat.index + 1} | </a>
+            </c:when>
+            <c:otherwise>
+                <a href="/saleTime?pageId=${stat.index}">${stat.index + 1} | </a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
 </body>
 </html>

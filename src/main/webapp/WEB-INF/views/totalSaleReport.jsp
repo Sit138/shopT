@@ -30,6 +30,6 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/saleTime">Почасовой отчет по товарам</a>
+    <a href="/saleTime?pageId=0">Почасовой отчет по товарам</a>
 </body>
 </html>
