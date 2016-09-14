@@ -21,12 +21,9 @@ public class Product {
     private int id;
 
     @Column(name = "product_name")
-    //@Size(min = 3, max = 15, message = "Поле наименование продукта должно содержать от 3 до 15 знаков")
     private String name;
 
     @Column(name = "product_price")
-    //@NotNull(message = "Empty")
-    //@Range(min = 10, message = "Цена не может быть менее 10")
     private BigDecimal price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
