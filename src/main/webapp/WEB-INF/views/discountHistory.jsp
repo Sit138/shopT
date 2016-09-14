@@ -26,11 +26,11 @@
                 <tr>
                     <td>${status.index}</td>
                     <td>${productsDiscount.productName}</td>
-                    <td>${productsDiscount.discountValue}</td>
+                    <td>${productsDiscount.value}</td>
                     <td>${productsDiscount.productPrice}</td>
                     <td>${productsDiscount.productDiscountPrice}</td>
                     <td>${productsDiscount.discountPriceSpread}</td>
-                    <td>${productsDiscount.discountDate}</td>
+                    <td>${productsDiscount.date}</td>
                 </tr>
         </c:forEach>
     </table>

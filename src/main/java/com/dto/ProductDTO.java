@@ -1,22 +1,21 @@
 package com.dto;
 
-import com.model.Product;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-public class ProductDTO extends Product {
+public class ProductDTO {
 
     private int id;
 
     @Size(min = 3, max = 15, message = "Поле \"Наименование\" продукта должно содержать от 3 до 15 знаков")
-    private String productName;
+    private String name;
 
     @NotNull(message = "Поле \"Цена\" не может быть пустым!")
     @Range(min = 10, message = "Цена не может быть менее 10!")
-    private BigDecimal productPrice;
+    private BigDecimal price;
 
     public int getId() {
         return id;
@@ -26,20 +25,20 @@ public class ProductDTO extends Product {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 

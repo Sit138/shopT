@@ -12,25 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
 
     @Override
-    @Transactional(readOnly = true)
     public List<ProductDTO> listProducts() {
         return productDAO.listProducts();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public ProductDTO getProductDTO(int id) {
-        return productDAO.getProductDTO(id);
+    public ProductDTO getProductDTOById(int id) {
+        return productDAO.getProductDTOById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Product getProduct(int id) {
         return productDAO.getProduct(id);
     }
@@ -48,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ProductDTO getLastProduct() {
         return productDAO.getLastProduct();
     }
@@ -60,13 +57,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<DiscountDTO> selectHistoryProductDiscounts() {
         return productDAO.selectHistoryProductDiscounts();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public DiscountDTO getNowDiscountProduct() {
         return productDAO.getNowDiscountProduct();
     }

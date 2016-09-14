@@ -19,8 +19,6 @@ public class SaleController {
 
     @Autowired
     private SaleService saleService;
-    @Autowired
-    private ProductService productService;
 
     @RequestMapping(value = "/saleTime", method = RequestMethod.GET)
     public String saleProductPageByHour(Model model, @RequestParam("pageId") int pageId){

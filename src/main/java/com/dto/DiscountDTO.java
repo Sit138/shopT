@@ -1,36 +1,32 @@
 package com.dto;
 
-import com.model.Product;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class DiscountDTO {
 
-    private double discountValue;
-    private Timestamp discountDate;
+    private double value;
+    private Timestamp date;
     private BigDecimal productDiscountPrice;
     private BigDecimal discountPriceSpread;
     private int productId;
     private String productName;
     private BigDecimal productPrice;
 
-    public double getDiscountValue() {
-        return discountValue;
+    public double getValue() {
+        return value;
     }
 
-    public void setDiscountValue(double discountValue) {
-        this.discountValue = discountValue;
+    public void setValue(double value) {
+        this.value = value;
     }
 
-    public Timestamp getDiscountDate() {
-        return discountDate;
+    public Timestamp getDate() {
+        return date;
     }
 
-    public void setDiscountDate(Timestamp discountDate) {
-        this.discountDate = discountDate;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public BigDecimal getProductDiscountPrice() {

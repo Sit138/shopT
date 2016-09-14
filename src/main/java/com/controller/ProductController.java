@@ -62,8 +62,8 @@ public class ProductController {
         }
 
         System.out.println("ID = " + productDTO.getId());
-        productEntity.setProductName(productDTO.getProductName());
-        productEntity.setProductPrice(productDTO.getProductPrice());
+        productEntity.setName(productDTO.getName());
+        productEntity.setPrice(productDTO.getPrice());
         productService.saveOrUpdate(productEntity);
         return "redirect:/home";
     }
@@ -71,7 +71,7 @@ public class ProductController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        ProductDTO productDTO = productService.getProductDTO(product_id);
+        ProductDTO productDTO = productService.getProductDTOById(product_id);
         model.addAttribute("productDTO", productDTO);
         return "productForm";
     }

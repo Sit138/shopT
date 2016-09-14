@@ -19,13 +19,13 @@
         <form:hidden path="id"/>
         <tr>
             <th>Наименование:</th>
-            <td><form:input path="productName"/></td>
-            <td><form:errors path="productName" cssClass="error"></form:errors> </td>
+            <td><form:input path="name"/></td>
+            <td><form:errors path="name" cssClass="error"></form:errors> </td>
         </tr>
         <tr>
             <th>Цена:</th>
-            <td><form:input path="productPrice"/></td>
-            <td><form:errors path="productPrice" cssClass="error"></form:errors> </td>
+            <td><form:input path="price"/></td>
+            <td><form:errors path="price" cssClass="error"></form:errors> </td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="Сохранить изменения"></td>

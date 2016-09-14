@@ -21,11 +21,11 @@
                     ${status.index}
                 </td>
                 <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
-                    ${product.productName}
+                    ${product.name}
                 </td>
 
                 <td>
-                    ${product.productPrice}
+                    ${product.price}
                 </td>
                 <td>
                     <a href="/sale?id=${product.id}" class="c" onclick="alert('Товар приобретен!');">Купить</a>

@@ -55,29 +55,25 @@ public class ApplicationContextConfig {
         return dataSource;
     }
 
-    @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
-        sessionFactoryBuilder.addAnnotatedClasses(Product.class, Discount.class, Sale.class);
+        sessionFactoryBuilder.scanPackages("com/model/");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
     }
 
-    @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
         return transactionManager;
     }
 
-    @Autowired
     @Bean(name = "productDAO")
     public ProductDAO getProductDAO(SessionFactory sessionFactory){
         return new ProductDAOImpl(sessionFactory);
     }
 
-    @Autowired
     @Bean(name = "saleDAO")
     public SaleDAO geSaleDAO(SessionFactory sessionFactory){
         return new SaleDAOImpl(sessionFactory);

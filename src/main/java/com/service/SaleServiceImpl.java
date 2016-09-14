@@ -10,31 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class SaleServiceImpl implements SaleService {
 
     @Autowired
     private SaleDAO saleDAO;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<SaleProductInRangeDetailed> saleListInRange() {
-        return saleDAO.saleListInRange();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
         return saleDAO.saleListInRangePagination(pageId, maxResults);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<TotalSaleReport> totalSaleReport() {
         return saleDAO.totalSaleReport();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int numberItemsTheSaleRangeReport() {
         return saleDAO.numberItemsTheSaleRangeReport();
     }

@@ -11,7 +11,7 @@ public interface ProductDAO {
 
     public List<ProductDTO> listProducts();
 
-    public ProductDTO getProductDTO(int id);
+    public ProductDTO getProductDTOById(int id);
 
     public Product getProduct(int id);
 

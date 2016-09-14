@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public class SaleDAOImpl implements SaleDAO {
 
-    @Autowired
     private SessionFactory sessionFactory;
 
     public SaleDAOImpl(SessionFactory sessionFactory){
@@ -29,34 +28,17 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
-    public List<SaleProductInRangeDetailed> saleListInRange() {
-
-        List<SaleProductInRangeDetailed> saleInRangeDetailedList = sessionFactory.getCurrentSession()
-                .createSQLQuery("SELECT p.id AS productId, p.product_name AS productName, date_trunc('hour', s.sale_date) AS saleDate, count(s.product_id) AS saleCount, sum(s.sale_amount) AS saleAmount\n" +
-                        "FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id \n" +
-                        "GROUP BY date_trunc('hour', s.sale_date), p.id \n" +
-                        "ORDER BY date_trunc('hour', s.sale_date) ASC")
-                .addScalar("productId", new IntegerType())
-                .addScalar("productName", new StringType())
-                .addScalar("saleDate", new TimestampType())
-                .addScalar("saleCount", new LongType())
-                .addScalar("saleAmount", new BigDecimalType())
-                .setResultTransformer(Transformers.aliasToBean(SaleProductInRangeDetailed.class)).list();
-        return saleInRangeDetailedList;
-    }
-
-    @Override
     public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
         List<SaleProductInRangeDetailed> saleInRangeDetailedList = sessionFactory.getCurrentSession()
                 .createSQLQuery("SELECT p.id AS productId, p.product_name AS productName, date_trunc('hour', s.sale_date) AS saleDate, count(s.product_id) AS saleCount, sum(s.sale_amount) AS saleAmount\n" +
                         "FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id \n" +
                         "GROUP BY date_trunc('hour', s.sale_date), p.id \n" +
                         "ORDER BY date_trunc('hour', s.sale_date) ASC, p.id ASC")
-                .addScalar("productId", new IntegerType())
-                .addScalar("productName", new StringType())
-                .addScalar("saleDate", new TimestampType())
-                .addScalar("saleCount", new LongType())
-                .addScalar("saleAmount", new BigDecimalType())
+                .addScalar("productId", IntegerType.INSTANCE)
+                .addScalar("productName", StringType.INSTANCE)
+                .addScalar("saleDate", TimestampType.INSTANCE)
+                .addScalar("saleCount", LongType.INSTANCE)
+                .addScalar("saleAmount", BigDecimalType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(SaleProductInRangeDetailed.class))
                 .setFirstResult(pageId)
                 .setMaxResults(maxResults)
@@ -76,12 +58,12 @@ public class SaleDAOImpl implements SaleDAO {
                                                            "AND s.product_id=d.product_id\n" +
                                 "GROUP BY date_trunc('hour', s.sale_date)\n" +
                                 "ORDER BY date_trunc('hour', s.sale_date)")
-                .addScalar("saleDate", new TimestampType())
-                .addScalar("saleCount", new LongType())
-                .addScalar("saleSum", new BigDecimalType())
-                .addScalar("saleAverageCheck", new BigDecimalType())
-                .addScalar("countSaleProductByDiscount", new LongType())
-                .addScalar("discountSum", new BigDecimalType())
+                .addScalar("saleDate", TimestampType.INSTANCE)
+                .addScalar("saleCount", LongType.INSTANCE)
+                .addScalar("saleSum", BigDecimalType.INSTANCE)
+                .addScalar("saleAverageCheck", BigDecimalType.INSTANCE)
+                .addScalar("countSaleProductByDiscount", LongType.INSTANCE)
+                .addScalar("discountSum", BigDecimalType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(TotalSaleReport.class)).list();
 
         return totalSaleReportList;
@@ -93,7 +75,7 @@ public class SaleDAOImpl implements SaleDAO {
                 .createSQLQuery("SELECT  count(result.id) AS num FROM\n" +
                         "(SELECT p.id AS id FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id\n" +
                         "GROUP BY date_trunc('hour', s.sale_date), p.id) AS result")
-                .addScalar("num", new IntegerType())
+                .addScalar("num", IntegerType.INSTANCE)
                 .uniqueResult();
         return num;
     }

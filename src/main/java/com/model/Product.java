@@ -1,18 +1,20 @@
 package com.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product {
+
+    public Product(){
+    }
+
+    public Product(int id){
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +22,12 @@ public class Product {
 
     @Column(name = "product_name")
     //@Size(min = 3, max = 15, message = "Поле наименование продукта должно содержать от 3 до 15 знаков")
-    private String productName;
+    private String name;
 
     @Column(name = "product_price")
     //@NotNull(message = "Empty")
     //@Range(min = 10, message = "Цена не может быть менее 10")
-    private BigDecimal productPrice;
+    private BigDecimal price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Discount> discounts = new HashSet<Discount>();
@@ -37,24 +39,20 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public void addProductDiscont(Discount discount){

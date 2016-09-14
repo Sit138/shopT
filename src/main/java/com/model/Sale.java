@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "Sale")
+@Table(name = "sale")
 public class Sale {
 
     @Id
@@ -13,47 +13,42 @@ public class Sale {
     private int id;
 
     @Column(name = "sale_amount")
-    private BigDecimal saleAmount;
+    private BigDecimal amount;
 
     @Column(name = "sale_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date saleDate;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     public Sale(){
-
     }
 
-    public Sale(BigDecimal saleAmount, Date saleDate){
-        this.saleAmount = saleAmount;
-        this.saleDate = saleDate;
+    public Sale(BigDecimal amount, Date date){
+        this.amount = amount;
+        this.date = date;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public BigDecimal getSaleAmount() {
-        return saleAmount;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public void setSaleAmount(BigDecimal saleAmount) {
-        this.saleAmount = saleAmount;
+    public Date getDate() {
+        return date;
     }
 
-    public Date getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Product getProduct() {

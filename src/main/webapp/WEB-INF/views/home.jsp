@@ -31,10 +31,10 @@
                     ${status.index}
                 </td>
                 <td>
-                    ${product.productName}
+                    ${product.name}
                 </td>
                 <td>
-                    ${product.productPrice}
+                    ${product.price}
                 </td>
                 <td>
                     <a href="/edit?id=${product.id}">Изменить</a>
@@ -47,6 +47,5 @@
     </table>
 
     <a href="/new">Добавить новый товар</a>
-<h3>${lastP}</h3>
 </body>
 </html>
