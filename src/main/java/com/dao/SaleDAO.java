@@ -6,9 +6,10 @@ import com.dto.TotalSaleReport;
 import java.util.List;
 
 public interface SaleDAO {
-    public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults);
 
-    public List<TotalSaleReport> totalSaleReport();
+    List<TotalSaleReport> totalSaleReport();
 
-    public int numberItemsTheSaleRangeReport();
+    List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults);
+
+    int numberItemsTheSaleRangeReport();
 }

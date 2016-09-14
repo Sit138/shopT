@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface ProductService {
 
-    public List<ProductDTO> listProducts();
+    List<ProductDTO> listProducts();
 
-    public ProductDTO getProductDTOById(int id);
+    ProductDTO getProductDTOById(int id);
 
-    public Product getProduct(int id);
+    Product getProduct(int id);
 
-    public void saveOrUpdate(Product product);
+    void saveOrUpdate(Product product);
 
-    public void deleteProduct(int id);
+    void deleteProduct(int id);
 
-    public ProductDTO getLastProduct();
+    ProductDTO getLastProduct();
 
-    public void insertProductDiscount();
+    void insertProductDiscount();
 
-    public List<DiscountDTO> selectHistoryProductDiscounts();
+    List<DiscountDTO> selectHistoryProductDiscounts();
 
-    public DiscountDTO getNowDiscountProduct();
+    DiscountDTO getNowDiscountProduct();
 
-    public void insertProductSale(int id);
+    void insertProductSale(int id);
 
 }
