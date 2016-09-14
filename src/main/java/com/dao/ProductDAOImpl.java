@@ -97,28 +97,11 @@ public class ProductDAOImpl implements ProductDAO{
         return null;
     }
 
-
     @Override
-    public void insertProductDiscount() {
-
-        Product productDiscount = (Product) getCurrentSession()
-                                 .createQuery("select p from Product p order by rand()")
-                                 .setMaxResults(1).list().get(0);
-
-        Date currentDate = new Date();
-        int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
-        double newDiscount = min + (Math.random() * (max - min) + 1);
-
-        BigDecimal productDiscountPrice = productDiscount.getPrice()
-                .subtract(productDiscount.getPrice()
-                        .multiply(new BigDecimal(newDiscount / 100)));
-
-        System.out.println("DISCOUNT PRICE = " + productDiscountPrice);
-        BigDecimal discountPriceSpread = productDiscount.getPrice().subtract(productDiscountPrice);
-        Discount discount = new Discount(newDiscount, currentDate, productDiscountPrice, discountPriceSpread);
-        productDiscount.addProductDiscont(discount);
-        saveOrUpdate(productDiscount);
-
+    public Product getRandomProduct() {
+        return (Product) getCurrentSession()
+                .createQuery("select p from Product p order by rand()")
+                .setMaxResults(1).uniqueResult();
     }
 
     @Override
@@ -153,21 +136,6 @@ public class ProductDAOImpl implements ProductDAO{
             return discountProductNowDTO;
         }
         return null;
-    }
-
-    @Override
-    public void insertProductSale(int id) {
-        Product productSale = getProduct(id);//продукт на продажу
-        Date currentDate = new Date();
-        BigDecimal saleAmount = productSale.getPrice();
-        DiscountDTO discountProduct = getNowDiscountProduct();
-        if(discountProduct != null && (id == discountProduct.getProductId())){
-            double valueDiscount = discountProduct.getValue() / 100;
-            saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
-        }
-        Sale sale = new Sale(saleAmount, currentDate);
-        productSale.addProductSale(sale);
-        saveOrUpdate(productSale);
     }
 
     public SessionFactory getSessionFactory() {

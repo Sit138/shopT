@@ -21,12 +21,10 @@ public interface ProductDAO {
 
     ProductDTO getLastProduct();
 
-    void insertProductDiscount();
-
     List<DiscountDTO> selectHistoryProductDiscounts();
 
     DiscountDTO getNowDiscountProduct();
 
-    void insertProductSale(int id);
+    Product getRandomProduct();
 
 }
