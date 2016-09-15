@@ -26,10 +26,10 @@ public class Product {
     @Column(name = "product_price")
     private BigDecimal price;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Discount> discounts = new HashSet<Discount>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Sale> sales = new HashSet<Sale>();
 
     public int getId() {

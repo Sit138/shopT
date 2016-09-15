@@ -7,6 +7,7 @@ import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
@@ -45,7 +46,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public ProductDTO getProductDTOById(int id) {
-        String hql = "select p.id as id, p.name as productName, p.price as productPrice\n" +
+        String hql = "select p.id as id, p.name as name, p.price as price\n" +
                      "from Product p where id=" + id;
         ProductDTO productDto = (ProductDTO) getCurrentSession()
                 .createQuery(hql)
@@ -67,6 +68,8 @@ public class ProductDAOImpl implements ProductDAO{
                 .uniqueResult();
 
         if (product != null){
+            Hibernate.initialize(product.getSales());
+            Hibernate.initialize(product.getDiscounts());
             return product;
         } else {
             return null;
@@ -80,7 +83,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public void deleteProduct(int id) {
-        Product productToDelete = new Product(id);
+        Product productToDelete = getProduct(id);
         getCurrentSession().delete(productToDelete);
     }
 
