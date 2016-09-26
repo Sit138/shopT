@@ -35,6 +35,8 @@
 
     </table>
 
+    <h2>Дисконт - ${discountNow.productName}</h2>
+
 <a href="/">Вернуться на главную</a>
 
 </body>

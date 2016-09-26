@@ -108,11 +108,23 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
+    public void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId) {
+        getCurrentSession().createSQLQuery(
+                "UPDATE discount SET discount_end_date = :endDateDiscount " +
+                        "WHERE discount_end_date IS NULL AND add_type = :addTypeDiscount AND product_id = :productId"
+        )
+        .setParameter("endDateDiscount", endDateDiscount)
+        .setParameter("addTypeDiscount", addTypeDiscount)
+        .setParameter("productId", productId)
+        .executeUpdate();
+    }
+
+    @Override
     public List<DiscountDTO> selectHistoryProductDiscounts() {
         return getCurrentSession()
-                .createQuery("select d.value as value, d.date as date,\n" +
+                .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.productDiscountPrice as productDiscountPrice, d.discountPriceSpread as discountPriceSpread, " +
-                        "d.product.id as productId, d.product.name as productName, d.product.price as productPrice " +
+                        "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id order by d.id asc")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
                 .list();
@@ -122,18 +134,20 @@ public class ProductDAOImpl implements ProductDAO{
     public DiscountDTO getNowDiscountProduct() {
 
         DiscountDTO discountProductNowDTO = (DiscountDTO) getCurrentSession()
-                .createSQLQuery("SELECT  d.discount_value AS value, date_trunc('hour', d.discount_date) AS date, " +
+                .createSQLQuery("SELECT d.discount_value AS value, d.discount_start_date AS startDate, d.discount_end_date AS endDate, " +
                         "d.product_discount_price AS productDiscountPrice, d.discount_price_spread AS discountPriceSpread, " +
-                        "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice " +
+                        "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice, d.add_type AS addType " +
                         "FROM discount d LEFT OUTER JOIN product p ON p.id=d.product_id " +
-                        "WHERE date_trunc('hour', d.discount_date) = date_trunc('hour', now())")
+                        "WHERE d.discount_end_date is null")
                 .addScalar("value", DoubleType.INSTANCE)
-                .addScalar("date", TimestampType.INSTANCE)
+                .addScalar("startDate", TimestampType.INSTANCE)
+                .addScalar("endDate", TimestampType.INSTANCE)
                 .addScalar("productDiscountPrice", BigDecimalType.INSTANCE)
                 .addScalar("discountPriceSpread", BigDecimalType.INSTANCE)
                 .addScalar("productId", IntegerType.INSTANCE)
                 .addScalar("productName", StringType.INSTANCE)
                 .addScalar("productPrice", BigDecimalType.INSTANCE)
+                .addScalar("addType", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class)).uniqueResult();
         if (discountProductNowDTO != null){
             return discountProductNowDTO;

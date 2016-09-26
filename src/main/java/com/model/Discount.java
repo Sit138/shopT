@@ -11,11 +11,13 @@ public class Discount {
     public Discount(){
     }
 
-    public Discount(double value, Date date, BigDecimal productDiscountPrice, BigDecimal discountPriceSpread){
+    public Discount(double value, Date startDate, BigDecimal productDiscountPrice, BigDecimal discountPriceSpread, int addType){
         this.value = value;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = null;
         this.productDiscountPrice = productDiscountPrice;
         this.discountPriceSpread = discountPriceSpread;
+        this.addType = addType;
     }
 
     @Id
@@ -25,15 +27,22 @@ public class Discount {
     @Column(name = "discount_value")
     private double value;
 
-    @Column(name = "discount_date")
+    @Column(name = "discount_start_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date startDate;
+
+    @Column(name = "discount_end_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     @Column(name = "product_discount_price")
     private BigDecimal productDiscountPrice;
 
     @Column(name = "discount_price_spread")
     private BigDecimal discountPriceSpread;
+
+    @Column(name = "add_type")
+    private int addType;//1 - auto, 2 - manual
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -47,20 +56,20 @@ public class Discount {
         this.product = product;
     }
 
-    public double getDiscount_value() {
+    public double getDiscountValue() {
         return value;
     }
 
-    public void setDiscount_value(double discount_value) {
+    public void setDiscountValue(double discount_value) {
         this.value = discount_value;
     }
 
-    public Date getDiscount_date() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDiscount_date(Date discount_date) {
-        this.date = discount_date;
+    public void setStartDate(Date discount_date) {
+        this.startDate = discount_date;
     }
 
     public int getId() {
@@ -81,5 +90,21 @@ public class Discount {
 
     public void setDiscountPriceSpread(BigDecimal discountPriceSpread) {
         this.discountPriceSpread = discountPriceSpread;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getAddType() {
+        return addType;
+    }
+
+    public void setAddType(int addType) {
+        this.addType = addType;
     }
 }

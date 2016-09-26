@@ -5,6 +5,7 @@ import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ProductDAO {
@@ -26,5 +27,9 @@ public interface ProductDAO {
     DiscountDTO getNowDiscountProduct();
 
     Product getRandomProduct();
+
+    //void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount);
+
+    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
 
 }

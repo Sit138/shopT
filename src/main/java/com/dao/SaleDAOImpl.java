@@ -57,13 +57,13 @@ public class SaleDAOImpl implements SaleDAO {
 
         List<TotalSaleReport> totalSaleReportList = getCurrentSession()
                 .createSQLQuery("SELECT date_trunc('hour', s.sale_date) AS saleDate, COUNT(s.id) AS saleCount, " +
-                                "SUM(s.sale_amount) AS saleSum, round(sum(s.sale_amount)/count(s.id)) AS saleAverageCheck, " +
-                                "COUNT(d.id) AS countSaleProductByDiscount, SUM(d.discount_price_spread) AS discountSum " +
-                                "FROM sale s " +
-                                "LEFT OUTER JOIN discount d ON date_trunc('hour', s.sale_date)=date_trunc('hour', d.discount_date) " +
-                                                           "AND s.product_id=d.product_id\n" +
-                                "GROUP BY date_trunc('hour', s.sale_date) " +
-                                "ORDER BY date_trunc('hour', s.sale_date)")
+                        "SUM(s.sale_amount) AS saleSum, round(sum(s.sale_amount)/count(s.id)) AS saleAverageCheck, " +
+                        "COUNT(d.id) AS countSaleProductByDiscount, SUM(d.discount_price_spread) AS discountSum " +
+                        "FROM sale s " +
+                        "LEFT OUTER JOIN discount d ON date_trunc('hour', s.sale_date)=date_trunc('hour', d.discount_start_date) " +
+                        "AND s.product_id=d.product_id\n" +
+                        "GROUP BY date_trunc('hour', s.sale_date) " +
+                        "ORDER BY date_trunc('hour', s.sale_date)")
                 .addScalar("saleDate", TimestampType.INSTANCE)
                 .addScalar("saleCount", LongType.INSTANCE)
                 .addScalar("saleSum", BigDecimalType.INSTANCE)

@@ -30,7 +30,7 @@
                     <td>${productsDiscount.productPrice}</td>
                     <td>${productsDiscount.productDiscountPrice}</td>
                     <td>${productsDiscount.discountPriceSpread}</td>
-                    <td>${productsDiscount.date}</td>
+                    <td>${productsDiscount.startDate}</td>
                 </tr>
         </c:forEach>
     </table>

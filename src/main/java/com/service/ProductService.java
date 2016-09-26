@@ -5,6 +5,7 @@ import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ProductService {
@@ -28,5 +29,9 @@ public interface ProductService {
     DiscountDTO getNowDiscountProduct();
 
     void insertProductSale(int id);
+
+    //void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount);
+
+    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
 
 }

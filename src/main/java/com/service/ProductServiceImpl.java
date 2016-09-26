@@ -57,10 +57,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void insertProductDiscount() {
         Product productDiscount = productDAO.getRandomProduct();
-        Discount discount = generateDiscount(productDiscount);
+        Discount discount = createDiscount(productDiscount);
         productDiscount.addProductDiscont(discount);
         saveOrUpdate(productDiscount);
-        //productDAO.insertProductDiscount();
     }
 
     @Override
@@ -77,12 +76,18 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void insertProductSale(int id) {
         Product productSale = getProduct(id);
-        Sale sale = generateSale(productSale);
+        Sale sale = createSale(productSale);
         productSale.addProductSale(sale);
         saveOrUpdate(productSale);
     }
 
-    private Sale generateSale(Product productSale){
+    @Override
+    @Transactional
+    public void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId) {
+        productDAO.insertEndDateDiscount(addTypeDiscount, endDateDiscount, productId);
+    }
+
+    private Sale createSale(Product productSale){
         Date currentDate = new Date();
         BigDecimal saleAmount = productSale.getPrice();
         DiscountDTO discountProduct = getNowDiscountProduct();
@@ -94,7 +99,8 @@ public class ProductServiceImpl implements ProductService {
         return sale;
     }
 
-    private Discount generateDiscount(Product productDiscount){
+    private Discount createDiscount(Product productDiscount){
+        removeAutoDiscountNow();
         Date currentDate = new Date();
         int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
         double newDiscount = min + (Math.random() * (max - min) + 1);
@@ -103,8 +109,15 @@ public class ProductServiceImpl implements ProductService {
                 .subtract(productDiscount.getPrice()
                         .multiply(new BigDecimal(newDiscount / 100)));
         BigDecimal discountPriceSpread = productDiscount.getPrice().subtract(productDiscountPrice);
-        Discount discount = new Discount(newDiscount, currentDate, productDiscountPrice, discountPriceSpread);
+        Discount discount = new Discount(newDiscount, currentDate, productDiscountPrice, discountPriceSpread, 1);
         return discount;
+    }
+
+    private void removeAutoDiscountNow(){
+        Date currentDate = new Date();
+        int addType = 1;
+        int productIdNowDiscount = getNowDiscountProduct().getProductId();
+        insertEndDateDiscount(addType, currentDate, productIdNowDiscount);
     }
 
 }

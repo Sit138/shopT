@@ -9,7 +9,7 @@ public class MyTask {
     @Autowired
     private ProductService productService;
 
-    @Scheduled(cron = "0 0 0/1 * * *")
+    @Scheduled(cron = "0 0/15 * * * *")
     public void work(){
         productService.insertProductDiscount();
     }
