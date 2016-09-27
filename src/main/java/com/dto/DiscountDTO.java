@@ -8,8 +8,6 @@ public class DiscountDTO {
     private double value;
     private Timestamp startDate;
     private Timestamp endDate;
-    private BigDecimal productDiscountPrice;
-    private BigDecimal discountPriceSpread;
     private int productId;
     private String productName;
     private BigDecimal productPrice;
@@ -29,22 +27,6 @@ public class DiscountDTO {
 
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
-    }
-
-    public BigDecimal getProductDiscountPrice() {
-        return productDiscountPrice;
-    }
-
-    public void setProductDiscountPrice(BigDecimal productDiscountPrice) {
-        this.productDiscountPrice = productDiscountPrice;
-    }
-
-    public BigDecimal getDiscountPriceSpread() {
-        return discountPriceSpread;
-    }
-
-    public void setDiscountPriceSpread(BigDecimal discountPriceSpread) {
-        this.discountPriceSpread = discountPriceSpread;
     }
 
     public int getProductId() {

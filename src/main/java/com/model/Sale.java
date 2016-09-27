@@ -15,9 +15,16 @@ public class Sale {
     @Column(name = "sale_amount")
     private BigDecimal amount;
 
+    @Column(name = "price_product")
+    private BigDecimal priceProduct;
+
+    @Column(name = "spread_price_amount")
+    private BigDecimal spreadPriceAmount;//разница между реальной суммой продукта и суммой продажи продукта (возможно со скидкой)
+
     @Column(name = "sale_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -26,8 +33,10 @@ public class Sale {
     public Sale(){
     }
 
-    public Sale(BigDecimal amount, Date date){
+    public Sale(BigDecimal amount, BigDecimal priceProduct, Date date){
         this.amount = amount;
+        this.priceProduct = priceProduct;
+        this.spreadPriceAmount = priceProduct.subtract(amount);
         this.date = date;
     }
 
@@ -57,5 +66,21 @@ public class Sale {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public BigDecimal getPriceProduct() {
+        return priceProduct;
+    }
+
+    public void setPriceProduct(BigDecimal priceProduct) {
+        this.priceProduct = priceProduct;
+    }
+
+    public BigDecimal getSpreadPriceAmount() {
+        return spreadPriceAmount;
+    }
+
+    public void setSpreadPriceAmount(BigDecimal spreadPriceAmount) {
+        this.spreadPriceAmount = spreadPriceAmount;
     }
 }

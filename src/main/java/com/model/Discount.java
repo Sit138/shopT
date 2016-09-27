@@ -11,12 +11,10 @@ public class Discount {
     public Discount(){
     }
 
-    public Discount(double value, Date startDate, BigDecimal productDiscountPrice, BigDecimal discountPriceSpread, int addType){
+    public Discount(double value, Date startDate, int addType){
         this.value = value;
         this.startDate = startDate;
         this.endDate = null;
-        this.productDiscountPrice = productDiscountPrice;
-        this.discountPriceSpread = discountPriceSpread;
         this.addType = addType;
     }
 
@@ -34,12 +32,6 @@ public class Discount {
     @Column(name = "discount_end_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
-
-    @Column(name = "product_discount_price")
-    private BigDecimal productDiscountPrice;
-
-    @Column(name = "discount_price_spread")
-    private BigDecimal discountPriceSpread;
 
     @Column(name = "add_type")
     private int addType;//1 - auto, 2 - manual
@@ -74,22 +66,6 @@ public class Discount {
 
     public int getId() {
         return id;
-    }
-
-    public BigDecimal getProductDiscountPrice() {
-        return productDiscountPrice;
-    }
-
-    public void setProductDiscountPrice(BigDecimal productDiscountPrice) {
-        this.productDiscountPrice = productDiscountPrice;
-    }
-
-    public BigDecimal getDiscountPriceSpread() {
-        return discountPriceSpread;
-    }
-
-    public void setDiscountPriceSpread(BigDecimal discountPriceSpread) {
-        this.discountPriceSpread = discountPriceSpread;
     }
 
     public Date getEndDate() {

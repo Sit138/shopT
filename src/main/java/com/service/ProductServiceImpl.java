@@ -6,6 +6,7 @@ import com.dto.ProductDTO;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,12 +96,14 @@ public class ProductServiceImpl implements ProductService {
             double valueDiscount = discountProduct.getValue() / 100;
             saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
         }
-        Sale sale = new Sale(saleAmount, currentDate);
+        Sale sale = new Sale(saleAmount, productSale.getPrice(), currentDate);
         return sale;
     }
 
     private Discount createDiscount(Product productDiscount){
-        removeAutoDiscountNow();
+        if(getNowDiscountProduct() != null){
+            removeAutoDiscountNow();
+        }
         Date currentDate = new Date();
         int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
         double newDiscount = min + (Math.random() * (max - min) + 1);
@@ -108,8 +111,7 @@ public class ProductServiceImpl implements ProductService {
         BigDecimal productDiscountPrice = productDiscount.getPrice()
                 .subtract(productDiscount.getPrice()
                         .multiply(new BigDecimal(newDiscount / 100)));
-        BigDecimal discountPriceSpread = productDiscount.getPrice().subtract(productDiscountPrice);
-        Discount discount = new Discount(newDiscount, currentDate, productDiscountPrice, discountPriceSpread, 1);
+        Discount discount = new Discount(newDiscount, currentDate, 1);
         return discount;
     }
 

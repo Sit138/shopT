@@ -135,15 +135,12 @@ public class ProductDAOImpl implements ProductDAO{
 
         DiscountDTO discountProductNowDTO = (DiscountDTO) getCurrentSession()
                 .createSQLQuery("SELECT d.discount_value AS value, d.discount_start_date AS startDate, d.discount_end_date AS endDate, " +
-                        "d.product_discount_price AS productDiscountPrice, d.discount_price_spread AS discountPriceSpread, " +
                         "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice, d.add_type AS addType " +
                         "FROM discount d LEFT OUTER JOIN product p ON p.id=d.product_id " +
                         "WHERE d.discount_end_date is null")
                 .addScalar("value", DoubleType.INSTANCE)
                 .addScalar("startDate", TimestampType.INSTANCE)
                 .addScalar("endDate", TimestampType.INSTANCE)
-                .addScalar("productDiscountPrice", BigDecimalType.INSTANCE)
-                .addScalar("discountPriceSpread", BigDecimalType.INSTANCE)
                 .addScalar("productId", IntegerType.INSTANCE)
                 .addScalar("productName", StringType.INSTANCE)
                 .addScalar("productPrice", BigDecimalType.INSTANCE)
