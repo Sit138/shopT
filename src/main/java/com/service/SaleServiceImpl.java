@@ -31,4 +31,10 @@ public class SaleServiceImpl implements SaleService {
         return saleDAO.numberItemsTheSaleRangeReport();
     }
 
+    @Override
+    @Transactional
+    public void aggregateSalesOfProductInTheLastHour() {
+        saleDAO.aggregateSalesOfProductInTheLastHour();
+    }
+
 }

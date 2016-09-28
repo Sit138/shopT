@@ -12,4 +12,6 @@ public interface SaleDAO {
     List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults);
 
     int numberItemsTheSaleRangeReport();
+
+    void aggregateSalesOfProductInTheLastHour();//scheduler method
 }

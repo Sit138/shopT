@@ -86,4 +86,15 @@ public class SaleDAOImpl implements SaleDAO {
         return num;
     }
 
+    @Override
+    public void aggregateSalesOfProductInTheLastHour() {
+        getCurrentSession()
+                .createSQLQuery("insert into static_sale (product_name, count_sale_product, sum_sale_product, sale_date, sum_spread_amount) " +
+                                "select p.product_name, count(p.id), sum(s.sale_amount), date_trunc('hour', s.sale_date), sum(s.spread_price_amount) " +
+                                "from sale s \n" +
+                                "left join product p on p.id=s.product_id " +
+                                "where date_trunc('hour', s.sale_date) = date_trunc('hour', (current_timestamp - interval '1 hour')) " +
+                                "group by p.id, date_trunc('hour', s.sale_date)").executeUpdate();
+    }
+
 }

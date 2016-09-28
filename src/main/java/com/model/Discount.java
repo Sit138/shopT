@@ -8,16 +8,6 @@ import java.util.Date;
 @Table(name = "discount")
 public class Discount {
 
-    public Discount(){
-    }
-
-    public Discount(double value, Date startDate, int addType){
-        this.value = value;
-        this.startDate = startDate;
-        this.endDate = null;
-        this.addType = addType;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -39,6 +29,16 @@ public class Discount {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Discount(){
+    }
+
+    public Discount(double value, Date startDate, int addType){
+        this.value = value;
+        this.startDate = startDate;
+        this.endDate = null;
+        this.addType = addType;
+    }
 
     public Product getProduct() {
         return product;

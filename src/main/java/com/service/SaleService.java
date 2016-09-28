@@ -12,5 +12,7 @@ public interface SaleService {
     List<TotalSaleReport> totalSaleReport();
 
     int numberItemsTheSaleRangeReport();
+
+    void aggregateSalesOfProductInTheLastHour();
 }
 
