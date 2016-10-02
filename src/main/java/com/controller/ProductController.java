@@ -22,7 +22,7 @@ public class ProductController {
     private ProductService productService;
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(){
         return "index";
     }
 
@@ -79,7 +79,8 @@ public class ProductController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        if(productService.getProduct(product_id).getSales().isEmpty() & productService.getProduct(product_id).getDiscounts().isEmpty()){
+        if(productService.getProduct(product_id).getSales().isEmpty()
+                & productService.getProduct(product_id).getDiscounts().isEmpty()){
             model.addAttribute("info", "true");
             productService.deleteProduct(product_id);
             return "redirect:/home";

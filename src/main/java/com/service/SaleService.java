@@ -1,15 +1,17 @@
 package com.service;
 
 
+import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
-import com.dto.TotalSaleReport;
+import com.dto.StatisticOnSaleDTO;
 
 import java.util.List;
 
 public interface SaleService {
-    List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults);
 
-    List<TotalSaleReport> totalSaleReport();
+    List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows);
+
+    FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod();
 
     int numberItemsTheSaleRangeReport();
 

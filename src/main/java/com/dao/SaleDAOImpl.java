@@ -1,12 +1,12 @@
 package com.dao;
 
+import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
-import com.dto.TotalSaleReport;
+import com.dto.StatisticOnSaleDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,68 +33,87 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
-    public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
-        List<SaleProductInRangeDetailed> saleInRangeDetailedList = getCurrentSession()
-                .createSQLQuery("SELECT p.id AS productId, p.product_name AS productName, date_trunc('hour', s.sale_date) AS saleDate, " +
-                        "COUNT(s.product_id) AS saleCount, SUM(s.sale_amount) AS saleAmount " +
-                        "FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id " +
-                        "GROUP BY date_trunc('hour', s.sale_date), p.id " +
-                        "ORDER BY date_trunc('hour', s.sale_date) ASC, p.id ASC")
-                .addScalar("productId", IntegerType.INSTANCE)
+    public List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows) {
+
+        List<StatisticOnSaleDTO> totalSaleReportList = getCurrentSession()
+                .createSQLQuery("SELECT product_name AS productName, " +
+                                        "sale_date AS salePeriod, " +
+                                        "count_sale_product AS countSaleProduct, " +
+                                        "sum_sale_product AS sumSaleProduct, " +
+                                        "average_check AS averageCheck, " +
+                                        "count_sale_product_with_discount AS countSaleProductWithDiscount, " +
+                                        "sum_spread_amount AS sumSpreadAmount " +
+                                "FROM statistic_sale")
                 .addScalar("productName", StringType.INSTANCE)
-                .addScalar("saleDate", TimestampType.INSTANCE)
-                .addScalar("saleCount", LongType.INSTANCE)
-                .addScalar("saleAmount", BigDecimalType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(SaleProductInRangeDetailed.class))
-                .setFirstResult(pageId)
-                .setMaxResults(maxResults)
+                .addScalar("salePeriod", TimestampType.INSTANCE)
+                .addScalar("countSaleProduct", LongType.INSTANCE)
+                .addScalar("sumSaleProduct", BigDecimalType.INSTANCE)
+                .addScalar("averageCheck", BigDecimalType.INSTANCE)
+                .addScalar("countSaleProductWithDiscount", LongType.INSTANCE)
+                .addScalar("sumSpreadAmount", BigDecimalType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(StatisticOnSaleDTO.class))
+                .setFirstResult(firstResult)
+                .setMaxResults(maxCounRows)
                 .list();
-        return saleInRangeDetailedList;
-    }
-
-    @Override
-    public List<TotalSaleReport> totalSaleReport() {
-
-        List<TotalSaleReport> totalSaleReportList = getCurrentSession()
-                .createSQLQuery("SELECT date_trunc('hour', s.sale_date) AS saleDate, COUNT(s.id) AS saleCount, " +
-                        "SUM(s.sale_amount) AS saleSum, round(sum(s.sale_amount)/count(s.id)) AS saleAverageCheck, " +
-                        "COUNT(d.id) AS countSaleProductByDiscount, SUM(d.discount_price_spread) AS discountSum " +
-                        "FROM sale s " +
-                        "LEFT OUTER JOIN discount d ON date_trunc('hour', s.sale_date)=date_trunc('hour', d.discount_start_date) " +
-                        "AND s.product_id=d.product_id\n" +
-                        "GROUP BY date_trunc('hour', s.sale_date) " +
-                        "ORDER BY date_trunc('hour', s.sale_date)")
-                .addScalar("saleDate", TimestampType.INSTANCE)
-                .addScalar("saleCount", LongType.INSTANCE)
-                .addScalar("saleSum", BigDecimalType.INSTANCE)
-                .addScalar("saleAverageCheck", BigDecimalType.INSTANCE)
-                .addScalar("countSaleProductByDiscount", LongType.INSTANCE)
-                .addScalar("discountSum", BigDecimalType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(TotalSaleReport.class)).list();
-
         return totalSaleReportList;
     }
 
     @Override
-    public int numberItemsTheSaleRangeReport() {
-        int num = (Integer) getCurrentSession()
-                .createSQLQuery("SELECT  count(result.id) AS num FROM " +
-                        "(SELECT p.id AS id FROM sale s LEFT OUTER JOIN product p ON p.id = s.product_id " +
-                        "GROUP BY date_trunc('hour', s.sale_date), p.id) AS result")
-                .addScalar("num", IntegerType.INSTANCE)
+    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod() {
+        return (FinalStatisticSaleForPeriod) getCurrentSession()
+                .createSQLQuery("SELECT sum(s.count_sale_product) AS sumCountSaleProduct, " +
+                                        "sum(s.sum_sale_product) AS fullSumSaleProduct, " +
+                                        "sum(s.count_sale_product_with_discount) AS sumCountSaleProductWithDiscount, " +
+                                        "sum(s.sum_spread_amount) AS fullSumSpreadAmount, " +
+                                        "round(sum(s.sum_sale_product)/sum(s.count_sale_product)) AS averageCheckOnPeriod " +
+                                "FROM statistic_sale s")
+                .addScalar("sumCountSaleProduct", LongType.INSTANCE)
+                .addScalar("fullSumSaleProduct", BigDecimalType.INSTANCE)
+                .addScalar("sumCountSaleProductWithDiscount", LongType.INSTANCE)
+                .addScalar("fullSumSpreadAmount", BigDecimalType.INSTANCE)
+                .addScalar("averageCheckOnPeriod", BigDecimalType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(FinalStatisticSaleForPeriod.class))
                 .uniqueResult();
-        return num;
+    }
+
+
+    @Override
+    public int numberItemsTheSaleRangeReport() {
+        return (Integer) getCurrentSession()
+                .createSQLQuery("SELECT count(st.id) AS countRows FROM statistic_sale st")
+                .addScalar("countRows", IntegerType.INSTANCE)
+                .uniqueResult();
     }
 
     @Override
     public void aggregateSalesOfProductInTheLastHour() {
         getCurrentSession()
-                .createSQLQuery("insert into static_sale (product_name, count_sale_product, sum_sale_product, sale_date, sum_spread_amount) " +
-                                "select p.product_name, count(p.id), sum(s.sale_amount), date_trunc('hour', s.sale_date), sum(s.spread_price_amount) " +
-                                "from sale s \n" +
-                                "left join product p on p.id=s.product_id " +
-                                "where date_trunc('hour', s.sale_date) = date_trunc('hour', (current_timestamp - interval '1 hour')) " +
-                                "group by p.id, date_trunc('hour', s.sale_date)").executeUpdate();
+                .createSQLQuery("INSERT INTO statistic_sale (" +
+                                                            "product_name, " +
+                                                            "sale_date, " +
+                                                            "count_sale_product, " +
+                                                            "sum_sale_product, " +
+                                                            "average_check, " +
+                                                            "count_sale_product_with_discount, " +
+                                                            "sum_spread_amount) " +
+                                "SELECT p.product_name, " +
+                                        "date_trunc('hour', sale_on_product.sale_date), " +
+                                        "count(p.id), " +
+                                        "sum(sale_on_product.sale_amount), " +
+                                        "round(sum(sale_on_product.sale_amount)/count(sale_on_product.product_id)), " +
+                                        "count(CASE WHEN sale_on_product.spread_price_amount > 0 THEN 1 END) AS countWithDisc, " +
+                                        "sum(sale_on_product.spread_price_amount) " +
+                                "FROM ( " +
+                                        "SELECT s.product_id, " +
+                                        "s.sale_amount, " +
+                                        "s.sale_date, " +
+                                        "s.spread_price_amount " +
+                                        "FROM sale s " +
+                                ") sale_on_product " +
+                                "left join product p on p.id=sale_on_product.product_id " +
+                                "where date_trunc('hour', sale_on_product.sale_date) = date_trunc('hour', (current_timestamp - interval '1 hour')) " +
+                                "group by p.id, date_trunc('hour', sale_on_product.sale_date)")
+                .executeUpdate();
     }
 
 }

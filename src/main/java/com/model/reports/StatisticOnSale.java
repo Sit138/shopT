@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "static_sale")
+@Table(name = "statistic_sale")
 public class StatisticOnSale {
 
     @Id
@@ -24,6 +24,12 @@ public class StatisticOnSale {
 
     @Column(name = "sum_sale_product")
     private BigDecimal sumSaleProduct;
+
+    @Column(name = "average_check")
+    private BigDecimal averageCheck;
+
+    @Column(name = "count_sale_product_with_discount")
+    private int countSaleProductWithDiscount;
 
     @Column(name = "sum_spread_amount")
     private BigDecimal sumSpreadAmount;
@@ -70,5 +76,21 @@ public class StatisticOnSale {
 
     public int getId() {
         return id;
+    }
+
+    public int getCountSaleProductWithDiscount() {
+        return countSaleProductWithDiscount;
+    }
+
+    public void setCountSaleProductWithDiscount(int countSaleProductWithDiscount) {
+        this.countSaleProductWithDiscount = countSaleProductWithDiscount;
+    }
+
+    public BigDecimal getAverageCheck() {
+        return averageCheck;
+    }
+
+    public void setAverageCheck(BigDecimal averageCheck) {
+        this.averageCheck = averageCheck;
     }
 }

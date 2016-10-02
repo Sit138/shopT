@@ -1,8 +1,9 @@
 package com.service;
 
 import com.dao.SaleDAO;
+import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
-import com.dto.TotalSaleReport;
+import com.dto.StatisticOnSaleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +17,15 @@ public class SaleServiceImpl implements SaleService {
     @Autowired
     private SaleDAO saleDAO;
 
+
     @Override
-    public List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults) {
-        return saleDAO.saleListInRangePagination(pageId, maxResults);
+    public List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows) {
+        return saleDAO.getStatisticOnSale(firstResult, maxCounRows);
     }
 
     @Override
-    public List<TotalSaleReport> totalSaleReport() {
-        return saleDAO.totalSaleReport();
+    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod() {
+        return saleDAO.getFinalStatisticSaleForPeriod();
     }
 
     @Override

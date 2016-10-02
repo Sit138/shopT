@@ -24,13 +24,13 @@ public interface ProductService {
 
     void insertProductDiscount();
 
-    List<DiscountDTO> selectHistoryProductDiscounts();
+    List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows);
 
     DiscountDTO getNowDiscountProduct();
 
     void insertProductSale(int id);
 
-    //void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount);
+    int numberItemsDiscountHistory();
 
     void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
 

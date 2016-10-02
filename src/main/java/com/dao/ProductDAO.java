@@ -22,14 +22,14 @@ public interface ProductDAO {
 
     ProductDTO getLastProduct();
 
-    List<DiscountDTO> selectHistoryProductDiscounts();
+    List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows);
 
     DiscountDTO getNowDiscountProduct();
 
     Product getRandomProduct();
 
-    //void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount);
-
     void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
+
+    int numberItemsDiscountHistory();
 
 }

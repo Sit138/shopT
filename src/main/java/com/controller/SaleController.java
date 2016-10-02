@@ -1,9 +1,7 @@
 package com.controller;
 
-
-import com.dto.SaleProductInRangeDetailed;
-import com.dto.TotalSaleReport;
-import com.service.ProductService;
+import com.dto.FinalStatisticSaleForPeriod;
+import com.dto.StatisticOnSaleDTO;
 import com.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,25 +18,19 @@ public class SaleController {
     @Autowired
     private SaleService saleService;
 
-    @RequestMapping(value = "/saleTime", method = RequestMethod.GET)
-    public String saleProductPageByHour(Model model, @RequestParam("pageId") int pageId){
-        int maxResult = 10;
-        int num = saleService.numberItemsTheSaleRangeReport();
-        int maxPageId = num / maxResult;
-        model.addAttribute("maxPageId", maxPageId);
-        int pageShowResult = pageId * maxResult;
-        List<SaleProductInRangeDetailed> saleInRangeDetailedList = saleService.saleListInRangePagination(pageShowResult, maxResult);
-        model.addAttribute("sale", saleInRangeDetailedList);
-        model.addAttribute("pageId", pageId);
-
-        return "saleTime";
-    }
-
-    @RequestMapping(value = "/totalSaleReport")
-    public String totalSaleReport(Model model){
-        List<TotalSaleReport> totalSaleReportList = saleService.totalSaleReport();
-        model.addAttribute("totalSaleReport", totalSaleReportList);
-        return "totalSaleReport";
+    @RequestMapping(value = "/statisticSale", method = RequestMethod.GET)
+    public String saleProductPageByHour(Model model, @RequestParam("num") int numberPage){
+        int maxResult = 20;
+        int countRows = saleService.numberItemsTheSaleRangeReport();
+        int maxNumberPage = countRows / maxResult;
+        model.addAttribute("maxNumberPage", maxNumberPage);
+        int firstResult = numberPage * maxResult;
+        List<StatisticOnSaleDTO> statisticOnSaleList = saleService.getStatisticOnSale(firstResult, maxResult);
+        model.addAttribute("statisticSale", statisticOnSaleList);
+        model.addAttribute("numberPage", numberPage);
+        FinalStatisticSaleForPeriod finalStatisticSaleForPeriod = saleService.getFinalStatisticSaleForPeriod();
+        model.addAttribute("finalStatisticSaleForPeriod", finalStatisticSaleForPeriod);
+        return "statisticSale";
     }
 
 }

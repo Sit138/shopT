@@ -120,13 +120,22 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts() {
+    public int numberItemsDiscountHistory() {
+        return (Integer) getCurrentSession()
+                .createSQLQuery("SELECT count(d.id) AS countRows FROM discount d")
+                .addScalar("countRows", IntegerType.INSTANCE)
+                .uniqueResult();
+    }
+
+    @Override
+    public List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows) {
         return getCurrentSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
-                        "d.productDiscountPrice as productDiscountPrice, d.discountPriceSpread as discountPriceSpread, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
-                        "from Discount d left outer join d.product p on p.id=d.product.id order by d.id asc")
+                        "from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
+                .setFirstResult(firstResult)
+                .setMaxResults(maxCounRows)
                 .list();
     }
 

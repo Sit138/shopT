@@ -1,15 +1,16 @@
 package com.dao;
 
+import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
-import com.dto.TotalSaleReport;
+import com.dto.StatisticOnSaleDTO;
 
 import java.util.List;
 
 public interface SaleDAO {
 
-    List<TotalSaleReport> totalSaleReport();
+    List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows);
 
-    List<SaleProductInRangeDetailed> saleListInRangePagination(int pageId, int maxResults);
+    FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod();
 
     int numberItemsTheSaleRangeReport();
 

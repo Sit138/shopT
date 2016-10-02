@@ -64,8 +64,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts() {
-        return productDAO.selectHistoryProductDiscounts();
+    public List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows) {
+        return productDAO.selectHistoryProductDiscounts(firstResult, maxCounRows);
     }
 
     @Override
@@ -80,6 +80,11 @@ public class ProductServiceImpl implements ProductService {
         Sale sale = createSale(productSale);
         productSale.addProductSale(sale);
         saveOrUpdate(productSale);
+    }
+
+    @Override
+    public int numberItemsDiscountHistory() {
+        return productDAO.numberItemsDiscountHistory();
     }
 
     @Override
