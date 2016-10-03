@@ -29,6 +29,7 @@ public class DiscountController {
         List<DiscountDTO> productsDiscount = productService.selectHistoryProductDiscounts(firstResult, maxResult);
         model.addAttribute("productsDiscount", productsDiscount);
         model.addAttribute("numberPage", numberPage);
+        model.addAttribute("pageUrl", "discountHistory");
         return "discountHistory";
     }
 

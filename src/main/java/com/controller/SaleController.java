@@ -30,6 +30,7 @@ public class SaleController {
         model.addAttribute("numberPage", numberPage);
         FinalStatisticSaleForPeriod finalStatisticSaleForPeriod = saleService.getFinalStatisticSaleForPeriod();
         model.addAttribute("finalStatisticSaleForPeriod", finalStatisticSaleForPeriod);
+        model.addAttribute("pageUrl", "statisticSale");
         return "statisticSale";
     }
 
