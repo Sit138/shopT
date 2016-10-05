@@ -2,6 +2,7 @@ package com.dao;
 
 import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
+import com.dto.util.PaginationBuilder;
 import com.model.Discount;
 import com.model.Product;
 
@@ -22,7 +23,7 @@ public interface ProductDAO {
 
     ProductDTO getLastProduct();
 
-    List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows);
+    List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
 
     DiscountDTO getNowDiscountProduct();
 

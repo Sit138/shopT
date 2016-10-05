@@ -3,6 +3,7 @@ package com.dao;
 import com.controller.ProductController;
 import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
+import com.dto.util.PaginationBuilder;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
@@ -128,14 +129,14 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows) {
+    public List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder) {
         return getCurrentSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
-                .setFirstResult(firstResult)
-                .setMaxResults(maxCounRows)
+                .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
+                .setMaxResults(paginationBuilder.getNumberRowsOnPage())
                 .list();
     }
 

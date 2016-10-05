@@ -3,6 +3,7 @@ package com.dao;
 import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
 import com.dto.StatisticOnSaleDTO;
+import com.dto.util.PaginationBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
@@ -33,7 +34,7 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
-    public List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows) {
+    public List<StatisticOnSaleDTO> getStatisticOnSale(PaginationBuilder paginationBuilder) {
 
         List<StatisticOnSaleDTO> totalSaleReportList = getCurrentSession()
                 .createSQLQuery("SELECT product_name AS productName, " +
@@ -52,8 +53,8 @@ public class SaleDAOImpl implements SaleDAO {
                 .addScalar("countSaleProductWithDiscount", LongType.INSTANCE)
                 .addScalar("sumSpreadAmount", BigDecimalType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(StatisticOnSaleDTO.class))
-                .setFirstResult(firstResult)
-                .setMaxResults(maxCounRows)
+                .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
+                .setMaxResults(paginationBuilder.getNumberRowsOnPage())
                 .list();
         return totalSaleReportList;
     }

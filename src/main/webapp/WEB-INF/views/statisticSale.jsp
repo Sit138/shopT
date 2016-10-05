@@ -12,15 +12,10 @@
 </head>
 <body>
     <%@include file="include/header.html"%>
+
     <h1>Отчет по продажам (почасовой)</h1>
-    <h4>Показать </h4>
-    <form:form modelAttribute="countRows" action="/statisticSale" id="filterForm">
-        <form:select path="numberRowsOnPage">
-            <form:option value="5"/>
-            <form:option value="10"/>
-            <form:option value="15"/>
-        </form:select>
-        <input type="submit" value="OK" class="linkButton">
+    <form:form modelAttribute="paginator" action="${url}" id="filterForm">
+    <%@include file="include/paginationFilterHeader.html"%>
 
     <table border="1px">
         <tr>
@@ -66,7 +61,7 @@
             <td>${finalStatisticSaleForPeriod.fullSumSpreadAmount}</td>
         </tr>
     </table>
-    <%@include file="include/pagination.html"%>
+    <%@include file="include/paginationFilterFooter.html"%>
     </form:form>
 </body>
 </html>

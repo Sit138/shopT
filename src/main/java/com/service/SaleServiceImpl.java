@@ -4,6 +4,7 @@ import com.dao.SaleDAO;
 import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.SaleProductInRangeDetailed;
 import com.dto.StatisticOnSaleDTO;
+import com.dto.util.PaginationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,8 @@ public class SaleServiceImpl implements SaleService {
 
 
     @Override
-    public List<StatisticOnSaleDTO> getStatisticOnSale(int firstResult, int maxCounRows) {
-        return saleDAO.getStatisticOnSale(firstResult, maxCounRows);
+    public List<StatisticOnSaleDTO> getStatisticOnSale(PaginationBuilder paginationBuilder) {
+        return saleDAO.getStatisticOnSale(paginationBuilder);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.service;
 import com.dao.ProductDAO;
 import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
+import com.dto.util.PaginationBuilder;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
@@ -64,8 +65,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(int firstResult, int maxCounRows) {
-        return productDAO.selectHistoryProductDiscounts(firstResult, maxCounRows);
+    public List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder) {
+        return productDAO.selectHistoryProductDiscounts(paginationBuilder);
     }
 
     @Override
