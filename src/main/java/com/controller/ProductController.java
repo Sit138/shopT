@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dto.ProductDTO;
+import com.dto.util.PaginationBuilder;
 import com.model.Product;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,24 @@ public class ProductController {
         return "index";
     }
 
+    @ModelAttribute("paginator")
+    PaginationBuilder getPaginationBuilder(){
+        int numberAllRows = productService.getNumberAllRowsProduct();
+        PaginationBuilder paginationBuilder = new PaginationBuilder(numberAllRows);
+        return paginationBuilder;
+    }
+
     @RequestMapping(value = "/home")
-    public String home(Model model, HttpServletRequest request){
+    public String home(Model model, HttpServletRequest request,
+                       @ModelAttribute("paginator")PaginationBuilder paginationBuilder){
         String info = request.getParameter("info");
         model.addAttribute("info", info);
-        List<ProductDTO> productList = productService.listProducts();
+        paginationBuilder.updateNumberFirstSamplingElement();
+        int numberOfPages = paginationBuilder.getNumberOfPages();
+        model.addAttribute("numberOfPages", numberOfPages);
+        List<ProductDTO> productList = productService.listProducts(paginationBuilder);
         model.addAttribute("productList", productList);
+        model.addAttribute("url", "/home");
         return "home";
     }
 

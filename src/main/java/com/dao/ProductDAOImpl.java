@@ -4,9 +4,7 @@ import com.controller.ProductController;
 import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
 import com.dto.util.PaginationBuilder;
-import com.model.Discount;
 import com.model.Product;
-import com.model.Sale;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -14,8 +12,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.*;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +31,24 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<ProductDTO> listProducts() {
+    public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
 
         List<ProductDTO> productList = getCurrentSession()
                 .createQuery("select p.id as id, p.name as name, p.price as price\n" +
                              "from Product p order by id asc")
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
+                .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
+                .setMaxResults(paginationBuilder.getNumberRowsOnPage())
                 .list();
         return productList;
+    }
+
+    @Override
+    public int getNumberAllRowsProduct() {
+        return (Integer) getCurrentSession()
+                .createSQLQuery("SELECT COUNT(p.id) AS countRows FROM product p")
+                .addScalar("countRows", IntegerType.INSTANCE)
+                .uniqueResult();
     }
 
     @Override

@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Shop</title>
     <style>
         <%@include file="/WEB-INF/views/css/main.css" %>
+        <%@include file="css/pagination.css"%>
     </style>
 </head>
 <body>
@@ -12,6 +14,9 @@
 
     <h1>Магазин</h1>
     <h2>Список товаров</h2>
+
+    <form:form modelAttribute="paginator" action="${url}" id="filterForm">
+    <%@include file="include/paginationFilterHeader.html"%>
 
     <c:if test="${info == 'errorDelete'}">
         <script>
@@ -45,7 +50,10 @@
         </c:forEach>
 
     </table>
+    <%@include file="include/paginationFilterFooter.html"%>
+    </form:form>
 
     <a href="/new">Добавить новый товар</a>
+
 </body>
 </html>

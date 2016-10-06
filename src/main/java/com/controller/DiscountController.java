@@ -2,16 +2,12 @@ package com.controller;
 
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
-import com.model.Discount;
-import com.model.Product;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

@@ -1,14 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Клиентский магазин</title>
     <style>
         <%@include file="/WEB-INF/views/css/client.css" %>
+        <%@include file="css/pagination.css"%>
     </style>
 </head>
 <body>
     <h1>${client}</h1>
+    <form:form modelAttribute="paginator" action="${url}" id="filterForm">
+    <%@include file="include/paginationFilterHeader.html"%>
+
     <table border="1px" class="table_price">
         <th>№</th>
         <th>Наименование</th>
@@ -36,6 +41,9 @@
     </table>
 
     <h2>Дисконт - ${discountNow.productName}</h2>
+
+    <%@include file="include/paginationFilterFooter.html"%>
+    </form:form>
 
 <a href="/">Вернуться на главную</a>
 

@@ -1,7 +1,6 @@
 package com.dao;
 
 import com.dto.FinalStatisticSaleForPeriod;
-import com.dto.SaleProductInRangeDetailed;
 import com.dto.StatisticOnSaleDTO;
 import com.dto.util.PaginationBuilder;
 import org.hibernate.Session;

@@ -1,8 +1,6 @@
 package com.service;
 
-
 import com.dto.FinalStatisticSaleForPeriod;
-import com.dto.SaleProductInRangeDetailed;
 import com.dto.StatisticOnSaleDTO;
 import com.dto.util.PaginationBuilder;
 

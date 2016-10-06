@@ -7,11 +7,9 @@ import com.dto.util.PaginationBuilder;
 import com.model.Discount;
 import com.model.Product;
 import com.model.Sale;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -24,8 +22,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductDAO productDAO;
 
     @Override
-    public List<ProductDTO> listProducts() {
-        return productDAO.listProducts();
+    public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
+        return productDAO.listProducts(paginationBuilder);
+    }
+
+    @Override
+    public int getNumberAllRowsProduct() {
+        return productDAO.getNumberAllRowsProduct();
     }
 
     @Override
