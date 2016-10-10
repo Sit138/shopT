@@ -48,12 +48,6 @@ public class ProductController {
         return "home";
     }
 
-    @RequestMapping("/setting")
-    public String setting(Model model){
-        model.addAttribute("sett", "Настройка магазина");
-        return "setting";
-    }
-
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newProduct(Model model){
         ProductDTO productDTO = new ProductDTO();

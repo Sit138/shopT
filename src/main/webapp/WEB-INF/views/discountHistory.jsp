@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Discount history</title>
@@ -28,13 +29,17 @@
                     <td>${status.index}</td>
                     <td>${productsDiscount.productName}</td>
                     <td>${productsDiscount.value}</td>
-                    <td>${productsDiscount.startDate}</td>
+                    <td>
+                        <fmt:formatDate value="${productsDiscount.startDate}" pattern="dd/MM/yyyy HH:mm:ss"/>
+                    </td>
                     <c:choose>
                         <c:when test="${productsDiscount.endDate == null}">
                             <td>Активна</td>
                         </c:when>
                         <c:otherwise>
-                            <td>${productsDiscount.endDate}</td>
+                            <td>
+                                <fmt:formatDate value="${productsDiscount.endDate}" pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </td>
                         </c:otherwise>
                     </c:choose>
                 </tr>

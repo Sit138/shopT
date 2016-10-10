@@ -1,6 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Клиентский магазин</title>
@@ -23,14 +24,14 @@
         <c:forEach var="product" items="${productList}" varStatus="status">
             <tr>
                 <td>
-                    ${status.index}
+                    ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                 </td>
                 <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
                     ${product.name}
                 </td>
 
                 <td>
-                    ${product.price}
+                    <fmt:formatNumber value="${product.price}" type="currency" currencyCode="RUB"/>
                 </td>
                 <td>
                     <a href="/sale?id=${product.id}" class="c" onclick="alert('Товар приобретен!');">Купить</a>

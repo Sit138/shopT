@@ -24,14 +24,6 @@ public interface ProductDAO {
 
     ProductDTO getLastProduct();
 
-    List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
-
-    DiscountDTO getNowDiscountProduct();
-
     Product getRandomProduct();
-
-    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
-
-    int numberItemsDiscountHistory();
 
 }

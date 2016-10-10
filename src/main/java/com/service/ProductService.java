@@ -1,11 +1,8 @@
 package com.service;
 
-import com.dto.DiscountDTO;
 import com.dto.ProductDTO;
 import com.dto.util.PaginationBuilder;
 import com.model.Product;
-
-import java.util.Date;
 import java.util.List;
 
 public interface ProductService {
@@ -23,17 +20,5 @@ public interface ProductService {
     void deleteProduct(int id);
 
     ProductDTO getLastProduct();
-
-    void insertProductDiscount();
-
-    List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
-
-    DiscountDTO getNowDiscountProduct();
-
-    void insertProductSale(int id);
-
-    int numberItemsDiscountHistory();
-
-    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
 
 }

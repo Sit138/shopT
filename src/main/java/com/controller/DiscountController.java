@@ -2,7 +2,7 @@ package com.controller;
 
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
-import com.service.ProductService;
+import com.service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +15,11 @@ import java.util.List;
 public class DiscountController {
 
     @Autowired
-    private ProductService productService;
+    private DiscountService discountService;
 
     @ModelAttribute("paginator")
     PaginationBuilder getPaginationBuilder(){
-        int numberAllRows = productService.numberItemsDiscountHistory();
+        int numberAllRows = discountService.numberItemsDiscountHistory();
         PaginationBuilder paginationBuilder = new PaginationBuilder(numberAllRows);
         return paginationBuilder;
     }
@@ -30,7 +30,7 @@ public class DiscountController {
         paginationBuilder.updateNumberFirstSamplingElement();
         int numberOfPages = paginationBuilder.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
-        List<DiscountDTO> productsDiscount = productService.selectHistoryProductDiscounts(paginationBuilder);
+        List<DiscountDTO> productsDiscount = discountService.selectHistoryProductDiscounts(paginationBuilder);
         model.addAttribute("productsDiscount", productsDiscount);
         model.addAttribute("url", "/discountHistory");
         return "discountHistory";

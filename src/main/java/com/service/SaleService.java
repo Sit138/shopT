@@ -3,7 +3,6 @@ package com.service;
 import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.StatisticOnSaleDTO;
 import com.dto.util.PaginationBuilder;
-
 import java.util.List;
 
 public interface SaleService {
@@ -15,5 +14,7 @@ public interface SaleService {
     int numberItemsTheSaleRangeReport();
 
     void aggregateSalesOfProductInTheLastHour();
+
+    void insertProductSale(int id);
 }
 

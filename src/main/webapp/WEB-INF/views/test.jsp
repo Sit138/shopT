@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,9 +7,7 @@
     </style>
 </head>
 <body>
-
-    <%@include file="include/header.html"%>
-    <h1>${sett}</h1>
-
+    <h1>Данные успешно сгенерированы!</h1>
+    <a href="/">Перейти на главную</a>
 </body>
 </html>

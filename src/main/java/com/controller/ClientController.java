@@ -3,7 +3,9 @@ package com.controller;
 
 import com.dto.ProductDTO;
 import com.dto.util.PaginationBuilder;
+import com.service.DiscountService;
 import com.service.ProductService;
+import com.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,12 @@ public class ClientController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private DiscountService discountService;
+
+    @Autowired
+    private SaleService saleService;
 
     @ModelAttribute("paginator")
     PaginationBuilder getPaginationBuilder(){
@@ -35,8 +43,8 @@ public class ClientController {
         model.addAttribute("numberOfPages", numberOfPages);
         List<ProductDTO> productList = productService.listProducts(paginationBuilder);
         model.addAttribute("productList", productList);
-        if(productService.getNowDiscountProduct() != null){
-            model.addAttribute("discountNow", productService.getNowDiscountProduct());
+        if(discountService.getNowDiscountProduct() != null){
+            model.addAttribute("discountNow", discountService.getNowDiscountProduct());
         } else {
             model.addAttribute("discountNow", null);
         }
@@ -47,7 +55,7 @@ public class ClientController {
     @RequestMapping(value = "/sale", method = RequestMethod.GET)
     public String saleProduct(HttpServletRequest request){
         int productSaleId = Integer.parseInt(request.getParameter("id"));
-        productService.insertProductSale(productSaleId);
+        saleService.insertProductSale(productSaleId);
         return "redirect:/client";
     }
 

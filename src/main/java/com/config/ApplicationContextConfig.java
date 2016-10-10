@@ -1,11 +1,8 @@
 package com.config;
 
-import com.dao.SaleDAO;
-import com.dao.SaleDAOImpl;
+import com.dao.*;
 import com.model.Sale;
 import com.scheduler.MyTask;
-import com.dao.ProductDAO;
-import com.dao.ProductDAOImpl;
 import com.model.Discount;
 import com.model.Product;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -75,15 +72,20 @@ public class ApplicationContextConfig {
     }
 
     @Bean(name = "saleDAO")
-    public SaleDAO geSaleDAO(SessionFactory sessionFactory){
+    public SaleDAO getSaleDAO(SessionFactory sessionFactory){
         return new SaleDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "discountDAO")
+    public DiscountDAO getDiscountDAO(SessionFactory sessionFactory){
+        return new DiscountDAOImpl(sessionFactory);
     }
 
     private Properties getHibernateProperties(){
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
