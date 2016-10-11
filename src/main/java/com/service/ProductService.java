@@ -21,4 +21,6 @@ public interface ProductService {
 
     ProductDTO getLastProduct();
 
+    Product getRandomProduct();
+
 }

@@ -61,10 +61,6 @@ public class DiscountServiceImpl implements DiscountService {
         Date currentDate = new Date();
         int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
         double newDiscount = min + (Math.random() * (max - min) + 1);
-
-        BigDecimal productDiscountPrice = productDiscount.getPrice()
-                .subtract(productDiscount.getPrice()
-                        .multiply(new BigDecimal(newDiscount / 100)));
         Discount discount = new Discount(newDiscount, currentDate, 1);
         return discount;
     }

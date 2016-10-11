@@ -57,4 +57,9 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.getLastProduct();
     }
 
+    @Override
+    public Product getRandomProduct() {
+        return productDAO.getRandomProduct();
+    }
+
 }
