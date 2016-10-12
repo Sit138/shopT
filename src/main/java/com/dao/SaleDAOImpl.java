@@ -43,7 +43,7 @@ public class SaleDAOImpl implements SaleDAO {
                                         "average_check AS averageCheck, " +
                                         "count_sale_product_with_discount AS countSaleProductWithDiscount, " +
                                         "sum_spread_amount AS sumSpreadAmount " +
-                                "FROM statistic_sale")
+                                "FROM statistic_sale ORDER BY date_trunc('hour', sale_date) DESC")
                 .addScalar("productName", StringType.INSTANCE)
                 .addScalar("salePeriod", TimestampType.INSTANCE)
                 .addScalar("countSaleProduct", LongType.INSTANCE)
@@ -111,7 +111,11 @@ public class SaleDAOImpl implements SaleDAO {
                                         "FROM sale s " +
                                 ") sale_on_product " +
                                 "left join product p on p.id=sale_on_product.product_id " +
-                                "where date_trunc('hour', sale_on_product.sale_date) = date_trunc('hour', (current_timestamp - interval '1 hour')) " +
+                                "WHERE date_trunc('hour', sale_on_product.sale_date) BETWEEN " +
+                                    "CASE WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) <> 0 THEN (SELECT max(statistic_sale.sale_date) FROM statistic_sale) " +
+                                          "WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) = 0 THEN (select TIMESTAMP '2015-01-01') " +
+                                    "END " +
+                                "AND date_trunc('hour', current_timestamp) " +
                                 "group by p.id, date_trunc('hour', sale_on_product.sale_date)")
                 .executeUpdate();
     }

@@ -28,13 +28,13 @@ public class GenerateTestDataService {
 
     public void generateTestData(){
         generateAndSaveProduct();
-        Calendar calendar = new GregorianCalendar(2016, 9, 1);//start day generate
+        Calendar calendar = new GregorianCalendar(2016, 6, 1);//start day generate
         Calendar calendarNow = new GregorianCalendar();
         while (calendar.before(calendarNow)){
             generateAndSaveDiscount(calendar);
             System.out.println("Date = " + calendar.getTime());
             System.out.println("DateNow = " + calendarNow.getTime());
-            int countSaleInHour = (int) (10 + (Math.random() * (10 - 1) + 1));//количество покупок в час
+            int countSaleInHour = (int) (1 + (Math.random() * (50 - 1) + 1));//количество покупок в час
             for(int i = 0; i < countSaleInHour; i++){
                 Product productSale = productService.getRandomProduct();
                 BigDecimal saleAmount = productSale.getPrice();
@@ -48,7 +48,7 @@ public class GenerateTestDataService {
                 productSale.addProductSale(sale);
                 productService.saveOrUpdate(productSale);
             }
-            calendar.add(Calendar.HOUR_OF_DAY, 2);
+            calendar.add(Calendar.HOUR_OF_DAY, 1);
             discountService.insertEndDateDiscount(1, calendar.getTime(), discountService.getNowDiscountProduct().getProductId());
         }
     }
