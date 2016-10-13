@@ -112,8 +112,10 @@ public class SaleDAOImpl implements SaleDAO {
                                 ") sale_on_product " +
                                 "left join product p on p.id=sale_on_product.product_id " +
                                 "WHERE date_trunc('hour', sale_on_product.sale_date) BETWEEN " +
-                                    "CASE WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) <> 0 THEN (SELECT max(statistic_sale.sale_date) FROM statistic_sale) " +
-                                          "WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) = 0 THEN (select TIMESTAMP '2015-01-01') " +
+                                    "CASE WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) <> 0 " +
+                        "                       THEN (SELECT date_trunc('hour', (SELECT max(statistic_sale.sale_date) FROM statistic_sale) + INTERVAL '1 hour')) " +
+                                          "WHEN (SELECT count(statistic_sale.sale_date) FROM statistic_sale) = 0 " +
+                        "                       THEN (select TIMESTAMP '2015-01-01') " +
                                     "END " +
                                 "AND date_trunc('hour', current_timestamp) " +
                                 "group by p.id, date_trunc('hour', sale_on_product.sale_date)")
