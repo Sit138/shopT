@@ -26,9 +26,9 @@
         </tr>
         <c:forEach var="productsDiscount" items="${productsDiscount}" varStatus="status">
                 <tr>
-                    <td>${status.index}</td>
+                    <td>${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}</td>
                     <td>${productsDiscount.productName}</td>
-                    <td>${productsDiscount.value}</td>
+                    <td><fmt:formatNumber value="${productsDiscount.value}" type="number" maxFractionDigits="2"/></td>
                     <td>
                         <fmt:formatDate value="${productsDiscount.startDate}" pattern="dd/MM/yyyy HH:mm:ss"/>
                     </td>

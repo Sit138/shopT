@@ -33,7 +33,7 @@
         <c:forEach var="product" items="${productList}" varStatus="status">
             <tr>
                 <td>
-                    ${status.index}
+                    ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                 </td>
                 <td>
                     ${product.name}
