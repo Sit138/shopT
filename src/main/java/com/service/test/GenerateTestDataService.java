@@ -28,7 +28,7 @@ public class GenerateTestDataService {
 
     public void generateTestData(){
         generateAndSaveProduct();
-        Calendar calendar = new GregorianCalendar(2016, 6, 1);//start day generate
+        Calendar calendar = new GregorianCalendar(2016, 9, 5);//start day generate
         Calendar calendarNow = new GregorianCalendar();
         while (calendar.before(calendarNow)){
             generateAndSaveDiscount(calendar);
