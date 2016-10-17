@@ -6,6 +6,7 @@ import com.dao.SaleDAO;
 import com.dto.DiscountDTO;
 import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.StatisticOnSaleDTO;
+import com.dto.util.FilterStatisticSale;
 import com.dto.util.PaginationBuilder;
 import com.model.Product;
 import com.model.Sale;
@@ -30,18 +31,18 @@ public class SaleServiceImpl implements SaleService {
     private ProductDAO productDAO;
 
     @Override
-    public List<StatisticOnSaleDTO> getStatisticOnSale(PaginationBuilder paginationBuilder) {
+    public List<StatisticOnSaleDTO> getStatisticOnSale(FilterStatisticSale paginationBuilder) {
         return saleDAO.getStatisticOnSale(paginationBuilder);
     }
 
     @Override
-    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod() {
-        return saleDAO.getFinalStatisticSaleForPeriod();
+    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod(Date from, Date to) {
+        return saleDAO.getFinalStatisticSaleForPeriod(from, to);
     }
 
     @Override
-    public int numberItemsTheSaleRangeReport() {
-        return saleDAO.numberItemsTheSaleRangeReport();
+    public int numberItemsTheSaleRangeReport(Date from, Date to) {
+        return saleDAO.numberItemsTheSaleRangeReport(from, to);
     }
 
     @Override

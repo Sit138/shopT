@@ -2,6 +2,7 @@ package com.dao;
 
 import com.dto.FinalStatisticSaleForPeriod;
 import com.dto.StatisticOnSaleDTO;
+import com.dto.util.FilterStatisticSale;
 import com.dto.util.PaginationBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,7 @@ import org.hibernate.transform.Transformers;
 import org.hibernate.type.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -33,7 +35,7 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
-    public List<StatisticOnSaleDTO> getStatisticOnSale(PaginationBuilder paginationBuilder) {
+    public List<StatisticOnSaleDTO> getStatisticOnSale(FilterStatisticSale paginationBuilder) {
 
         List<StatisticOnSaleDTO> totalSaleReportList = getCurrentSession()
                 .createSQLQuery("SELECT product_name AS productName, " +
@@ -43,7 +45,9 @@ public class SaleDAOImpl implements SaleDAO {
                                         "average_check AS averageCheck, " +
                                         "count_sale_product_with_discount AS countSaleProductWithDiscount, " +
                                         "sum_spread_amount AS sumSpreadAmount " +
-                                "FROM statistic_sale ORDER BY date_trunc('hour', sale_date) DESC")
+                                "FROM statistic_sale s " +
+                                "WHERE s.sale_date >= :fromDate AND s.sale_date < :toDate " +
+                                "ORDER BY date_trunc('hour', sale_date), s.product_name DESC")
                 .addScalar("productName", StringType.INSTANCE)
                 .addScalar("salePeriod", TimestampType.INSTANCE)
                 .addScalar("countSaleProduct", LongType.INSTANCE)
@@ -52,6 +56,8 @@ public class SaleDAOImpl implements SaleDAO {
                 .addScalar("countSaleProductWithDiscount", LongType.INSTANCE)
                 .addScalar("sumSpreadAmount", BigDecimalType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(StatisticOnSaleDTO.class))
+                .setParameter("fromDate", paginationBuilder.getFromDate())
+                .setParameter("toDate", paginationBuilder.getToDate())
                 .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
                 .setMaxResults(paginationBuilder.getNumberRowsOnPage())
                 .list();
@@ -59,29 +65,37 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
     @Override
-    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod() {
+    public FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod(Date fromDate, Date toDate) {
         return (FinalStatisticSaleForPeriod) getCurrentSession()
                 .createSQLQuery("SELECT sum(s.count_sale_product) AS sumCountSaleProduct, " +
                                         "sum(s.sum_sale_product) AS fullSumSaleProduct, " +
                                         "sum(s.count_sale_product_with_discount) AS sumCountSaleProductWithDiscount, " +
                                         "sum(s.sum_spread_amount) AS fullSumSpreadAmount, " +
                                         "round(sum(s.sum_sale_product)/sum(s.count_sale_product)) AS averageCheckOnPeriod " +
-                                "FROM statistic_sale s")
+                                "FROM statistic_sale s " +
+                                "WHERE s.sale_date >= :fromDate AND s.sale_date < :toDate"
+                )
                 .addScalar("sumCountSaleProduct", LongType.INSTANCE)
                 .addScalar("fullSumSaleProduct", BigDecimalType.INSTANCE)
                 .addScalar("sumCountSaleProductWithDiscount", LongType.INSTANCE)
                 .addScalar("fullSumSpreadAmount", BigDecimalType.INSTANCE)
                 .addScalar("averageCheckOnPeriod", BigDecimalType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(FinalStatisticSaleForPeriod.class))
+                .setParameter("fromDate", fromDate)
+                .setParameter("toDate", toDate)
                 .uniqueResult();
     }
 
 
     @Override
-    public int numberItemsTheSaleRangeReport() {
+    public int numberItemsTheSaleRangeReport(Date fromDate, Date toDate) {
         return (Integer) getCurrentSession()
-                .createSQLQuery("SELECT count(st.id) AS countRows FROM statistic_sale st")
+                .createSQLQuery("SELECT count(st.id) AS countRows " +
+                                "FROM statistic_sale st " +
+                                "WHERE st.sale_date >= :fromDate AND st.sale_date < :toDate")
                 .addScalar("countRows", IntegerType.INSTANCE)
+                .setParameter("fromDate", fromDate)
+                .setParameter("toDate", toDate)
                 .uniqueResult();
     }
 

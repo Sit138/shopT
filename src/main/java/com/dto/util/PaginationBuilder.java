@@ -1,5 +1,7 @@
 package com.dto.util;
 
+import java.util.Date;
+
 public class PaginationBuilder {
 
     private int numberRowsOnPage;
