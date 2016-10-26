@@ -1,16 +1,18 @@
 package com.config;
 
 import com.dao.*;
-import com.model.Sale;
+
+import com.dao.users.RoleDAO;
+import com.dao.users.RoleDAOImpl;
+import com.dao.users.UserDAO;
+import com.dao.users.UserDAOImpl;
 import com.scheduler.MyTask;
-import com.model.Discount;
-import com.model.Product;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -27,6 +29,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableScheduling
+@Import({ SecurityConfig.class })
 public class ApplicationContextConfig {
 
     @Bean
@@ -79,6 +82,16 @@ public class ApplicationContextConfig {
     @Bean(name = "discountDAO")
     public DiscountDAO getDiscountDAO(SessionFactory sessionFactory){
         return new DiscountDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "roleDAO")
+    public RoleDAO getRoleDAO(SessionFactory sessionFactory){
+        return new RoleDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "userDAO")
+    public UserDAO getUserDAO(SessionFactory sessionFactory){
+        return new UserDAOImpl(sessionFactory);
     }
 
     private Properties getHibernateProperties(){

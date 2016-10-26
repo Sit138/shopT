@@ -5,6 +5,9 @@ import com.dto.util.PaginationBuilder;
 import com.model.Product;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +25,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/")
-    public String index(){
+    @RequestMapping(value = { "/", "/index**" }, method = RequestMethod.GET)
+    public String index(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("roleUs", authentication);
         return "index";
     }
 

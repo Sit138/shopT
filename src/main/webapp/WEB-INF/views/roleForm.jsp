@@ -4,27 +4,22 @@
 
 <html>
 <head>
-    <title>Продукт</title>
+    <title>Новая роль</title>
     <style>
         <%@include file="/WEB-INF/views/css/main.css" %>
     </style>
 </head>
 <body>
 
-    <%@include file="include/header.html"%>
+<%@include file="include/header.html"%>
 <table>
-    <h1>Новый товар</h1>
-    <form:form action="save" method="post" modelAttribute="productDTO">
+    <h1>Новая роль</h1>
+    <form:form action="saveRole" method="post" modelAttribute="roleDTO">
         <form:hidden path="id"/>
         <tr>
-            <th>Наименование:</th>
-            <td><form:input path="name"/></td>
-            <td><form:errors path="name" cssClass="error"></form:errors> </td>
-        </tr>
-        <tr>
-            <th>Цена:</th>
-            <td><form:input path="price"/></td>
-            <td><form:errors path="price" cssClass="error"></form:errors> </td>
+            <th>Имя роли</th>
+            <td><form:input path="nameRole"/></td>
+            <td><form:errors path="nameRole" cssClass="error"></form:errors> </td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="Сохранить изменения"></td>
