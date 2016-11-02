@@ -25,10 +25,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = { "/", "/index**" }, method = RequestMethod.GET)
-    public String index(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("roleUs", authentication);
+    @RequestMapping(value = {"/", "/index"})
+    public String index(){
         return "index";
     }
 

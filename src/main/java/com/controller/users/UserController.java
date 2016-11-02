@@ -24,25 +24,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/admin/users")
     public String usersPage(Model model){
         model.addAttribute("userDTOList", userService.getUserDTOList());
-        return "users";
+        return "admin/users";
     }
 
-    @RequestMapping(value = "/newUser")
+    @RequestMapping(value = "/admin/newUser")
     public String newUser(Model model){
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
         List<RoleDTO> rolesList = roleService.getListRoles();
         model.addAttribute("roleList", rolesList);
-        return "userForm";
+        return "admin/userForm";
     }
 
-    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/saveUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute UserDTO userDTO){
         userService.saveOrUpdate(userDTO);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
 }

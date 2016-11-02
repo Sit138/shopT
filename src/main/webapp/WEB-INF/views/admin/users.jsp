@@ -3,8 +3,12 @@
 <html>
 <head>
     <title>Пользователи</title>
+    <style>
+        <%@include file="/WEB-INF/views/css/main.css" %>
+    </style>
 </head>
 <body>
+<%@include file="../include/headerAdmin.html"%>
     <h1>Пользователи</h1>
     <table border="1px">
         <tr>
@@ -35,6 +39,6 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/newUser">Добавить нового пользователя</a>
+    <a href="/admin/newUser">Добавить нового пользователя</a>
 </body>
 </html>

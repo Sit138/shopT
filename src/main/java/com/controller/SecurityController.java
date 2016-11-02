@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class SecurityController {
 
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin")
     public String adminPage(){
-        return "admin";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -31,14 +31,9 @@ public class SecurityController {
             model.addAttribute("error", "Неверное имя или пароль!");
         }
         if(logout != null){
-            model.addAttribute("msg", "Успешный выход!");
+            model.addAttribute("message", "Успешный выход!");
         }
         return "login";
-    }
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        return "redirect:/login?logout";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)

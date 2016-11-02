@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Настройки магазина</title>
+    <%@include file="../include/headerAdmin.html"%>
+    <title>Генерация</title>
     <style>
        <%@include file="/WEB-INF/views/css/main.css" %>
     </style>

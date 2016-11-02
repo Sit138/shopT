@@ -9,27 +9,14 @@
     </style>
 </head>
 <body>
-<%@include file="include/header.html"%>
-        <c:url value="/logout" var="logoutUrl" />
-        <form action="${logoutUrl}" method="post" id="logoutForm">
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
-        </form>
-        <script>
-            function formSubmit() {
-                document.getElementById("logoutForm").submit();
-            }
-        </script>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <%@include file="include/headerAdmin.html"%>
+    <h1>Админ</h1>
+</sec:authorize>
 
-        <c:if test="${pageContext.request.userPrincipal.name != null}">
-            <h2>
-                User : ${pageContext.request.userPrincipal.name} | <a
-                    href="javascript:formSubmit()"> Logout</a>
-            </h2>
-        </c:if>
-<sec:authorize access="hasRole('ROLE_USER')">
-    This session will be visible to an admin only.<br/>
-    You are an Administrator.<br/>
+<sec:authorize access="hasRole('ROLE_MANAGER')">
+    <%@include file="include/header.html"%>
+    <h1>Менеджер</h1>
 </sec:authorize>
 
 </body>

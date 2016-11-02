@@ -11,10 +11,10 @@
 </head>
 <body>
 
-<%@include file="include/header.html"%>
+<%@include file="../include/headerAdmin.html"%>
 <table>
     <h1>Новая роль</h1>
-    <form:form action="saveRole" method="post" modelAttribute="roleDTO">
+    <form:form action="/admin/saveRole" method="post" modelAttribute="roleDTO">
         <form:hidden path="id"/>
         <tr>
             <th>Имя роли</th>

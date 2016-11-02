@@ -5,18 +5,18 @@
 
 <html>
 <head>
-    <title>ййй</title>
+    <title>Новый пользователь</title>
     <style>
         <%@include file="/WEB-INF/views/css/main.css" %>
     </style>
 </head>
 <body>
 
-<%@include file="include/header.html"%>
+<%@include file="../include/headerAdmin.html"%>
 
 <table>
     <h1>Новый пользователь</h1>
-    <form:form action="saveUser" method="post" modelAttribute="userDTO">
+    <form:form action="/admin/saveUser" method="post" modelAttribute="userDTO">
         <form:hidden path="id"/>
         <tr>
             <th>Имя пользователя</th>
