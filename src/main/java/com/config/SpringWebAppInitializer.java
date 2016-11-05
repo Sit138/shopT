@@ -4,6 +4,7 @@ package com.config;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.*;
@@ -27,6 +28,5 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
         characterEncodingFilter.setForceEncoding(true);
         FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
-
     }
 }

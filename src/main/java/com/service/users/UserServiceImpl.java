@@ -28,8 +28,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void saveOrUpdate(UserDTO userDTO){
+        User user;
+        if(getUserDTOById(userDTO.getId()) == null){
+            user = new User();
+        } else {
+            user = userDAO.getUserById(userDTO.getId());
+        }
+
         Role role = roleDAO.getRoleByName(userDTO.getNameRole());
-        User user = new User();
         user.setUserName(userDTO.getUserName());
         user.setPassword(userDTO.getPassword());
         user.setEnabled(userDTO.isEnabled());
@@ -40,6 +46,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getUserDTOList() {
         return userDAO.getUserDTOList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(int id) {
+        userDAO.deleteUser(id);
+    }
+
+    @Override
+    public UserDTO getUserDTOById(int id) {
+        return userDAO.getUserDTOById(id);
     }
 
 }

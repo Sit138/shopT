@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -43,6 +44,13 @@ public class RoleController {
         Role role = new Role();
         role.setNameRole(roleDTO.getNameRole());
         roleService.saveOrUpdate(role);
+        return "redirect:/admin/roles";
+    }
+
+    @RequestMapping(value = "/admin/deleteRole", method = RequestMethod.GET)
+    public String deleteRole(HttpServletRequest request, Model model){
+        int roleId = Integer.parseInt(request.getParameter("id"));
+        roleService.deleteRole(roleId);
         return "redirect:/admin/roles";
     }
 

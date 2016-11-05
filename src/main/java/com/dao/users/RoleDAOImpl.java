@@ -55,4 +55,12 @@ public class RoleDAOImpl implements RoleDAO {
                 .setParameter("nameRole", role)
                 .uniqueResult();
     }
+
+    @Override
+    public void deleteRole(int id) {
+        getCurrentSession()
+                .createSQLQuery("DELETE FROM role WHERE id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

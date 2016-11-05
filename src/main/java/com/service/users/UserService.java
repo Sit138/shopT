@@ -13,4 +13,7 @@ public interface UserService {
 
     List<UserDTO> getUserDTOList();
 
+    void deleteUser(int id);
+
+    UserDTO getUserDTOById(int id);
 }

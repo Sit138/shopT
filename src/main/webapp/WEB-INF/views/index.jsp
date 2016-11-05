@@ -14,7 +14,7 @@
     <h1>Админ</h1>
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_MANAGER')">
+<sec:authorize access="hasRole('ROLE_USER')">
     <%@include file="include/header.html"%>
     <h1>Менеджер</h1>
 </sec:authorize>

@@ -32,9 +32,7 @@
                 </c:otherwise>
                 </c:choose>
                 <td>
-                    <a href="/editUser?id=${user.id}">Изменить</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/deleteUser?id=${user.id}">Удалить</a>
+                    <a href="/admin/deleteUser?id=${user.id}">Удалить</a>
                 </td>
             </tr>
         </c:forEach>

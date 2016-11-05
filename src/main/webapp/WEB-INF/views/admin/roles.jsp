@@ -14,11 +14,22 @@
         <tr>
             <th>№</th>
             <th>Имя роли</th>
+            <th>Действие</th>
         </tr>
         <c:forEach var="roleDTO" items="${roleDTOList}" varStatus="status">
             <tr>
                 <td>${status.index + 1}</td>
                 <td>${roleDTO.nameRole}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${roleDTO.nameRole == 'ROLE_ADMIN'}">
+                            --
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/admin/deleteRole?id=${roleDTO.id}">Удалить</a>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
     </table>

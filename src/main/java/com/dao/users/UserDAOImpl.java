@@ -55,4 +55,41 @@ public class UserDAOImpl implements UserDAO {
                 .setResultTransformer(Transformers.aliasToBean(UserDTO.class))
                 .list();
     }
+
+    @Override
+    public void deleteUser(int id) {
+        getCurrentSession()
+                .createSQLQuery("DELETE FROM user_account WHERE id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+
+    @Override
+    public UserDTO getUserDTOById(int id) {
+        return (UserDTO) getCurrentSession()
+                .createSQLQuery("SELECT u.id AS id, " +
+                                    "u.username AS userName, " +
+                                    "u.password AS password, " +
+                                    "r.name_role AS nameRole, " +
+                                    "u.enabled AS enabled " +
+                                "FROM user_account u " +
+                                "LEFT OUTER JOIN role r ON r.id = u.role_id " +
+                                "WHERE u.id = :id")
+                .addScalar("id", IntegerType.INSTANCE)
+                .addScalar("userName", StringType.INSTANCE)
+                .addScalar("password", StringType.INSTANCE)
+                .addScalar("nameRole", StringType.INSTANCE)
+                .addScalar("enabled", BooleanType.INSTANCE)
+                .setParameter("id", id)
+                .setResultTransformer(Transformers.aliasToBean(UserDTO.class))
+                .uniqueResult();
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return (User) getCurrentSession()
+                .createQuery("from User u where id = :id")
+                .setParameter("id", id)
+                .uniqueResult();
+    }
 }

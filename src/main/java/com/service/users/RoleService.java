@@ -11,4 +11,6 @@ public interface RoleService {
 
     List<RoleDTO> getListRoles();
 
+    void deleteRole(int id);
+
 }

@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <th>Пароль</th>
-            <td><form:input path="password"/></td>
+            <td><form:password path="password"/></td>
             <td><form:errors path="password" cssClass="error"></form:errors> </td>
         </tr>
         <tr>

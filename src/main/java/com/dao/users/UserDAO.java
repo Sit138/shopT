@@ -11,4 +11,10 @@ public interface UserDAO {
 
     List<UserDTO> getUserDTOList();
 
+    void deleteUser(int id);
+
+    UserDTO getUserDTOById(int id);
+
+    User getUserById(int id);
+
 }

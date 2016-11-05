@@ -49,7 +49,7 @@ public class ApplicationContextConfig {
     public DataSource getDataSource(){
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/testdb");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/testdb?useUnicode=true&characterEncoding=utf8");
         dataSource.setUsername("user");
         dataSource.setPassword("123");
         return dataSource;
