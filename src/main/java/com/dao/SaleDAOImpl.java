@@ -87,6 +87,7 @@ public class SaleDAOImpl implements SaleDAO {
     }
 
 
+    // TODO: Kirill the?
     @Override
     public int numberItemsTheSaleRangeReport(Date fromDate, Date toDate) {
         return (Integer) getCurrentSession()

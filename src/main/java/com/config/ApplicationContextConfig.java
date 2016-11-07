@@ -9,6 +9,7 @@ import com.dao.users.UserDAOImpl;
 import com.scheduler.MyTask;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -58,6 +59,7 @@ public class ApplicationContextConfig {
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
+        // TODO: Kirill все таки тут не пэкэдж указывается?
         sessionFactoryBuilder.scanPackages("com/model/");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
@@ -69,8 +71,13 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
 
+    // TODO: Kirill та-даааааам!
+    @Autowired
+    SessionFactory sessionFactory;
+
+    // TODO: Kirill ну и так далее
     @Bean(name = "productDAO")
-    public ProductDAO getProductDAO(SessionFactory sessionFactory){
+    public ProductDAO getProductDAO(){
         return new ProductDAOImpl(sessionFactory);
     }
 
@@ -97,6 +104,7 @@ public class ApplicationContextConfig {
     private Properties getHibernateProperties(){
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
+        // TODO: Kirill и format_sql еще полезно может быть
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;

@@ -29,6 +29,7 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Discount> discounts = new HashSet<Discount>();
 
+    // TODO: Kirill чудна'я связь какая-то. У продукта список его продаж... ок, а как тогда мне сделать покупку двух разных товаров? за один раз
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Sale> sales = new HashSet<Sale>();
 

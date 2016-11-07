@@ -31,6 +31,7 @@ public class FilterStatisticSale extends PaginationBuilder {
     }
 
     private Date getDefaultDateFrom(){
+        // TODO: Kirill Calendar from  = GregorianCalendar.getInstance();
         Calendar from = new GregorianCalendar();
         from.add(Calendar.DAY_OF_WEEK, -7);
         return from.getTime();

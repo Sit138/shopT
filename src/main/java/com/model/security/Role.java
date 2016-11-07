@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO: Kirill если используешь название сущности в hql лучше его явно указать здесь
 @Entity
 @Table(name = "role")
 public class Role {
@@ -15,6 +16,7 @@ public class Role {
     @Column(name = "name_role")
     private String nameRole;
 
+    // TODO: Kirill странный мапинг коллекции, странный каскад  
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 

@@ -51,6 +51,7 @@ public class SaleProductInRangeDetailed {
         this.saleAmount = saleAmount;
     }
 
+    // TODO: Kirill нее...
     public String getSaleDateStringFormat(){
         Timestamp date = getSaleDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy HH:mm");
