@@ -11,6 +11,7 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // TODO: Kirill discount и так далее и так далее 
     @Column(name = "discount_value")
     private double value;
 
@@ -22,6 +23,7 @@ public class Discount {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
+    // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление 
     @Column(name = "add_type")
     private int addType;//1 - auto, 2 - manual
 

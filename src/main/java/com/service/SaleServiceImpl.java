@@ -40,6 +40,7 @@ public class SaleServiceImpl implements SaleService {
         return saleDAO.getFinalStatisticSaleForPeriod(from, to);
     }
 
+    // TODO: Kirill что это название вообще значит?
     @Override
     public int numberItemsTheSaleRangeReport(Date from, Date to) {
         return saleDAO.numberItemsTheSaleRangeReport(from, to);

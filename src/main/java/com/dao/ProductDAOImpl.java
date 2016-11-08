@@ -34,6 +34,7 @@ public class ProductDAOImpl implements ProductDAO{
     public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
 
         List<ProductDTO> productList = getCurrentSession()
+                // TODO: Kirill \n, имхо, делает хуже
                 .createQuery("select p.id as id, p.name as name, p.price as price\n" +
                              "from Product p order by id asc")
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
@@ -60,6 +61,7 @@ public class ProductDAOImpl implements ProductDAO{
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .uniqueResult();
 
+        // TODO: Kirill бред же?
         if (productDto != null){
             return productDto;
         } else {

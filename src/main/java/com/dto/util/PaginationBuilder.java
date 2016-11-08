@@ -2,6 +2,7 @@ package com.dto.util;
 
 import java.util.Date;
 
+// TODO: Kirill а что оно билдит то?
 public class PaginationBuilder {
 
     private int numberRowsOnPage;

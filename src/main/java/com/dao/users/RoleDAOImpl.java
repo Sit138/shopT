@@ -21,10 +21,12 @@ public class RoleDAOImpl implements RoleDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    // TODO: Kirill это для кого?
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    // TODO: Kirill и это?
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -41,6 +43,7 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public List<RoleDTO> getListRoles() {
         return getCurrentSession()
+                // TODO: Kirill не надо писать скл когда можно легко использовать hql или criteria
                 .createSQLQuery("SELECT r.id AS id, r.name_role AS nameRole FROM role r")
                 .addScalar("id", IntegerType.INSTANCE)
                 .addScalar("nameRole", StringType.INSTANCE)

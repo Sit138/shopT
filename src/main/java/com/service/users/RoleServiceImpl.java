@@ -34,6 +34,7 @@ public class RoleServiceImpl implements RoleService{
     public void deleteRole(int id) {
         try {
             roleDAO.deleteRole(id);
+            // TODO: Kirill а происходит он почему?
         } catch (ConstraintViolationException e){
             return;
         }

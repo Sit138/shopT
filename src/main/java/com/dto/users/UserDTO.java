@@ -6,6 +6,7 @@ public class UserDTO {
 
     private int id;
 
+    // TODO: Kirill отражение этих ограниченией в базе есть?
     @Size(min = 3, max = 15, message = "Поле \"Имя пользователя\" должно содержать от 3 до 15 знаков")
     private String userName;
 

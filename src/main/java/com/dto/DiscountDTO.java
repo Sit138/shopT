@@ -3,6 +3,7 @@ package com.dto;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+// TODO: Kirill https://projectlombok.org/ 
 public class DiscountDTO {
 
     private double value;

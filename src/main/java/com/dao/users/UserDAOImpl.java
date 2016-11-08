@@ -11,6 +11,8 @@ import org.hibernate.type.StringType;
 
 import java.util.List;
 
+// TODO: Kirill всегда можно попробовать ради тренировки одни и тежи запросы сделать в разных видах реализации
+// мало того что потренируешься, так еще и будет понятно со временем что где гармоничнее смотрится и больше подходит
 public class UserDAOImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
@@ -86,8 +88,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserById(int id) {
-        return (User) getCurrentSession()
+    public User getUserById(int id) {// TODO: Kirill а что не так?
+        return (User) getCurrentSession()//.get(User.class, id)
                 .createQuery("from User u where id = :id")
                 .setParameter("id", id)
                 .uniqueResult();

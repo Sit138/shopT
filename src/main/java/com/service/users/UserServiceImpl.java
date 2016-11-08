@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void saveOrUpdate(UserDTO userDTO){
         User user;
+        // TODO: Kirill зачем это все? сразу почему бы не поискать юзера нужного?
         if(getUserDTOById(userDTO.getId()) == null){
             user = new User();
         } else {
@@ -54,6 +55,7 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteUser(id);
     }
 
+    // TODO: Kirill похоже не нужен
     @Override
     public UserDTO getUserDTOById(int id) {
         return userDAO.getUserDTOById(id);

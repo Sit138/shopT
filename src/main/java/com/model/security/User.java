@@ -10,9 +10,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    // TODO: Kirill ну конечно юзер нейм
     @Column(name = "username")
     private String userName;
 
+    // TODO: Kirill а это тогда юзер пассворд
     @Column(name = "password")
     private String password;
 
