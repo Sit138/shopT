@@ -21,15 +21,8 @@ public class RoleDAOImpl implements RoleDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    // TODO: Kirill это для кого?
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    // TODO: Kirill и это?
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    // TODO: Kirill это для кого? ++
+    // TODO: Kirill и это? ++
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();

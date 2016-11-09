@@ -59,8 +59,8 @@ public class ApplicationContextConfig {
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
-        // TODO: Kirill все таки тут не пэкэдж указывается?
-        sessionFactoryBuilder.scanPackages("com/model/");
+        // TODO: Kirill все таки тут не пэкэдж указывается? ++
+        sessionFactoryBuilder.scanPackages("com.model");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
     }
@@ -71,33 +71,33 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
 
-    // TODO: Kirill та-даааааам!
+    // TODO: Kirill та-даааааам! ++
     @Autowired
     SessionFactory sessionFactory;
 
-    // TODO: Kirill ну и так далее
+    // TODO: Kirill ну и так далее ++
     @Bean(name = "productDAO")
     public ProductDAO getProductDAO(){
         return new ProductDAOImpl(sessionFactory);
     }
 
     @Bean(name = "saleDAO")
-    public SaleDAO getSaleDAO(SessionFactory sessionFactory){
+    public SaleDAO getSaleDAO(){
         return new SaleDAOImpl(sessionFactory);
     }
 
     @Bean(name = "discountDAO")
-    public DiscountDAO getDiscountDAO(SessionFactory sessionFactory){
+    public DiscountDAO getDiscountDAO(){
         return new DiscountDAOImpl(sessionFactory);
     }
 
     @Bean(name = "roleDAO")
-    public RoleDAO getRoleDAO(SessionFactory sessionFactory){
+    public RoleDAO getRoleDAO(){
         return new RoleDAOImpl(sessionFactory);
     }
 
     @Bean(name = "userDAO")
-    public UserDAO getUserDAO(SessionFactory sessionFactory){
+    public UserDAO getUserDAO(){
         return new UserDAOImpl(sessionFactory);
     }
 

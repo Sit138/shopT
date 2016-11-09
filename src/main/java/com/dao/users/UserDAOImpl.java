@@ -21,14 +21,6 @@ public class UserDAOImpl implements UserDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }

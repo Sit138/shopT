@@ -34,8 +34,8 @@ public class ProductDAOImpl implements ProductDAO{
     public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
 
         List<ProductDTO> productList = getCurrentSession()
-                // TODO: Kirill \n, имхо, делает хуже
-                .createQuery("select p.id as id, p.name as name, p.price as price\n" +
+                // TODO: Kirill \n, имхо, делает хуже ++
+                .createQuery("select p.id as id, p.name as name, p.price as price " +
                              "from Product p order by id asc")
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
@@ -54,7 +54,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public ProductDTO getProductDTOById(int id) {
-        String hql = "select p.id as id, p.name as name, p.price as price\n" +
+        String hql = "select p.id as id, p.name as name, p.price as price " +
                      "from Product p where id=" + id;
         ProductDTO productDto = (ProductDTO) getCurrentSession()
                 .createQuery(hql)
@@ -99,7 +99,7 @@ public class ProductDAOImpl implements ProductDAO{
     @Override
     public ProductDTO getLastProduct() {
         ProductDTO lastProduct = (ProductDTO) getCurrentSession()
-                .createQuery("select p.id as id, p.name as name, p.price as price\n" +
+                .createQuery("select p.id as id, p.name as name, p.price as price " +
                         "from Product p where id = (select max(id) from p)")
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .uniqueResult();
