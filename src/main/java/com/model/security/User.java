@@ -1,5 +1,8 @@
 package com.model.security;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,56 +11,34 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private int id;
 
     // TODO: Kirill ну конечно юзер нейм
     @Column(name = "username")
+    @Getter
+    @Setter
     private String userName;
 
     // TODO: Kirill а это тогда юзер пассворд
     @Column(name = "password")
+    @Getter
+    @Setter
     private String password;
 
     @Column(name = "enabled")
+    @Getter
+    @Setter
     private boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
+    @Getter
+    @Setter
     private Role role;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public boolean isEnabled() {
         return enabled;
     }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }
+

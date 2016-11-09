@@ -1,5 +1,8 @@
 package com.model.security;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,33 +14,19 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Getter @Setter private int id;
 
     @Column(name = "name_role")
+    @Getter @Setter
     private String nameRole;
 
     // TODO: Kirill странный мапинг коллекции, странный каскад  
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
+    @Getter @Setter
     private Set<User> users = new HashSet<User>();
-
-    public String getNameRole() {
-        return nameRole;
-    }
-
-    public void setNameRole(String nameRole) {
-        this.nameRole = nameRole;
-    }
-
-    public int getId() {
-        return id;
-    }
 
     public Set<User> getUsers() {
         return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public void addUser(User user){

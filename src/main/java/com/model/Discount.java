@@ -1,5 +1,9 @@
 package com.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,79 +13,42 @@ public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private int id;
 
     // TODO: Kirill discount и так далее и так далее 
     @Column(name = "discount_value")
+    @Getter @Setter
     private double value;
 
     @Column(name = "discount_start_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @Getter @Setter
     private Date startDate;
 
     @Column(name = "discount_end_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @Getter @Setter
     private Date endDate;
 
     // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление 
     @Column(name = "add_type")
+    @Getter @Setter
     private int addType;//1 - auto, 2 - manual
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @Getter @Setter
     private Product product;
 
-    public Discount(){
+    public Discount() {
     }
 
-    public Discount(double value, Date startDate, int addType){
+    public Discount(double value, Date startDate, int addType) {
         this.value = value;
         this.startDate = startDate;
         this.endDate = null;
         this.addType = addType;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public double getDiscountValue() {
-        return value;
-    }
-
-    public void setDiscountValue(double discount_value) {
-        this.value = discount_value;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date discount_date) {
-        this.startDate = discount_date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getAddType() {
-        return addType;
-    }
-
-    public void setAddType(int addType) {
-        this.addType = addType;
-    }
 }

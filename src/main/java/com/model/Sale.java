@@ -1,5 +1,8 @@
 package com.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,24 +13,29 @@ public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private int id;
 
     @Column(name = "sale_amount")
+    @Getter @Setter
     private BigDecimal amount;
 
     @Column(name = "price_product")
+    @Getter @Setter
     private BigDecimal priceProduct;
 
     @Column(name = "spread_price_amount")
-    private BigDecimal spreadPriceAmount;//разница между реальной суммой продукта и суммой продажи продукта (возможно со скидкой)
+    @Getter @Setter
+    private BigDecimal spreadPriceAmount;
 
     @Column(name = "sale_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @Getter @Setter
     private Date date;
-
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @Getter @Setter
     private Product product;
 
     public Sale(){
@@ -40,47 +48,4 @@ public class Sale {
         this.date = date;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public BigDecimal getPriceProduct() {
-        return priceProduct;
-    }
-
-    public void setPriceProduct(BigDecimal priceProduct) {
-        this.priceProduct = priceProduct;
-    }
-
-    public BigDecimal getSpreadPriceAmount() {
-        return spreadPriceAmount;
-    }
-
-    public void setSpreadPriceAmount(BigDecimal spreadPriceAmount) {
-        this.spreadPriceAmount = spreadPriceAmount;
-    }
 }

@@ -1,73 +1,28 @@
 package com.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class StatisticOnSaleDTO {
 
+    @Getter @Setter
     private String productName;
+    @Getter @Setter
     private Timestamp salePeriod;
+    @Getter @Setter
     private Long countSaleProduct;
+    @Getter @Setter
     private BigDecimal sumSaleProduct;
+    @Getter @Setter
     private BigDecimal averageCheck;
+    @Getter @Setter
     private Long countSaleProductWithDiscount;
+    @Getter @Setter
     private BigDecimal sumSpreadAmount;
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Timestamp getSalePeriod() {
-        return salePeriod;
-    }
-
-    public void setSalePeriod(Timestamp salePeriod) {
-        this.salePeriod = salePeriod;
-    }
-
-    public Long getCountSaleProduct() {
-        return countSaleProduct;
-    }
-
-    public void setCountSaleProduct(Long countSaleProduct) {
-        this.countSaleProduct = countSaleProduct;
-    }
-
-    public BigDecimal getSumSaleProduct() {
-        return sumSaleProduct;
-    }
-
-    public void setSumSaleProduct(BigDecimal sumSaleProduct) {
-        this.sumSaleProduct = sumSaleProduct;
-    }
-
-    public BigDecimal getAverageCheck() {
-        return averageCheck;
-    }
-
-    public void setAverageCheck(BigDecimal averageCheck) {
-        this.averageCheck = averageCheck;
-    }
-
-    public Long getCountSaleProductWithDiscount() {
-        return countSaleProductWithDiscount;
-    }
-
-    public void setCountSaleProductWithDiscount(Long countSaleProductWithDiscount) {
-        this.countSaleProductWithDiscount = countSaleProductWithDiscount;
-    }
-
-    public BigDecimal getSumSpreadAmount() {
-        return sumSpreadAmount;
-    }
-
-    public void setSumSpreadAmount(BigDecimal sumSpreadAmount) {
-        this.sumSpreadAmount = sumSpreadAmount;
-    }
 }
 
 

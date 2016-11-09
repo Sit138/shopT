@@ -1,5 +1,9 @@
 package com.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -18,40 +22,25 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private int id;
 
     @Column(name = "product_name")
+    @Getter @Setter
     private String name;
 
     @Column(name = "product_price")
+    @Getter @Setter
     private BigDecimal price;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    @Getter @Setter
     private Set<Discount> discounts = new HashSet<Discount>();
 
     // TODO: Kirill чудна'я связь какая-то. У продукта список его продаж... ок, а как тогда мне сделать покупку двух разных товаров? за один раз
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    @Getter @Setter
     private Set<Sale> sales = new HashSet<Sale>();
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public void addProductDiscont(Discount discount){
         discount.setProduct(this);
@@ -63,19 +52,4 @@ public class Product {
         getSales().add(sale);
     }
 
-    public Set<Discount> getDiscounts() {
-        return discounts;
-    }
-
-    public void setDiscounts(Set<Discount> discounts) {
-        this.discounts = discounts;
-    }
-
-    public Set<Sale> getSales() {
-        return sales;
-    }
-
-    public void setSales(Set<Sale> sales) {
-        this.sales = sales;
-    }
 }

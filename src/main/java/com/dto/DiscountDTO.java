@@ -1,72 +1,27 @@
 package com.dto;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-// TODO: Kirill https://projectlombok.org/ 
 public class DiscountDTO {
 
+    @Getter @Setter
     private double value;
+    @Getter @Setter
     private Timestamp startDate;
+    @Getter @Setter
     private Timestamp endDate;
+    @Getter @Setter
     private int productId;
+    @Getter @Setter
     private String productName;
+    @Getter @Setter
     private BigDecimal productPrice;
+    @Getter @Setter
     private int addType;
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getAddType() {
-        return addType;
-    }
-
-    public void setAddType(int addType) {
-        this.addType = addType;
-    }
 }
