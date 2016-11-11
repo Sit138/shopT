@@ -2,10 +2,15 @@ package com.dao;
 
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
+import com.model.DiscountType;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.*;
+
+import javax.persistence.*;
+import javax.persistence.EnumType;
 import java.util.Date;
 import java.util.List;
 
@@ -22,13 +27,13 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId) {
-        getCurrentSession().createSQLQuery(
-                "UPDATE discount SET discount_end_date = :endDateDiscount " +
-                        "WHERE discount_end_date IS NULL AND add_type = :addTypeDiscount AND product_id = :productId"
+    public void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId) {
+        getCurrentSession().createQuery(
+                "update Discount d set d.endDate = :endDateDiscount " +
+                        "where d.endDate is null and d.addType = :discountType and d.product.id = :productId"
         )
                 .setParameter("endDateDiscount", endDateDiscount)
-                .setParameter("addTypeDiscount", addTypeDiscount)
+                .setParameter("discountType", discountType)
                 .setParameter("productId", productId)
                 .executeUpdate();
     }
@@ -56,6 +61,19 @@ public class DiscountDAOImpl implements DiscountDAO {
     @Override
     public DiscountDTO getNowDiscountProduct() {
 
+        return (DiscountDTO) getCurrentSession()
+                .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
+                        "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
+                        "from Discount d left outer join d.product p on p.id=d.product.id " +
+                        "where d.endDate is null")
+                .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
+                .uniqueResult();
+
+    }
+
+    /*@Override
+    public DiscountDTO getNowDiscountProduct() {
+
         DiscountDTO discountProductNowDTO = (DiscountDTO) getCurrentSession()
                 .createSQLQuery("SELECT d.discount_value AS value, d.discount_start_date AS startDate, d.discount_end_date AS endDate, " +
                         "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice, d.add_type AS addType " +
@@ -67,12 +85,12 @@ public class DiscountDAOImpl implements DiscountDAO {
                 .addScalar("productId", IntegerType.INSTANCE)
                 .addScalar("productName", StringType.INSTANCE)
                 .addScalar("productPrice", BigDecimalType.INSTANCE)
-                .addScalar("addType", IntegerType.INSTANCE)
+                .addScalar("addType", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class)).uniqueResult();
         if (discountProductNowDTO != null){
             return discountProductNowDTO;
         }
         return null;
-    }
+    }*/
 
 }

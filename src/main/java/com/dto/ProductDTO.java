@@ -1,6 +1,6 @@
 package com.dto;
 
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;

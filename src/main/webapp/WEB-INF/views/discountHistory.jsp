@@ -23,6 +23,7 @@
             <th>Наименование</th>
             <th>Скидка</th>
             <th colspan="2">Период проведения</th>
+            <th>Вид скидки</th>
         </tr>
         <c:forEach var="productsDiscount" items="${productsDiscount}" varStatus="status">
                 <tr>
@@ -42,6 +43,7 @@
                             </td>
                         </c:otherwise>
                     </c:choose>
+                    <td>${productsDiscount.addType}</td>
                 </tr>
         </c:forEach>
     </table>

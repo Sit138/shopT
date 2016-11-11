@@ -2,6 +2,7 @@ package com.dao;
 
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
+import com.model.DiscountType;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ public interface DiscountDAO {
 
     DiscountDTO getNowDiscountProduct();
 
-    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
+    void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId);
 
     int numberItemsDiscountHistory();
 

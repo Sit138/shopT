@@ -14,7 +14,7 @@ public class MyTask {
     @Autowired
     private SaleService saleService;
 
-    @Scheduled(cron = "0 0 0/1 * * *")
+    @Scheduled(cron = "0 0/1 * * * *")
     public void insertDiscount(){
         discountService.insertProductDiscount();
     }

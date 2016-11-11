@@ -1,6 +1,5 @@
 package com.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,10 +30,11 @@ public class Discount {
     @Getter @Setter
     private Date endDate;
 
-    // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление 
+    // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление ++
     @Column(name = "add_type")
     @Getter @Setter
-    private int addType;//1 - auto, 2 - manual
+    @Enumerated(EnumType.STRING)
+    private DiscountType addType;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -44,11 +44,11 @@ public class Discount {
     public Discount() {
     }
 
-    public Discount(double value, Date startDate, int addType) {
+    public Discount(double value, Date startDate, DiscountType discountType) {
         this.value = value;
         this.startDate = startDate;
         this.endDate = null;
-        this.addType = addType;
+        this.addType = discountType;
     }
 
 }

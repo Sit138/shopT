@@ -3,6 +3,7 @@ package com.service.test;
 
 import com.dto.DiscountDTO;
 import com.model.Discount;
+import com.model.DiscountType;
 import com.model.Product;
 import com.model.Sale;
 import com.service.DiscountService;
@@ -49,7 +50,7 @@ public class GenerateTestDataService {
                 productService.saveOrUpdate(productSale);
             }
             calendar.add(Calendar.HOUR_OF_DAY, 1);
-            discountService.insertEndDateDiscount(1, calendar.getTime(), discountService.getNowDiscountProduct().getProductId());
+            discountService.insertEndDateDiscount(DiscountType.Auto, calendar.getTime(), discountService.getNowDiscountProduct().getProductId());
         }
     }
 
@@ -66,7 +67,7 @@ public class GenerateTestDataService {
     private void generateAndSaveDiscount(Calendar calendar){
         int min = 5; int max = 15;
         double valueDiscount = min + (Math.random() * (max - min) + 1);
-        Discount discount = new Discount(valueDiscount, calendar.getTime(), 1);
+        Discount discount = new Discount(valueDiscount, calendar.getTime(), DiscountType.Auto);
         Product productDiscount = productService.getRandomProduct();
         Hibernate.initialize(productDiscount.getDiscounts());
         productDiscount.addProductDiscont(discount);

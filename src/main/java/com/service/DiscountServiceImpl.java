@@ -5,6 +5,7 @@ import com.dao.ProductDAO;
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
 import com.model.Discount;
+import com.model.DiscountType;
 import com.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,34 +42,33 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     @Transactional
-    public void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId) {
-        discountDAO.insertEndDateDiscount(addTypeDiscount, endDateDiscount, productId);
+    public void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId) {
+        discountDAO.insertEndDateDiscount(discountType, endDateDiscount, productId);
     }
 
     @Override
     @Transactional
     public void insertProductDiscount() {
         Product productDiscount = productDAO.getRandomProduct();
-        Discount discount = createDiscount(productDiscount);
+        Discount discount = createDiscount();
         productDiscount.addProductDiscont(discount);
         productDAO.saveOrUpdate(productDiscount);
     }
 
-    private Discount createDiscount(Product productDiscount){
+    private Discount createDiscount(){
         if(getNowDiscountProduct() != null){
             removeAutoDiscountNow();
         }
         Date currentDate = new Date();
         int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
         double newDiscount = min + (Math.random() * (max - min) + 1);
-        Discount discount = new Discount(newDiscount, currentDate, 1);
+        Discount discount = new Discount(newDiscount, currentDate, DiscountType.Auto);
         return discount;
     }
 
     private void removeAutoDiscountNow(){
         Date currentDate = new Date();
-        int addType = 1;
         int productIdNowDiscount = getNowDiscountProduct().getProductId();
-        insertEndDateDiscount(addType, currentDate, productIdNowDiscount);
+        insertEndDateDiscount(DiscountType.Auto, currentDate, productIdNowDiscount);
     }
 }

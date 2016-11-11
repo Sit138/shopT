@@ -107,6 +107,7 @@ public class ApplicationContextConfig {
         // TODO: Kirill и format_sql еще полезно может быть
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.format_sql", "true");
         return properties;
     }
 

@@ -1,9 +1,11 @@
 package com.dto;
 
-import lombok.Data;
+import com.model.DiscountType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -22,6 +24,7 @@ public class DiscountDTO {
     @Getter @Setter
     private BigDecimal productPrice;
     @Getter @Setter
-    private int addType;
+    @Enumerated(EnumType.STRING)
+    private DiscountType addType;
 
 }

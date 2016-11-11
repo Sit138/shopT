@@ -2,6 +2,7 @@ package com.controller;
 
 import com.dto.ProductDTO;
 import com.dto.util.PaginationBuilder;
+import com.model.DiscountType;
 import com.model.Product;
 import com.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class ProductController {
 
     @RequestMapping(value = {"/", "/index"})
     public String index(){
+        System.out.println("TYPE = === > " + DiscountType.Auto.ordinal());
         return "index";
     }
 

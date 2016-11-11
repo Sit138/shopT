@@ -3,6 +3,7 @@ package com.service;
 
 import com.dto.DiscountDTO;
 import com.dto.util.PaginationBuilder;
+import com.model.DiscountType;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,6 @@ public interface DiscountService {
 
     int numberItemsDiscountHistory();
 
-    void insertEndDateDiscount(int addTypeDiscount, Date endDateDiscount, int productId);
+    void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId);
 
 }
