@@ -4,7 +4,7 @@
 <head>
     <title>Роли</title>
     <style>
-        <%@include file="/webapp/WEB-INF/views/css/main.css" %>
+        <%@include file="../css/main.css" %>
     </style>
 </head>
 <body>
