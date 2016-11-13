@@ -30,7 +30,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableScheduling
-@Import({ SecurityConfig.class })
+@Import({SecurityConfig.class})
 public class ApplicationContextConfig {
 
     @Bean

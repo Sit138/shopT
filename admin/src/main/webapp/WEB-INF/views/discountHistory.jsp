@@ -6,7 +6,7 @@
 <head>
     <title>Discount history</title>
     <style>
-        <%@include file="/WEB-INF/views/css/main.css" %>
+        <%@include file="css/main.css" %>
         <%@include file="css/pagination.css"%>
     </style>
 </head>

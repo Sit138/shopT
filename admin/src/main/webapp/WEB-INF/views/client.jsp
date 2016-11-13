@@ -1,30 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Shop</title>
+    <title>Клиентский магазин</title>
     <style>
-        <%@include file="/WEB-INF/views/css/main.css" %>
+        <%@include file="css/client.css" %>
         <%@include file="css/pagination.css"%>
     </style>
 </head>
 <body>
-    <%@include file="include/header.html"%>
-
-    <h1>Магазин</h1>
-    <h2>Список товаров</h2>
-
+    <h1>${client}</h1>
     <form:form modelAttribute="paginator" action="${url}" id="filterForm">
     <%@include file="include/paginationFilterHeader.html"%>
 
-    <c:if test="${info == 'errorDelete'}">
-        <script>
-            alert("Удаление невозможно!");
-        </script>
-    </c:if>
-
-    <table border="1px">
+    <table border="1px" class="table_price">
         <th>№</th>
         <th>Наименование</th>
         <th>Цена</th>
@@ -35,25 +26,27 @@
                 <td>
                     ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                 </td>
-                <td>
+                <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
                     ${product.name}
                 </td>
+
                 <td>
-                    ${product.price}
+                    <fmt:formatNumber value="${product.price}" type="currency" currencyCode="RUB"/>
                 </td>
                 <td>
-                    <a href="/edit?id=${product.id}">Изменить</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/delete?id=${product.id}">Удалить</a>
+                    <a href="/sale?id=${product.id}" class="c" onclick="alert('Товар приобретен!');">Купить</a>
                 </td>
             </tr>
         </c:forEach>
 
     </table>
+
+    <h2>Дисконт - ${discountNow.productName}</h2>
+
     <%@include file="include/paginationFilterFooter.html"%>
     </form:form>
 
-    <a href="/new">Добавить новый товар</a>
+<a href="/">Вернуться на главную</a>
 
 </body>
 </html>

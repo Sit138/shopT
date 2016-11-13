@@ -4,7 +4,7 @@
     <%@include file="../include/headerAdmin.html"%>
     <title>Генерация</title>
     <style>
-       <%@include file="/WEB-INF/views/css/main.css" %>
+       <%@include file="/webapp/WEB-INF/views/css/main.css" %>
     </style>
 </head>
 <body>
