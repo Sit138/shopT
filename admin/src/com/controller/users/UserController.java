@@ -1,9 +1,9 @@
 package com.controller.users;
 
-import com.dto.users.RoleDTO;
-import com.dto.users.UserDTO;
-import com.service.users.RoleService;
-import com.service.users.UserService;
+import dto.users.RoleDTO;
+import dto.users.UserDTO;
+import service.users.RoleService;
+import service.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

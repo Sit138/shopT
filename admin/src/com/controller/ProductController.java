@@ -1,10 +1,10 @@
 package com.controller;
 
-import com.dto.ProductDTO;
-import com.dto.util.PaginationBuilder;
-import com.model.DiscountType;
-import com.model.Product;
-import com.service.ProductService;
+import dto.ProductDTO;
+import dto.util.PaginationBuilder;
+import model.DiscountType;
+import model.Product;
+import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

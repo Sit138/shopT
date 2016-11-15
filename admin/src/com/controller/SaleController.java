@@ -1,10 +1,10 @@
 package com.controller;
 
-import com.dto.FinalStatisticSaleForPeriod;
-import com.dto.StatisticOnSaleDTO;
-import com.dto.util.FilterStatisticSale;
-import com.dto.util.PaginationBuilder;
-import com.service.SaleService;
+import dto.FinalStatisticSaleForPeriod;
+import dto.StatisticOnSaleDTO;
+import dto.util.FilterStatisticSale;
+import dto.util.PaginationBuilder;
+import service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;

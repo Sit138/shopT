@@ -1,7 +1,7 @@
 package com.scheduler;
 
-import com.service.DiscountService;
-import com.service.SaleService;
+import service.DiscountService;
+import service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 

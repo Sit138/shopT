@@ -1,11 +1,11 @@
 package com.config;
 
-import com.dao.*;
+import dao.*;
 
-import com.dao.users.RoleDAO;
-import com.dao.users.RoleDAOImpl;
-import com.dao.users.UserDAO;
-import com.dao.users.UserDAOImpl;
+import dao.users.RoleDAO;
+import dao.users.RoleDAOImpl;
+import dao.users.UserDAO;
+import dao.users.UserDAOImpl;
 import com.scheduler.MyTask;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
@@ -26,7 +26,7 @@ import java.util.Properties;
 
 
 @Configuration
-@ComponentScan("com")
+@ComponentScan({"dao", "service", "com.controller", "com.scheduler"})
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableScheduling
@@ -60,7 +60,7 @@ public class ApplicationContextConfig {
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
         // TODO: Kirill все таки тут не пэкэдж указывается? ++
-        sessionFactoryBuilder.scanPackages("com.model");
+        sessionFactoryBuilder.scanPackages("model", "com.scheduler");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
     }
