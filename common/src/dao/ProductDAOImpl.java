@@ -65,9 +65,10 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public Product getProduct(int id) {
-        String hql = "from Product p where id=" + id;
+        String hql = "from Product where id = :idProduct";
         Product product = (Product) getCurrentSession()
                 .createQuery(hql)
+                .setParameter("idProduct", id)
                 .uniqueResult();
 
         if (product != null){

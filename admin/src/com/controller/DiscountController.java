@@ -33,7 +33,7 @@ public class DiscountController {
         model.addAttribute("numberOfPages", numberOfPages);
         List<DiscountDTO> productsDiscount = discountService.selectHistoryProductDiscounts(paginationBuilder);
         model.addAttribute("productsDiscount", productsDiscount);
-        model.addAttribute("url", "/discountHistory");
+        model.addAttribute("url", "/admin/discountHistory");
         return "discountHistory";
     }
 

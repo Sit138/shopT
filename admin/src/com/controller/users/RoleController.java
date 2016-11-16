@@ -20,37 +20,37 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/admin/roles")
+    @RequestMapping(value = "/setting/roles")
     public String rolesPage(Model model){
         List<RoleDTO> roleDTOList = roleService.getListRoles();
         model.addAttribute("roleDTOList", roleDTOList);
-        return "admin/roles";
+        return "setting/roles";
     }
 
-    @RequestMapping(value = "/admin/newRole")
+    @RequestMapping(value = "/setting/newRole")
     public String newRole(Model model){
         RoleDTO roleDTO = new RoleDTO();
         model.addAttribute("roleDTO", roleDTO);
-        return "admin/roleForm";
+        return "setting/roleForm";
     }
 
-    @RequestMapping(value = "/admin/saveRole", method = RequestMethod.POST)
+    @RequestMapping(value = "/setting/saveRole", method = RequestMethod.POST)
     public String saveRole(@Valid @ModelAttribute RoleDTO roleDTO,
                            BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "admin/roleForm";
+            return "setting/roleForm";
         }
         Role role = new Role();
         role.setNameRole(roleDTO.getNameRole());
         roleService.saveOrUpdate(role);
-        return "redirect:/admin/roles";
+        return "redirect:/setting/roles";
     }
 
-    @RequestMapping(value = "/admin/deleteRole", method = RequestMethod.GET)
+    @RequestMapping(value = "/setting/deleteRole", method = RequestMethod.GET)
     public String deleteRole(HttpServletRequest request, Model model){
         int roleId = Integer.parseInt(request.getParameter("id"));
         roleService.deleteRole(roleId);
-        return "redirect:/admin/roles";
+        return "redirect:/setting/roles";
     }
 
 }

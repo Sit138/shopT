@@ -11,7 +11,7 @@ public class TestController {
     @Autowired
     private GenerateTestDataService generateTestDataService;
 
-    @RequestMapping(value = "/admin/test")
+    @RequestMapping(value = "/setting/test")
     public String generateTestData(){
         generateTestDataService.generateTestData();
         return "admin/test";

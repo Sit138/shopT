@@ -24,38 +24,38 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/admin/users")
+    @RequestMapping(value = "/setting/users")
     public String usersPage(Model model){
         model.addAttribute("userDTOList", userService.getUserDTOList());
-        return "admin/users";
+        return "setting/users";
     }
 
-    @RequestMapping(value = "/admin/newUser")
+    @RequestMapping(value = "/setting/newUser")
     public String newUser(Model model){
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
         List<RoleDTO> rolesList = roleService.getListRoles();
         model.addAttribute("roleList", rolesList);
-        return "admin/userForm";
+        return "setting/userForm";
     }
 
-    @RequestMapping(value = "/admin/saveUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/setting/saveUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute UserDTO userDTO,
                            BindingResult bindingResult,
                            Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("roleList", roleService.getListRoles());
-            return "admin/userForm";
+            return "setting/userForm";
         }
         userService.saveOrUpdate(userDTO);
-        return "redirect:/admin/users";
+        return "redirect:/setting/users";
     }
 
-    @RequestMapping(value = "/admin/deleteUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/setting/deleteUser", method = RequestMethod.GET)
     public String deleteUser(HttpServletRequest request, Model model){
         int userId = Integer.parseInt(request.getParameter("id"));
         userService.deleteUser(userId);
-        return "redirect:/admin/users";
+        return "redirect:/setting/users";
     }
 
 }

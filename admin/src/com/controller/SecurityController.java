@@ -14,11 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SecurityController {
 
-    @RequestMapping(value = "/admin")
-    public String adminPage(){
-        return "redirect:/home";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,

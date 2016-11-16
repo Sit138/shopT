@@ -52,7 +52,7 @@ public class SaleController {
                 saleService.getFinalStatisticSaleForPeriod(paginationBuilder.getFromDate(), paginationBuilder.getToDate());
         System.out.println("Диапазон = " + paginationBuilder.getFromDate() + " - " + paginationBuilder.getToDate());
         model.addAttribute("finalStatisticSaleForPeriod", finalStatisticSaleForPeriod);
-        model.addAttribute("url", "/statisticSale");
+        model.addAttribute("url", "/admin/statisticSale");
         return "statisticSale";
     }
 

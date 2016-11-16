@@ -16,7 +16,7 @@
 
 <table>
     <h1>Новый пользователь</h1>
-    <form:form action="/admin/saveUser" method="post" modelAttribute="userDTO">
+    <form:form action="saveUser" method="post" modelAttribute="userDTO">
         <form:hidden path="id"/>
         <tr>
             <th>Имя пользователя</th>

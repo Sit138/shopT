@@ -11,6 +11,7 @@
     <modules>
         <module>admin</module>
         <module>common</module>
+        <module>store</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,4 +1,4 @@
-package com.controller;
+package controller;
 
 import dto.ProductDTO;
 import dto.util.PaginationBuilder;
@@ -33,7 +33,7 @@ public class ClientController {
         return paginationBuilder;
     }
 
-    @RequestMapping(value = "/client")
+    @RequestMapping(value = {"/client", "/"})
     public String shopClient(Model model,
                              @ModelAttribute("paginator") PaginationBuilder paginationBuilder){
         model.addAttribute("client", "Магазин");
@@ -47,7 +47,7 @@ public class ClientController {
         } else {
             model.addAttribute("discountNow", null);
         }
-        model.addAttribute("url", "/client");
+        model.addAttribute("url", "/store/client");
         return "client";
     }
 

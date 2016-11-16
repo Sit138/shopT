@@ -32,11 +32,11 @@
                 </c:otherwise>
                 </c:choose>
                 <td>
-                    <a href="/admin/deleteUser?id=${user.id}">Удалить</a>
+                    <a href="/admin/setting/deleteUser?id=${user.id}">Удалить</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <a href="/admin/newUser">Добавить нового пользователя</a>
+    <a href="/admin/setting/newUser">Добавить нового пользователя</a>
 </body>
 </html>

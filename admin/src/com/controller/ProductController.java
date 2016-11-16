@@ -45,7 +45,7 @@ public class ProductController {
         model.addAttribute("numberOfPages", numberOfPages);
         List<ProductDTO> productList = productService.listProducts(paginationBuilder);
         model.addAttribute("productList", productList);
-        model.addAttribute("url", "/home");
+        model.addAttribute("url", "/admin/home");
         return "home";
     }
 

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 public class ProductDTO {
 
-    @Getter
+    @Getter @Setter
     private int id;
 
     @Size(min = 3, max = 15, message = "Поле \"Наименование\" продукта должно содержать от 3 до 15 знаков")
