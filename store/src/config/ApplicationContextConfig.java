@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -27,6 +28,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableScheduling
+@Import({ SecurityConfig.class })
 public class ApplicationContextConfig {
 
     @Bean(name = "viewResolver")
@@ -72,11 +74,6 @@ public class ApplicationContextConfig {
         return new ProductDAOImpl(sessionFactory);
     }
 
-    @Bean(name = "saleDAO")
-    public SaleDAO getSaleDAO(){
-        return new SaleDAOImpl(sessionFactory);
-    }
-
     @Bean(name = "discountDAO")
     public DiscountDAO getDiscountDAO(){
         return new DiscountDAOImpl(sessionFactory);
@@ -90,6 +87,16 @@ public class ApplicationContextConfig {
     @Bean(name = "userDAO")
     public UserDAO getUserDAO(){
         return new UserDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "buyerDAO")
+    public BuyerDAO getBuyerDAO(){
+        return new BuyerDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "saleDAO")
+    public SaleDAO getSaleDAO(){
+        return new SaleDAOImpl(sessionFactory);
     }
 
     private Properties getHibernateProperties(){

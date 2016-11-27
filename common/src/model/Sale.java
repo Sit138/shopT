@@ -1,50 +1,70 @@
 package model;
 
+
+import dto.Basket;
+import dto.BuyerDTO;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import model.enums.SaleState;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sale")
+@Getter @Setter
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
+    @Setter(AccessLevel.NONE)
     private int id;
 
-    @Column(name = "sale_amount")
-    @Getter @Setter
-    private BigDecimal amount;
-
-    @Column(name = "price_product")
-    @Getter @Setter
-    private BigDecimal priceProduct;
-
-    @Column(name = "spread_price_amount")
-    @Getter @Setter
-    private BigDecimal spreadPriceAmount;
-
-    @Column(name = "sale_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
+    @Column(name = "date")
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @Getter @Setter
-    private Product product;
+    @Column(name = "amount")
+    private int amount;
 
-    public Sale(){
+    @Column(name = "total_sum")
+    private BigDecimal totalSum;
+
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
+    private SaleState state;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sale_id")
+    @LazyCollection(LazyCollectionOption.TRUE)
+    private Set<SoldProduct> soldProducts = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
+
+    public Sale(){}
+
+    public Sale(Buyer buyer, Basket basket){
+        this.date = new Date();
+        this.amount = basket.getCountProducts();
+        this.totalSum = basket.getCost();
+        this.state = SaleState.SENT;
+        this.soldProducts = basket.getConversionToSoldProduct();
+        this.buyer = buyer;
     }
 
-    public Sale(BigDecimal amount, BigDecimal priceProduct, Date date){
-        this.amount = amount;
-        this.priceProduct = priceProduct;
-        this.spreadPriceAmount = priceProduct.subtract(amount);
-        this.date = date;
-    }
+    /*private void addSoldProductsInSale(Set<SoldProduct> soldProducts){
+        Hibernate.initialize(this.soldProducts);
+        for (SoldProduct product : soldProducts){
+            this.soldProducts.add(product);
+        }
+    }*/
 
 }

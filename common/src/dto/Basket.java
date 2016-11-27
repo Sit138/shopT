@@ -1,0 +1,83 @@
+package dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import model.SoldProduct;
+import java.math.BigDecimal;
+import java.util.*;
+
+@Getter @Setter
+public class Basket {
+
+    private List<SoldProductDTO> basketProducts = new ArrayList<>();
+
+    public Basket(){}
+
+    public Basket(List<SoldProductDTO> basketProducts){
+        this.basketProducts = basketProducts;
+    }
+
+    public void addProduct(ProductDTO productDTO, int amount, double discount){
+
+        if(isBasketProduct(productDTO)){
+            addToExistingProduct(productDTO, amount);
+        } else {
+            SoldProductDTO basketProduct = new SoldProductDTO(productDTO, amount, discount);
+            basketProducts.add(basketProduct);
+        }
+
+    }
+
+    public boolean isBasketProduct(ProductDTO product){
+        return basketProducts.stream()
+                .anyMatch( p -> p.getProductId() == product.getId());
+    }
+
+    public void addToExistingProduct(ProductDTO product, int amoount){
+        basketProducts.stream()
+                .filter( p -> p.getProductId() == product.getId())
+                .forEach( p -> p.setAmount(p.getAmount() + amoount));
+    }
+
+    public void deleteProduct(int id){
+        basketProducts.removeIf( p -> p.getProductId() == id);
+    }
+
+    public void deleteProduct(int id, int amount){
+        for (SoldProductDTO product : basketProducts){
+            if(product.getProductId() == id){
+                if(product.getAmount() == amount){
+                    deleteProduct(id);
+                    break;
+                } else {
+                    product.setAmount(product.getAmount() - amount);
+                    break;
+                }
+            }
+        }
+    }
+
+    public int getCountProducts(){
+        return basketProducts.stream()
+                .mapToInt(SoldProductDTO::getAmount).sum();
+    }
+
+    public BigDecimal getCost(){
+        BigDecimal totalSum = BigDecimal.valueOf(0.0);
+        for (SoldProductDTO prod : basketProducts) {
+            BigDecimal total = prod.getPriceWithDiscount().multiply(BigDecimal.valueOf(prod.getAmount()));
+            totalSum = totalSum.add(total);
+        }
+        return totalSum;
+    }
+
+    public Set<SoldProduct> getConversionToSoldProduct(){
+        Set<SoldProduct> soldProducts = new HashSet<>();
+        for(SoldProductDTO soldProductDTO : basketProducts){
+            SoldProduct soldProduct = new SoldProduct(soldProductDTO);
+            soldProducts.add(soldProduct);
+        }
+        return soldProducts;
+    }
+
+}

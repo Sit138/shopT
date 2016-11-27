@@ -1,8 +1,8 @@
 package dao;
 
 import dto.DiscountDTO;
-import dto.util.PaginationBuilder;
-import model.DiscountType;
+import util.PaginationBuilder;
+import model.enums.DiscountType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;

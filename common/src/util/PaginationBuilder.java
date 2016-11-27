@@ -1,6 +1,4 @@
-package dto.util;
-
-import java.util.Date;
+package util;
 
 // TODO: Kirill а что оно билдит то?
 public class PaginationBuilder {

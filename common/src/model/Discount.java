@@ -1,43 +1,42 @@
 package model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import model.enums.DiscountType;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "discount")
+@Getter @Setter
 public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
+    @Setter(AccessLevel.NONE)
     private int id;
 
     // TODO: Kirill discount и так далее и так далее 
     @Column(name = "discount_value")
-    @Getter @Setter
     private double value;
 
     @Column(name = "discount_start_date")
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
     private Date startDate;
 
     @Column(name = "discount_end_date")
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
     private Date endDate;
 
     // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление ++
     @Column(name = "add_type")
-    @Getter @Setter
     @Enumerated(EnumType.STRING)
     private DiscountType addType;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @Getter @Setter
     private Product product;
 
     public Discount() {

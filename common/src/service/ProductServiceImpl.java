@@ -3,7 +3,7 @@ package service;
 import dao.DiscountDAO;
 import dao.ProductDAO;
 import dto.ProductDTO;
-import dto.util.PaginationBuilder;
+import util.PaginationBuilder;
 import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

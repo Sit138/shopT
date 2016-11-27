@@ -1,18 +1,18 @@
 package dao;
 
-import dto.FinalStatisticSaleForPeriod;
-import dto.StatisticOnSaleDTO;
-import dto.util.FilterStatisticSale;
-import java.util.Date;
+
+import dto.SaleDTO;
+import dto.SoldProductDTO;
+import model.Sale;
+
 import java.util.List;
 
 public interface SaleDAO {
 
-    List<StatisticOnSaleDTO> getStatisticOnSale(FilterStatisticSale paginationBuilder);
+    void save(Sale sale);
 
-    FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod(Date from, Date to);
+    List<SaleDTO> getByBuyerId(int buyerId);
 
-    int numberItemsTheSaleRangeReport(Date from, Date to);
+    List<SoldProductDTO> getOrderInfo(int saleId);
 
-    void aggregateSalesOfProductInTheLastHour();//scheduler method
 }

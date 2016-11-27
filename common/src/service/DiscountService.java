@@ -1,8 +1,8 @@
 package service;
 
 import dto.DiscountDTO;
-import dto.util.PaginationBuilder;
-import model.DiscountType;
+import util.PaginationBuilder;
+import model.enums.DiscountType;
 import java.util.Date;
 import java.util.List;
 

@@ -10,17 +10,17 @@ public class MyTask {
     @Autowired
     private DiscountService discountService;
 
-    @Autowired
-    private SaleService saleService;
+/*    @Autowired
+    private SaleService saleService;*/
 
-    @Scheduled(cron = "0 0/1 * * * *")
+    @Scheduled(cron = "0 0 0/1 * * *")
     public void insertDiscount(){
         discountService.insertProductDiscount();
     }
 
-    @Scheduled(cron = "0 0 0/1 * * *")
+    /*@Scheduled(cron = "0 0 0/1 * * *")
     public void aggregateSales(){
         saleService.aggregateSalesOfProductInTheLastHour();
-    }
+    }*/
 
 }

@@ -1,7 +1,7 @@
 package dao;
 
 import dto.ProductDTO;
-import dto.util.PaginationBuilder;
+import util.PaginationBuilder;
 import model.Product;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -48,19 +48,11 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public ProductDTO getProductDTOById(int id) {
-        String hql = "select p.id as id, p.name as name, p.price as price " +
-                     "from Product p where id=" + id;
-        ProductDTO productDto = (ProductDTO) getCurrentSession()
-                .createQuery(hql)
+        return (ProductDTO) getCurrentSession()
+                .createQuery("select p.id as id, p.name as name, p.price as price " +
+                        "from Product p where id=" + id)
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .uniqueResult();
-
-        // TODO: Kirill бред же?
-        if (productDto != null){
-            return productDto;
-        } else {
-            return null;
-        }
     }
 
     @Override
@@ -72,7 +64,6 @@ public class ProductDAOImpl implements ProductDAO{
                 .uniqueResult();
 
         if (product != null){
-            Hibernate.initialize(product.getSales());
             Hibernate.initialize(product.getDiscounts());
             return product;
         } else {
@@ -93,15 +84,11 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public ProductDTO getLastProduct() {
-        ProductDTO lastProduct = (ProductDTO) getCurrentSession()
+        return  (ProductDTO) getCurrentSession()
                 .createQuery("select p.id as id, p.name as name, p.price as price " +
                         "from Product p where id = (select max(id) from p)")
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .uniqueResult();
-        if (lastProduct != null){
-            return lastProduct;
-        }
-        return null;
     }
 
     @Override

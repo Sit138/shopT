@@ -1,4 +1,4 @@
-package dto.util;
+package util;
 
 import java.util.Calendar;
 import java.util.Date;

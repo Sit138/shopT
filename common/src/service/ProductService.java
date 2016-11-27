@@ -1,7 +1,7 @@
 package service;
 
 import dto.ProductDTO;
-import dto.util.PaginationBuilder;
+import util.PaginationBuilder;
 import model.Product;
 import java.util.List;
 

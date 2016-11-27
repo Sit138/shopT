@@ -1,0 +1,22 @@
+#container {
+    background: #FFFFFF;
+    width: 900px;
+    height: 1000px;
+}
+#menu {
+    background: aliceblue;
+    float: left;
+    width: 180px;
+    height: 600px;
+}
+#content {
+    float: right;
+    width: 700px;
+    height: 600px;
+}
+#cell {
+    border-bottom: solid #333333;
+}
+table{
+    border-collapse: collapse;
+}

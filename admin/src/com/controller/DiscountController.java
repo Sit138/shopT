@@ -1,7 +1,7 @@
 package com.controller;
 
 import dto.DiscountDTO;
-import dto.util.PaginationBuilder;
+import util.PaginationBuilder;
 import service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

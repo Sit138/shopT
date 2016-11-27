@@ -1,21 +1,17 @@
 package service;
 
-import dto.FinalStatisticSaleForPeriod;
-import dto.StatisticOnSaleDTO;
-import dto.util.FilterStatisticSale;
-import java.util.Date;
+import dto.SaleDTO;
+import dto.SoldProductDTO;
+import model.Sale;
+
 import java.util.List;
 
 public interface SaleService {
 
-    List<StatisticOnSaleDTO> getStatisticOnSale(FilterStatisticSale paginationBuilder);
+    void save(Sale sale);
 
-    FinalStatisticSaleForPeriod getFinalStatisticSaleForPeriod(Date from, Date to);
+    List<SaleDTO> getByBuyerId(int buyerId);
 
-    int numberItemsTheSaleRangeReport(Date from, Date to);
-
-    void aggregateSalesOfProductInTheLastHour();
-
-    void insertProductSale(int id);
+    List<SoldProductDTO> getOrderInfo(int saleId);
 }
 

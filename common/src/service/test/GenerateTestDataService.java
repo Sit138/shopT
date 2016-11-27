@@ -2,7 +2,7 @@ package service.test;
 
 import dto.DiscountDTO;
 import model.Discount;
-import model.DiscountType;
+import model.enums.DiscountType;
 import model.Product;
 import model.Sale;
 import service.DiscountService;
@@ -42,9 +42,8 @@ public class GenerateTestDataService {
                     double valueDiscount = discountProduct.getValue() / 100;
                     saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
                 }
-                Sale sale = new Sale(saleAmount, productSale.getPrice(), calendar.getTime());
-                Hibernate.initialize(productSale.getSales());
-                productSale.addProductSale(sale);
+                //Sale sale = new Sale(saleAmount, productSale.getPrice(), calendar.getTime());
+                //productSale.addProductSale(sale);
                 productService.saveOrUpdate(productSale);
             }
             calendar.add(Calendar.HOUR_OF_DAY, 1);
