@@ -17,7 +17,7 @@ public class Basket {
         this.basketProducts = basketProducts;
     }
 
-    public void addProduct(ProductDTO productDTO, int amount, double discount){
+    public void addProduct(ProductDTO productDTO, int amount, byte discount){
 
         if(isBasketProduct(productDTO)){
             addToExistingProduct(productDTO, amount);
@@ -63,7 +63,7 @@ public class Basket {
     }
 
     public BigDecimal getCost(){
-        BigDecimal totalSum = BigDecimal.valueOf(0.0);
+        BigDecimal totalSum = BigDecimal.ZERO;
         for (SoldProductDTO prod : basketProducts) {
             BigDecimal total = prod.getPriceWithDiscount().multiply(BigDecimal.valueOf(prod.getAmount()));
             totalSum = totalSum.add(total);
@@ -78,6 +78,10 @@ public class Basket {
             soldProducts.add(soldProduct);
         }
         return soldProducts;
+    }
+
+    public void clear(){
+        basketProducts.clear();
     }
 
 }

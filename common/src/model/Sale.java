@@ -60,11 +60,4 @@ public class Sale {
         this.buyer = buyer;
     }
 
-    /*private void addSoldProductsInSale(Set<SoldProduct> soldProducts){
-        Hibernate.initialize(this.soldProducts);
-        for (SoldProduct product : soldProducts){
-            this.soldProducts.add(product);
-        }
-    }*/
-
 }

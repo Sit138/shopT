@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 @Getter @Setter
 public class SoldProductDTO {
@@ -14,13 +15,13 @@ public class SoldProductDTO {
 
     private BigDecimal price;
 
-    private double discount;
+    private byte discount;
 
     private int productId;
 
     public SoldProductDTO(){}
 
-    public SoldProductDTO(ProductDTO productDTO, int amount, double discount){
+    public SoldProductDTO(ProductDTO productDTO, int amount, byte discount){
         this.productId = productDTO.getId();
         this.name = productDTO.getName();
         this.price = productDTO.getPrice();
@@ -29,11 +30,12 @@ public class SoldProductDTO {
     }
 
     public BigDecimal getPriceWithDiscount(){
-        return new BigDecimal(this.getPrice().subtract(getDiscountMoney()).toString());
+        return (new BigDecimal(this.getPrice().subtract(getDiscountMoney()).toString()))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public BigDecimal getDiscountMoney(){
-        BigDecimal disc = new BigDecimal(this.getDiscount() * 0.01);
+        BigDecimal disc = (new BigDecimal((this.getDiscount() * 0.01))).setScale(2, BigDecimal.ROUND_HALF_UP);
         return this.getPrice().multiply(disc);
     }
 

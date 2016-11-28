@@ -30,7 +30,7 @@ public class SaleDAOImpl implements SaleDAO {
 
     @Override
     public List<SaleDTO> getByBuyerId(int buyerId) {
-        return (List<SaleDTO>) getCurrentSession().createQuery("select s.id as id, s.date as date, " +
+        return  getCurrentSession().createQuery("select s.id as id, s.date as date, " +
                 "s.amount as amount, s.totalSum as totalSum, s.state as state " +
                 "from Sale s where s.buyer.id = :buyerId")
                 .setParameter("buyerId", buyerId)

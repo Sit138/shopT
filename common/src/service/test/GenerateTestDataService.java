@@ -62,8 +62,8 @@ public class GenerateTestDataService {
     }
 
     private void generateAndSaveDiscount(Calendar calendar){
-        int min = 5; int max = 15;
-        double valueDiscount = min + (Math.random() * (max - min) + 1);
+        byte min = 5; byte max = 15;
+        byte valueDiscount = (byte) (min + (Math.random() * (max - min) + 1));
         Discount discount = new Discount(valueDiscount, calendar.getTime(), DiscountType.Auto);
         Product productDiscount = productService.getRandomProduct();
         Hibernate.initialize(productDiscount.getDiscounts());

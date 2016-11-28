@@ -1,6 +1,9 @@
 package dao;
 
 import dto.DiscountDTO;
+import model.Discount;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import util.PaginationBuilder;
 import model.enums.DiscountType;
 import org.hibernate.Session;
@@ -36,10 +39,10 @@ public class DiscountDAOImpl implements DiscountDAO {
 
     @Override
     public int numberItemsDiscountHistory() {
-        return (Integer) getCurrentSession()
-                .createSQLQuery("SELECT count(d.id) AS countRows FROM discount d")
-                .addScalar("countRows", IntegerType.INSTANCE)
-                .uniqueResult();
+        return Math.toIntExact((Long) getCurrentSession()
+                .createCriteria(Discount.class)
+                .setProjection(Projections.rowCount())
+                .uniqueResult());
     }
 
     @Override
@@ -66,27 +69,5 @@ public class DiscountDAOImpl implements DiscountDAO {
                 .uniqueResult();
 
     }
-
-    /*@Override
-    public DiscountDTO getNowDiscountProduct() {
-
-        DiscountDTO discountProductNowDTO = (DiscountDTO) getCurrentSession()
-                .createSQLQuery("SELECT d.discount_value AS value, d.discount_start_date AS startDate, d.discount_end_date AS endDate, " +
-                        "p.id AS productId, p.product_name AS productName, p.product_price AS productPrice, d.add_type AS addType " +
-                        "FROM discount d LEFT OUTER JOIN product p ON p.id=d.product_id " +
-                        "WHERE d.discount_end_date is null")
-                .addScalar("value", DoubleType.INSTANCE)
-                .addScalar("startDate", TimestampType.INSTANCE)
-                .addScalar("endDate", TimestampType.INSTANCE)
-                .addScalar("productId", IntegerType.INSTANCE)
-                .addScalar("productName", StringType.INSTANCE)
-                .addScalar("productPrice", BigDecimalType.INSTANCE)
-                .addScalar("addType", StringType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class)).uniqueResult();
-        if (discountProductNowDTO != null){
-            return discountProductNowDTO;
-        }
-        return null;
-    }*/
 
 }

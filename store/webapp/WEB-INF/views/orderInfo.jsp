@@ -4,7 +4,6 @@
 <head>
     <title>Информация заказа</title>
     <style>
-        <%@include file="css/client.css" %>
         <%@include file="css/main.css"%>
     </style>
 </head>

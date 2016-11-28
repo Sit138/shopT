@@ -28,7 +28,7 @@ public class SoldProduct {
     private BigDecimal price;
 
     @Column(name = "discount")
-    private double discount;
+    private byte discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sale_id")

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Getter @Setter
 public class DiscountDTO {
 
-    private double value;
+    private byte value;
 
     private Timestamp startDate;
 

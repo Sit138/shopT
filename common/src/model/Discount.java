@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import model.enums.DiscountType;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,14 +18,14 @@ public class Discount {
     private int id;
 
     // TODO: Kirill discount и так далее и так далее 
-    @Column(name = "discount_value")
-    private double value;
+    @Column(name = "value")
+    private byte value;
 
-    @Column(name = "discount_start_date")
+    @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @Column(name = "discount_end_date")
+    @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
@@ -42,7 +41,7 @@ public class Discount {
     public Discount() {
     }
 
-    public Discount(double value, Date startDate, DiscountType discountType) {
+    public Discount(byte value, Date startDate, DiscountType discountType) {
         this.value = value;
         this.startDate = startDate;
         this.endDate = null;

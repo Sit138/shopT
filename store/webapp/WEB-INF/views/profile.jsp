@@ -4,7 +4,6 @@
 <head>
     <title>Профиль</title>
     <style>
-        <%@include file="css/client.css" %>
         <%@include file="css/main.css"%>
     </style>
 </head>

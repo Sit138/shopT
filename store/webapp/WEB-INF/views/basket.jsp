@@ -35,7 +35,10 @@
                     </form:form>
                 </c:forEach>
                 <tr>
-                    <td colspan="2">Сумма заказа: ${totalSum}</td>
+                    <th colspan="4">Итого:</th>
+                </tr>
+                <tr>
+                    <td colspan="3">Сумма заказа: ${totalSum}</td>
                     <td><a href="<%=request.getContextPath()%>/order">Подтвердить заказ</a></td>
                 </tr>
             </table>

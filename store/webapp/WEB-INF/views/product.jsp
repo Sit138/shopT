@@ -6,7 +6,6 @@
 <head>
     <title>Клиентский магазин</title>
     <style>
-        <%@include file="css/client.css" %>
         <%@include file="css/pagination.css"%>
         <%@include file="css/main.css"%>
     </style>
@@ -60,7 +59,5 @@
             </form:form>
         </div>
     </div>
-
-<h3>USER - ${username}</h3>
 </body>
 </html>

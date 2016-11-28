@@ -57,12 +57,7 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public Product getProduct(int id) {
-        String hql = "from Product where id = :idProduct";
-        Product product = (Product) getCurrentSession()
-                .createQuery(hql)
-                .setParameter("idProduct", id)
-                .uniqueResult();
-
+        Product product = getCurrentSession().get(Product.class, id);
         if (product != null){
             Hibernate.initialize(product.getDiscounts());
             return product;
@@ -97,7 +92,6 @@ public class ProductDAOImpl implements ProductDAO{
                 .createQuery("select p from Product p order by rand()")
                 .setMaxResults(1).uniqueResult();
     }
-
 
     public SessionFactory getSessionFactory() {
         return sessionFactory;

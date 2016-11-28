@@ -5,6 +5,7 @@ import dto.BuyerDTO;
 import dto.ProductDTO;
 import model.Buyer;
 import model.Sale;
+import org.hibernate.type.ByteType;
 import org.hibernate.type.DoubleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,8 +46,8 @@ public class BuyController {
         if(basket == null){
             basket = new Basket();
         }
-        double discount = discountService.getNowDiscountProduct().getProductId() == productSaleId
-                ? discountService.getNowDiscountProduct().getValue() : DoubleType.ZERO;
+        byte discount = discountService.getNowDiscountProduct().getProductId() == productSaleId
+                ? discountService.getNowDiscountProduct().getValue() : 0;
         basket.addProduct(product, count, discount);
         request.getSession().setAttribute("basket", basket);
         return "redirect:/product";
@@ -65,8 +66,13 @@ public class BuyController {
     public String order(HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         Buyer buyer = buyerService.getByName(CurrentUser.getCurrentUserName());
-        Sale sale = new Sale(buyer, basket);
-        saleService.save(sale);
+        try {
+            Sale sale = new Sale(buyer, basket);
+            saleService.save(sale);
+            basket.clear();
+        } catch (Exception e){
+            return "/order";
+        }
         return "redirect:/profile";
     }
 

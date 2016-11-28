@@ -58,8 +58,8 @@ public class DiscountServiceImpl implements DiscountService {
             removeAutoDiscountNow();
         }
         Date currentDate = new Date();
-        int min = 5; int max = 15;//нижнее/верхнее значение процентов скидки
-        double newDiscount = min + (Math.random() * (max - min) + 1);
+        byte min = 5; byte max = 15;//нижнее/верхнее значение процентов скидки
+        byte newDiscount = (byte) (min + (Math.random() * (max - min) + 1));
         Discount discount = new Discount(newDiscount, currentDate, DiscountType.Auto);
         return discount;
     }
