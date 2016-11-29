@@ -46,7 +46,7 @@ public class BuyController {
         if(basket == null){
             basket = new Basket();
         }
-        byte discount = discountService.getNowDiscountProduct().getProductId() == productSaleId
+        byte discount = discountService.getNowDiscountProduct() != null && discountService.getNowDiscountProduct().getProductId() == productSaleId
                 ? discountService.getNowDiscountProduct().getValue() : 0;
         basket.addProduct(product, count, discount);
         request.getSession().setAttribute("basket", basket);

@@ -32,7 +32,7 @@
                                 <td>
                                         ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                                 </td>
-                                <td <c:if test="${not empty discountNow and discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
+                                <td <c:if test="${discountNow != null && discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
                                         ${product.name}
                                 </td>
 

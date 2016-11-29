@@ -52,7 +52,7 @@ public class StoreController {
         if(discountService.getNowDiscountProduct() != null){
             model.addAttribute("discountNow", discountService.getNowDiscountProduct());
         } else {
-            model.addAttribute("discountNow", "Отсутствует");
+            model.addAttribute("discountNow", null);
         }
         model.addAttribute("username", CurrentUser.getCurrentUserName());
         return "product";
