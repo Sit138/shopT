@@ -28,18 +28,18 @@ public class Basket {
 
     }
 
-    public boolean isBasketProduct(ProductDTO product){
+    private boolean isBasketProduct(ProductDTO product){
         return basketProducts.stream()
                 .anyMatch( p -> p.getProductId() == product.getId());
     }
 
-    public void addToExistingProduct(ProductDTO product, int amoount){
+    private void addToExistingProduct(ProductDTO product, int amount){
         basketProducts.stream()
                 .filter( p -> p.getProductId() == product.getId())
-                .forEach( p -> p.setAmount(p.getAmount() + amoount));
+                .forEach( p -> p.setAmount(p.getAmount() + amount));
     }
 
-    public void deleteProduct(int id){
+    private void deleteProduct(int id){
         basketProducts.removeIf( p -> p.getProductId() == id);
     }
 

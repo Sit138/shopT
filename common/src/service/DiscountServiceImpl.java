@@ -3,6 +3,7 @@ package service;
 import dao.DiscountDAO;
 import dao.ProductDAO;
 import dto.DiscountDTO;
+import util.DiscountCalc;
 import util.PaginationBuilder;
 import model.Discount;
 import model.enums.DiscountType;
@@ -29,8 +30,8 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public DiscountDTO getNowDiscountProduct() {
-        return discountDAO.getNowDiscountProduct();
+    public DiscountDTO getNowAutoDiscountProduct() {
+        return discountDAO.getNowAutoDiscountProduct();
     }
 
     @Override
@@ -40,33 +41,24 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     @Transactional
-    public void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId) {
-        discountDAO.insertEndDateDiscount(discountType, endDateDiscount, productId);
+    public void insertEndDateDiscount(Date endDateDiscount, int productId) {
+            discountDAO.insertEndDateDiscount(endDateDiscount, productId);
+    }
+
+    @Override
+    public byte getValueByProductId(int id) {
+        return discountDAO.getValueByProductId(id);
     }
 
     @Override
     @Transactional
-    public void insertProductDiscount() {
-        Product productDiscount = productDAO.getRandomProduct();
-        Discount discount = createDiscount();
-        productDiscount.addProductDiscont(discount);
-        productDAO.saveOrUpdate(productDiscount);
+    public void addProductDiscount(int productId, byte value, DiscountType type) {
+        //product.addProductDiscont(discount);
+        //productDAO.saveOrUpdate(product);
+        Product product = productDAO.getProduct(productId);
+        Discount discount = DiscountCalc.createDiscount(type, value);
+        product.addProductDiscont(discount);
+        productDAO.saveOrUpdate(product);
     }
 
-    private Discount createDiscount(){
-        if(getNowDiscountProduct() != null){
-            removeAutoDiscountNow();
-        }
-        Date currentDate = new Date();
-        byte min = 5; byte max = 15;//нижнее/верхнее значение процентов скидки
-        byte newDiscount = (byte) (min + (Math.random() * (max - min) + 1));
-        Discount discount = new Discount(newDiscount, currentDate, DiscountType.Auto);
-        return discount;
-    }
-
-    private void removeAutoDiscountNow(){
-        Date currentDate = new Date();
-        int productIdNowDiscount = getNowDiscountProduct().getProductId();
-        insertEndDateDiscount(DiscountType.Auto, currentDate, productIdNowDiscount);
-    }
 }

@@ -49,11 +49,6 @@ public class StoreController {
         model.addAttribute("numberOfPages", numberOfPages);
         List<ProductDTO> productList = productService.listProducts(paginationBuilder);
         model.addAttribute("productList", productList);
-        if(discountService.getNowDiscountProduct() != null){
-            model.addAttribute("discountNow", discountService.getNowDiscountProduct());
-        } else {
-            model.addAttribute("discountNow", null);
-        }
         model.addAttribute("username", CurrentUser.getCurrentUserName());
         return "product";
     }

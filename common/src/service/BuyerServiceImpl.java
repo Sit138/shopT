@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Service
 @Transactional
 public class BuyerServiceImpl implements BuyerService {
@@ -20,8 +22,13 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public Buyer getByName(String name) {
-        return buyerDAO.getByName(name);
+    public void updateBalance(String buyerName, BigDecimal deposit) {
+        buyerDAO.updateBalance(buyerName, deposit);
+    }
+
+    @Override
+    public BigDecimal getBalanceByName(String buyerName) {
+        return buyerDAO.getBalanceByName(buyerName);
     }
 
     @Override

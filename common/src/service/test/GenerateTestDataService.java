@@ -26,7 +26,7 @@ public class GenerateTestDataService {
     private DiscountService discountService;
 
     public void generateTestData(){
-        generateAndSaveProduct();
+       /* generateAndSaveProduct();
         Calendar calendar = new GregorianCalendar(2016, 9, 5);//start day generate
         Calendar calendarNow = new GregorianCalendar();
         while (calendar.before(calendarNow)){
@@ -37,7 +37,7 @@ public class GenerateTestDataService {
             for(int i = 0; i < countSaleInHour; i++){
                 Product productSale = productService.getRandomProduct();
                 BigDecimal saleAmount = productSale.getPrice();
-                DiscountDTO discountProduct = discountService.getNowDiscountProduct();
+                DiscountDTO discountProduct = discountService.getNowAutoDiscountProduct();
                 if(discountProduct != null && (productSale.getId() == discountProduct.getProductId())){
                     double valueDiscount = discountProduct.getValue() / 100;
                     saleAmount = saleAmount.subtract(saleAmount.multiply(new BigDecimal(valueDiscount)));
@@ -47,28 +47,28 @@ public class GenerateTestDataService {
                 productService.saveOrUpdate(productSale);
             }
             calendar.add(Calendar.HOUR_OF_DAY, 1);
-            discountService.insertEndDateDiscount(DiscountType.Auto, calendar.getTime(), discountService.getNowDiscountProduct().getProductId());
-        }
+            discountService.insertEndDateDiscount(calendar.getTime(), discountService.getNowAutoDiscountProduct().getProductId());
+        }*/
     }
 
     private void generateAndSaveProduct(){
-        for(int i = 0; i < 50; i++){
+        /*for(int i = 0; i < 50; i++){
             Product product = new Product();
             product.setName("Продукт " + i);
             int min = 50; int max = 1000;
             product.setPrice(BigDecimal.valueOf(min + (Math.random() * (max - min) + 1)));
             productService.saveOrUpdate(product);
-        }
+        }*/
     }
 
     private void generateAndSaveDiscount(Calendar calendar){
-        byte min = 5; byte max = 15;
+        /*byte min = 5; byte max = 15;
         byte valueDiscount = (byte) (min + (Math.random() * (max - min) + 1));
         Discount discount = new Discount(valueDiscount, calendar.getTime(), DiscountType.Auto);
         Product productDiscount = productService.getRandomProduct();
         Hibernate.initialize(productDiscount.getDiscounts());
         productDiscount.addProductDiscont(discount);
-        productService.saveOrUpdate(productDiscount);
+        productService.saveOrUpdate(productDiscount);*/
     }
 
 }

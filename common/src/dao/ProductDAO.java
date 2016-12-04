@@ -19,8 +19,6 @@ public interface ProductDAO {
 
     void deleteProduct(int id);
 
-    ProductDTO getLastProduct();
-
-    Product getRandomProduct();
+    int getRandomIdWithoutDisc();
 
 }

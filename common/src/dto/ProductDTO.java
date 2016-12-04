@@ -19,4 +19,6 @@ public class ProductDTO {
     @Range(min = 10, message = "Цена не может быть менее 10!")
     private BigDecimal price;
 
+    private boolean discounted;
+
 }

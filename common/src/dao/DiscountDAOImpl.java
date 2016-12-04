@@ -2,14 +2,12 @@ package dao;
 
 import dto.DiscountDTO;
 import model.Discount;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.*;
 import util.PaginationBuilder;
-import model.enums.DiscountType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.*;
 import java.util.Date;
 import java.util.List;
 
@@ -26,13 +24,11 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId) {
+    public void insertEndDateDiscount(Date endDateDiscount, int productId) {
         getCurrentSession().createQuery(
                 "update Discount d set d.endDate = :endDateDiscount " +
-                        "where d.endDate is null and d.addType = :discountType and d.product.id = :productId"
-        )
+                        "where d.endDate is null and d.product.id = :productId")
                 .setParameter("endDateDiscount", endDateDiscount)
-                .setParameter("discountType", discountType)
                 .setParameter("productId", productId)
                 .executeUpdate();
     }
@@ -43,6 +39,15 @@ public class DiscountDAOImpl implements DiscountDAO {
                 .createCriteria(Discount.class)
                 .setProjection(Projections.rowCount())
                 .uniqueResult());
+    }
+
+    @Override
+    public List<Integer> getIdWithoutDiscount() {
+        return (List<Integer>) getCurrentSession()
+                .createSQLQuery("SELECT p.id FROM product p " +
+                        "WHERE p.id NOT IN (SELECT product_id FROM discount " +
+                        "WHERE end_date ISNULL);")
+                .list();
     }
 
     @Override
@@ -58,16 +63,24 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public DiscountDTO getNowDiscountProduct() {
-
+    public DiscountDTO getNowAutoDiscountProduct() {
         return (DiscountDTO) getCurrentSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id " +
-                        "where d.endDate is null")
+                        "where d.endDate is null and d.addType = 'Auto'")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
                 .uniqueResult();
 
+    }
+
+    @Override
+    public byte getValueByProductId(int id) {
+        return (byte) getCurrentSession()
+                .createQuery("select d.value from Discount d " +
+                        "where d.product.id = :id and d.endDate is null")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
 }

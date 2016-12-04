@@ -1,13 +1,13 @@
 package service;
 
-import dao.DiscountDAO;
 import dao.ProductDAO;
 import dto.ProductDTO;
-import util.PaginationBuilder;
 import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import util.PaginationBuilder;
+
 import java.util.List;
 
 @Service
@@ -16,9 +16,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
-
-    @Autowired
-    private DiscountDAO discountDAO;
 
     @Override
     public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
@@ -36,13 +33,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(int id) {
-        return productDAO.getProduct(id);
-    }
-
-    @Override
     @Transactional
-    public void saveOrUpdate(Product product) {
+    public void saveOrUpdate(ProductDTO productDTO) {
+        Product product = productDAO.getProduct(productDTO.getId());
+        if(product == null){
+            product = new Product();
+        }
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
         productDAO.saveOrUpdate(product);
     }
 
@@ -53,13 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO getLastProduct() {
-        return productDAO.getLastProduct();
-    }
-
-    @Override
-    public Product getRandomProduct() {
-        return productDAO.getRandomProduct();
+    public int getRandomIdWithoutDisc() {
+        return productDAO.getRandomIdWithoutDisc();
     }
 
 }

@@ -53,6 +53,7 @@
     </c:choose>
 
     <li><a href="<%=request.getContextPath()%>/product">Продукты</a></li>
+    <li><a href="<%=request.getContextPath()%>/cashier">Пополение счета</a> </li>
     <c:url value="/logout" var="logoutUrl" />
     <form id="logout" action="${logoutUrl}" method="post" >
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

@@ -9,6 +9,8 @@ import org.hibernate.transform.Transformers;
 import org.springframework.expression.Expression;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+
 @Repository
 public class BuyerDAOImpl implements BuyerDAO {
 
@@ -34,6 +36,25 @@ public class BuyerDAOImpl implements BuyerDAO {
                 .uniqueResult();
     }
 
+    @Override
+    public void updateBalance(String buyerName, BigDecimal value) {
+        getCurrentSession()
+                .createQuery("update Buyer b set b.balance = b.balance + :value " +
+                             "where b.name = :buyerName")
+                .setParameter("buyerName", buyerName)
+                .setParameter("value", value)
+                .executeUpdate();
+    }
+
+    @Override
+    public BigDecimal getBalanceByName(String buyerName) {
+        return (BigDecimal) getCurrentSession().createQuery("select b.balance as balance " +
+                "from Buyer b where b.name = :buyerName")
+                .setParameter("buyerName", buyerName)
+                .uniqueResult();
+    }
+
+    @Override
     public BuyerDTO getByNameDTO(String name){
         return (BuyerDTO) getCurrentSession().createQuery("select b.id as id, b.name as name, " +
                 "b.password as password, b.enabled as enabled, b.balance as balance, " +

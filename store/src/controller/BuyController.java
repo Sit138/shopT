@@ -20,6 +20,7 @@ import service.SaleService;
 import util.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 @Controller
 @SessionAttributes({"basket"})
@@ -46,8 +47,7 @@ public class BuyController {
         if(basket == null){
             basket = new Basket();
         }
-        byte discount = discountService.getNowDiscountProduct() != null && discountService.getNowDiscountProduct().getProductId() == productSaleId
-                ? discountService.getNowDiscountProduct().getValue() : 0;
+        byte discount = product.isDiscounted() ? discountService.getValueByProductId(productSaleId) : 0;
         basket.addProduct(product, count, discount);
         request.getSession().setAttribute("basket", basket);
         return "redirect:/product";
@@ -65,15 +65,21 @@ public class BuyController {
     @RequestMapping(value = "/order")
     public String order(HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
-        Buyer buyer = buyerService.getByName(CurrentUser.getCurrentUserName());
         try {
-            Sale sale = new Sale(buyer, basket);
-            saleService.save(sale);
-            basket.clear();
+            String buyerName = CurrentUser.getCurrentUserName();
+            BigDecimal buyerBalance = buyerService.getBalanceByName(buyerName);
+            BigDecimal basketCost = basket.getCost();
+            if(basket.getCost().compareTo(buyerBalance) == -1){
+                buyerService.updateBalance(buyerName, basketCost.negate());
+                saleService.save(buyerName, basket);
+                basket.clear();
+                return "redirect:/profile";
+            } else {
+                return "redirect:/cashier";
+            }
         } catch (Exception e){
-            return "/order";
+            return "/basket";
         }
-        return "redirect:/profile";
     }
 
 }

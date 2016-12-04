@@ -28,9 +28,12 @@ public class ProductDAOImpl implements ProductDAO{
     public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
 
         List<ProductDTO> productList = getCurrentSession()
-                // TODO: Kirill \n, имхо, делает хуже ++
-                .createQuery("select p.id as id, p.name as name, p.price as price " +
-                             "from Product p order by id asc")
+                .createSQLQuery("SELECT p.id AS id, p.name AS name, p.price AS price, d.id IS NOT NULL AS discounted FROM product p " +
+                        "LEFT OUTER JOIN (SELECT * FROM discount WHERE end_date IS NULL) AS d ON p.id = d.product_id ORDER BY p.id")
+                .addScalar("id", IntegerType.INSTANCE)
+                .addScalar("name", StringType.INSTANCE)
+                .addScalar("price", BigDecimalType.INSTANCE)
+                .addScalar("discounted", BooleanType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
                 .setMaxResults(paginationBuilder.getNumberRowsOnPage())
@@ -49,8 +52,14 @@ public class ProductDAOImpl implements ProductDAO{
     @Override
     public ProductDTO getProductDTOById(int id) {
         return (ProductDTO) getCurrentSession()
-                .createQuery("select p.id as id, p.name as name, p.price as price " +
-                        "from Product p where id=" + id)
+                .createSQLQuery("SELECT p.id AS id, p.name AS name, p.price AS price, d.id IS NOT NULL AS discounted FROM product p " +
+                        "LEFT OUTER JOIN (SELECT * FROM discount WHERE end_date IS NULL) AS d ON p.id = d.product_id " +
+                        "WHERE p.id = :id")
+                .addScalar("id", IntegerType.INSTANCE)
+                .addScalar("name", StringType.INSTANCE)
+                .addScalar("price", BigDecimalType.INSTANCE)
+                .addScalar("discounted", BooleanType.INSTANCE)
+                .setParameter("id", id)
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
                 .uniqueResult();
     }
@@ -78,26 +87,12 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public ProductDTO getLastProduct() {
-        return  (ProductDTO) getCurrentSession()
-                .createQuery("select p.id as id, p.name as name, p.price as price " +
-                        "from Product p where id = (select max(id) from p)")
-                .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
-                .uniqueResult();
-    }
-
-    @Override
-    public Product getRandomProduct() {
-        return (Product) getCurrentSession()
-                .createQuery("select p from Product p order by rand()")
+    public int getRandomIdWithoutDisc() {
+        return (int) getCurrentSession()
+                .createQuery("select p.id from Product p " +
+                        "where p.id not in (select d.product.id from Discount d where d.endDate is null) " +
+                        "order by rand()")
                 .setMaxResults(1).uniqueResult();
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 }

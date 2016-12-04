@@ -2,6 +2,7 @@ package dao;
 
 
 import dto.SaleDTO;
+import dto.SoldProductDTO;
 import model.Sale;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface SaleDAO {
 
     List<SaleDTO> getByBuyerId(int buyerId);
 
-    List getOrderInfo(int saleId);
+    List<SoldProductDTO> getOrderInfo(int saleId);
+
+    List<SaleDTO> list();
 
 }

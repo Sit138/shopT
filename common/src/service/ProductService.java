@@ -14,14 +14,10 @@ public interface ProductService {
 
     ProductDTO getProductDTOById(int id);
 
-    Product getProduct(int id);
-
-    void saveOrUpdate(Product product);
+    void saveOrUpdate(ProductDTO productDTO);
 
     void deleteProduct(int id);
 
-    ProductDTO getLastProduct();
-
-    Product getRandomProduct();
+    int getRandomIdWithoutDisc();
 
 }

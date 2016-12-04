@@ -10,10 +10,13 @@ public interface DiscountDAO {
 
     List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
 
-    DiscountDTO getNowDiscountProduct();
-
-    void insertEndDateDiscount(DiscountType discountType, Date endDateDiscount, int productId);
+    void insertEndDateDiscount(Date endDateDiscount, int productId);
 
     int numberItemsDiscountHistory();
 
+    List<Integer> getIdWithoutDiscount();
+
+    DiscountDTO getNowAutoDiscountProduct();
+
+    byte getValueByProductId(int id);
 }

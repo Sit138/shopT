@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Профиль</title>
@@ -26,6 +27,9 @@
                 <tr>
                     <th>Баланс: </th>
                     <td>${buyer.balance}</td>
+                    <td>
+                        <a href="<%=request.getContextPath()%>/cashier">Пополнить счет</a>
+                    </td>
                 </tr>
             </table>
             <h3>Покупки</h3>

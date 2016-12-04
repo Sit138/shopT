@@ -1,5 +1,6 @@
 package model;
 
+import dto.ProductDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +13,6 @@ import java.util.Set;
 @Table(name = "product")
 @Getter @Setter
 public class Product {
-
-    public Product(){
-    }
-
-    public Product(int id){
-        this.id = id;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +27,19 @@ public class Product {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Discount> discounts = new HashSet<Discount>();
+
+    public Product(){
+    }
+
+    /*public Product(int id){
+        this.id = id;
+    }
+
+    public Product(ProductDTO productDTO){
+        this.id = productDTO.getId();
+        this.name = productDTO.getName();
+        this.price = productDTO.getPrice();
+    }*/
 
     public void addProductDiscont(Discount discount){
         discount.setProduct(this);

@@ -48,4 +48,13 @@ public class SaleDAOImpl implements SaleDAO {
                 .setResultTransformer(Transformers.aliasToBean(SoldProductDTO.class))
                 .list();
     }
+
+    @Override
+    public List<SaleDTO> list() {
+        return (List<SaleDTO>) getCurrentSession().
+                createQuery("select s.id as id, s.date as date, " +
+                        "s.amount as amount, s.totalSum as totalSum, s.state as state from Sale s")
+                .setResultTransformer(Transformers.aliasToBean(SaleDTO.class))
+                .list();
+    }
 }

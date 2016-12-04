@@ -1,6 +1,7 @@
 package com.controller;
 
 import dto.ProductDTO;
+import service.DiscountService;
 import util.PaginationBuilder;
 import model.enums.DiscountType;
 import model.Product;
@@ -21,6 +22,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private DiscountService discountService;
 
     @RequestMapping(value = {"/", "/index"})
     public String index(){
@@ -63,7 +67,7 @@ public class ProductController {
         if(bindingResult.hasErrors()){
             return "productForm";
         }
-        if(productService.getProduct(id) == null){
+       /* if(productService.getProduct(id) == null){
             productEntity = new Product();
         } else {
             productEntity = productService.getProduct(id);
@@ -71,8 +75,8 @@ public class ProductController {
 
         System.out.println("ID = " + productDTO.getId());
         productEntity.setName(productDTO.getName());
-        productEntity.setPrice(productDTO.getPrice());
-        productService.saveOrUpdate(productEntity);
+        productEntity.setPrice(productDTO.getPrice());*/
+        productService.saveOrUpdate(productDTO);
         return "redirect:/home";
     }
 
@@ -87,12 +91,10 @@ public class ProductController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteProduct(HttpServletRequest request, Model model){
         int product_id = Integer.parseInt(request.getParameter("id"));
-        if(productService.getProduct(product_id).getDiscounts().isEmpty()){
-            model.addAttribute("info", "true");
+        try {
             productService.deleteProduct(product_id);
             return "redirect:/home";
-        } else {
-            model.addAttribute("info", "errorDelete");
+        } catch (Exception e){
             return "redirect:/home";
         }
     }

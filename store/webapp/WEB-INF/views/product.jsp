@@ -32,7 +32,7 @@
                                 <td>
                                         ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                                 </td>
-                                <td <c:if test="${discountNow != null && discountNow.productId == product.id}">style="background-color: #B3B3FF" </c:if>>
+                                <td <c:if test="${product.discounted}">style="background-color: #B3B3FF" </c:if>>
                                         ${product.name}
                                 </td>
 
@@ -49,9 +49,6 @@
                     </c:forEach>
 
                 </table>
-
-
-            <h2>Дисконт - ${discountNow.productName}</h2>
 
             <form:form modelAttribute="paginator" action="${url}" id="filterForm">
                 <%@include file="include/paginationFilterHeader.html"%>
