@@ -27,7 +27,17 @@
             <td>${sale.date}</td>
             <td>${sale.amount}</td>
             <td>${sale.totalSum}</td>
-            <td>${sale.state}</td>
+            <form:form action="updateState?saleId=${sale.id}" method="POST">
+                <td>
+                    <select name="state">
+                        <option>${sale.state}</option>
+                        <c:forEach items="${stateSale}" var="state">
+                            <option>${state}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="submit" value="Изменить">
+                </td>
+            </form:form>
         </tr>
     </c:forEach>
 </table>

@@ -7,6 +7,7 @@ import dto.SaleDTO;
 import dto.SoldProductDTO;
 import model.Buyer;
 import model.Sale;
+import model.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +45,11 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public List<SaleDTO> list() {
         return saleDAO.list();
+    }
+
+    @Override
+    @Transactional
+    public void updateState(int saleId, SaleState state) {
+        saleDAO.updateState(saleId, state);
     }
 }

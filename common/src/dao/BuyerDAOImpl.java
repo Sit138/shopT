@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
-import org.springframework.expression.Expression;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;

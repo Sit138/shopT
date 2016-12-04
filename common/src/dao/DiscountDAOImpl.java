@@ -2,12 +2,12 @@ package dao;
 
 import dto.DiscountDTO;
 import model.Discount;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.*;
-import util.PaginationBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
+import util.PaginationBuilder;
+
 import java.util.Date;
 import java.util.List;
 

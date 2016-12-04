@@ -2,10 +2,9 @@ package service;
 
 import dto.ProductDTO;
 import util.PaginationBuilder;
-import model.Product;
 import java.util.List;
 
-// TODO: Kirill ну раз начал по нормальному делать с дто, так делай полностью
+// TODO: Kirill ну раз начал по нормальному делать с дто, так делай полностью ++
 public interface ProductService {
 
     List<ProductDTO> listProducts(PaginationBuilder paginationBuilder);

@@ -3,6 +3,7 @@ package dao;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
 import model.Sale;
+import model.enums.SaleState;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
@@ -56,5 +57,14 @@ public class SaleDAOImpl implements SaleDAO {
                         "s.amount as amount, s.totalSum as totalSum, s.state as state from Sale s")
                 .setResultTransformer(Transformers.aliasToBean(SaleDTO.class))
                 .list();
+    }
+
+    @Override
+    public void updateState(int saleId, SaleState state) {
+        getCurrentSession()
+                .createQuery("update Sale s set s.state = :state where s.id = :id")
+                .setParameter("id", saleId)
+                .setParameter("state", state)
+                .executeUpdate();
     }
 }
