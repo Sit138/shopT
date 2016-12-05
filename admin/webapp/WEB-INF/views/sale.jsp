@@ -35,6 +35,7 @@
                             <option>${state}</option>
                         </c:forEach>
                     </select>
+                    <input type="hidden" name="totalSum" value="${sale.totalSum}">
                     <input type="submit" value="Изменить">
                 </td>
             </form:form>

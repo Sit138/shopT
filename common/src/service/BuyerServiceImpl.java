@@ -32,6 +32,11 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
+    public String getNameBySaleId(int saleId) {
+        return buyerDAO.getNameBySaleId(saleId);
+    }
+
+    @Override
     public BuyerDTO getByNameDTO(String name) {
         return buyerDAO.getByNameDTO(name);
     }

@@ -15,4 +15,6 @@ public interface BuyerService {
 
     BigDecimal getBalanceByName(String buyerName);
 
+    String getNameBySaleId(int saleId);
+
 }

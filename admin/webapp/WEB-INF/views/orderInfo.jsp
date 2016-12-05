@@ -11,6 +11,7 @@
 <body>
 <%@include file="include/header.html"%>
 <h1>Заказ номер ${saleId}</h1>
+<h2>Покупатель ${buyer}</h2>
 <table border="1px">
     <tr>
         <th>Наименование</th>

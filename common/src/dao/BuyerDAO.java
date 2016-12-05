@@ -17,4 +17,6 @@ public interface BuyerDAO {
 
     BigDecimal getBalanceByName(String buyerName);
 
+    String getNameBySaleId(int saleId);
+
 }

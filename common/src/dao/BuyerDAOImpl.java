@@ -54,6 +54,16 @@ public class BuyerDAOImpl implements BuyerDAO {
     }
 
     @Override
+    public String getNameBySaleId(int saleId) {
+        return (String) getCurrentSession()
+                .createQuery("select b.name from Sale s " +
+                             "left outer join s.buyer b on b.id = s.buyer.id " +
+                             "where s.id = :saleId")
+                .setParameter("saleId", saleId)
+                .uniqueResult();
+    }
+
+    @Override
     public BuyerDTO getByNameDTO(String name){
         return (BuyerDTO) getCurrentSession().createQuery("select b.id as id, b.name as name, " +
                 "b.password as password, b.enabled as enabled, b.balance as balance, " +
