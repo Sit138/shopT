@@ -13,10 +13,9 @@ public class TestController {
 
     @RequestMapping(value = "/setting/test")
     public String generateTestData(){
-        generateTestDataService.generateTestData();
-        return "admin/test";
+        generateTestDataService.generateAndSaveProduct();
+        generateTestDataService.generateAndSaveDiscount();
+        return "setting/test";
     }
-
-
 
 }

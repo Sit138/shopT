@@ -29,14 +29,21 @@
             <td>${sale.totalSum}</td>
             <form:form action="updateState?saleId=${sale.id}" method="POST">
                 <td>
-                    <select name="state">
-                        <option>${sale.state}</option>
-                        <c:forEach items="${stateSale}" var="state">
-                            <option>${state}</option>
-                        </c:forEach>
-                    </select>
-                    <input type="hidden" name="totalSum" value="${sale.totalSum}">
-                    <input type="submit" value="Изменить">
+                    <c:choose>
+                        <c:when test="${sale.state == 'CANCELED'}">
+                            ${sale.state}
+                        </c:when>
+                        <c:otherwise>
+                            <select name="state">
+                                <option>${sale.state}</option>
+                                <c:forEach items="${stateSale}" var="state">
+                                    <option>${state}</option>
+                                </c:forEach>
+                            </select>
+                            <input type="hidden" name="totalSum" value="${sale.totalSum}">
+                            <input type="submit" value="Изменить">
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </form:form>
         </tr>
