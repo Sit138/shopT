@@ -1,9 +1,9 @@
 package model.security;
 
+import dto.users.UserDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity

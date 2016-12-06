@@ -18,14 +18,12 @@ public class Basket {
     }
 
     public void addProduct(ProductDTO productDTO, int amount, byte discount){
-
         if(isBasketProduct(productDTO)){
             addToExistingProduct(productDTO, amount);
         } else {
             SoldProductDTO basketProduct = new SoldProductDTO(productDTO, amount, discount);
             basketProducts.add(basketProduct);
         }
-
     }
 
     private boolean isBasketProduct(ProductDTO product){

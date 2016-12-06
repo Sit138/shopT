@@ -1,16 +1,12 @@
 package model;
 
-
 import dto.Basket;
-import dto.BuyerDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import model.enums.SaleState;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;

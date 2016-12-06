@@ -2,7 +2,6 @@ package dao;
 
 import dto.BuyerDTO;
 import model.Buyer;
-
 import java.math.BigDecimal;
 
 public interface BuyerDAO {

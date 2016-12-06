@@ -1,12 +1,7 @@
 package controller;
 
 import dto.Basket;
-import dto.BuyerDTO;
 import dto.ProductDTO;
-import model.Buyer;
-import model.Sale;
-import org.hibernate.type.ByteType;
-import org.hibernate.type.DoubleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +13,6 @@ import service.DiscountService;
 import service.ProductService;
 import service.SaleService;
 import util.CurrentUser;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 

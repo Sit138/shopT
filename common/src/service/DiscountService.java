@@ -1,9 +1,7 @@
 package service;
 
 import dto.DiscountDTO;
-import model.Discount;
-import model.Product;
-import util.PaginationBuilder;
+import util.Pagination;
 import model.enums.DiscountType;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +10,7 @@ public interface DiscountService {
 
     void addProductDiscount(int productId, byte value, DiscountType type);
 
-    List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
+    List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination);
 
     DiscountDTO getNowAutoDiscountProduct();
 

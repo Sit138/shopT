@@ -4,7 +4,7 @@ import dao.DiscountDAO;
 import dao.ProductDAO;
 import dto.DiscountDTO;
 import util.DiscountCalc;
-import util.PaginationBuilder;
+import util.Pagination;
 import model.Discount;
 import model.enums.DiscountType;
 import model.Product;
@@ -25,8 +25,8 @@ public class DiscountServiceImpl implements DiscountService {
     private ProductDAO productDAO;
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder) {
-        return discountDAO.selectHistoryProductDiscounts(paginationBuilder);
+    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {
+        return discountDAO.selectHistoryProductDiscounts(pagination);
     }
 
     @Override
@@ -53,8 +53,6 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     @Transactional
     public void addProductDiscount(int productId, byte value, DiscountType type) {
-        //product.addProductDiscont(discount);
-        //productDAO.saveOrUpdate(product);
         Product product = productDAO.getProduct(productId);
         Discount discount = DiscountCalc.createDiscount(type, value);
         product.addProductDiscont(discount);

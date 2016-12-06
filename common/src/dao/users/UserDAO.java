@@ -12,8 +12,6 @@ public interface UserDAO {
 
     void deleteUser(int id);
 
-    UserDTO getUserDTOById(int id);
-
     User getUserById(int id);
 
 }

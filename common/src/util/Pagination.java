@@ -1,16 +1,16 @@
 package util;
 
 // TODO: Kirill а что оно билдит то?
-public class PaginationBuilder {
+public class Pagination {
 
     private int numberRowsOnPage;
     private int pageNumber;
     private int numberFirstSamplingElement;
     private int numberAllRows;
 
-    public PaginationBuilder(){}
+    public Pagination(){}
 
-    public PaginationBuilder(int numberAllRows){
+    public Pagination(int numberAllRows){
         this.numberRowsOnPage = 10;
         this.pageNumber = 0;
         this.numberFirstSamplingElement = pageNumber * numberRowsOnPage;

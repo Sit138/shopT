@@ -14,5 +14,4 @@ public interface UserService {
 
     void deleteUser(int id);
 
-    UserDTO getUserDTOById(int id);
 }

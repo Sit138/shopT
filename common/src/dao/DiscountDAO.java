@@ -1,13 +1,13 @@
 package dao;
 
 import dto.DiscountDTO;
-import util.PaginationBuilder;
+import util.Pagination;
 import java.util.Date;
 import java.util.List;
 
 public interface DiscountDAO {
 
-    List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder);
+    List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination);
 
     void insertEndDateDiscount(Date endDateDiscount, int productId);
 

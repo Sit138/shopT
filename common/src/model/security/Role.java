@@ -3,7 +3,6 @@ package model.security;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +21,8 @@ public class Role {
     @Column(name = "name_role")
     private String nameRole;
 
-    // TODO: Kirill странный мапинг коллекции, странный каскад  
+    // TODO: Kirill странный мапинг коллекции, странный каскад
+    // решил оставить, я добавляю юзеру роль и сохраняю роль, потому каскад (можно обсудить)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 

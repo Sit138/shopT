@@ -1,19 +1,15 @@
 package controller;
 
 import dto.*;
-import model.Buyer;
-import org.springframework.security.core.context.SecurityContextHolder;
-import service.BuyerService;
-import service.SaleService;
-import util.CurrentUser;
-import util.PaginationBuilder;
-import org.springframework.web.bind.annotation.*;
-import service.DiscountService;
-import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.*;
+import service.BuyerService;
+import service.ProductService;
+import service.SaleService;
+import util.CurrentUser;
+import util.Pagination;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -25,29 +21,26 @@ public class StoreController {
     private ProductService productService;
 
     @Autowired
-    private DiscountService discountService;
-
-    @Autowired
     private BuyerService buyerService;
 
     @Autowired
     private SaleService saleService;
 
     @ModelAttribute("paginator")
-    PaginationBuilder getPaginationBuilder(){
+    Pagination getPagination(){
         int numberAllRows = productService.getNumberAllRowsProduct();
-        PaginationBuilder paginationBuilder = new PaginationBuilder(numberAllRows);
-        return paginationBuilder;
+        Pagination pagination = new Pagination(numberAllRows);
+        return pagination;
     }
 
     @RequestMapping(value = {"/product", "/"})
     public String shopClient(Model model,
-                             @ModelAttribute("paginator") PaginationBuilder paginationBuilder, HttpServletRequest request){
+                             @ModelAttribute("paginator") Pagination pagination, HttpServletRequest request){
         model.addAttribute("client", "Магазин");
-        paginationBuilder.updateNumberFirstSamplingElement();
-        int numberOfPages = paginationBuilder.getNumberOfPages();
+        pagination.updateNumberFirstSamplingElement();
+        int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
-        List<ProductDTO> productList = productService.listProducts(paginationBuilder);
+        List<ProductDTO> productList = productService.listProducts(pagination);
         model.addAttribute("productList", productList);
         model.addAttribute("username", CurrentUser.getCurrentUserName());
         return "product";

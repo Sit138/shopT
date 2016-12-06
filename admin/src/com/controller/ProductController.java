@@ -2,8 +2,7 @@ package com.controller;
 
 import dto.ProductDTO;
 import service.DiscountService;
-import util.PaginationBuilder;
-import model.enums.DiscountType;
+import util.Pagination;
 import model.Product;
 import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +31,21 @@ public class ProductController {
     }
 
     @ModelAttribute("paginator")
-    PaginationBuilder getPaginationBuilder(){
+    Pagination getPagination(){
         int numberAllRows = productService.getNumberAllRowsProduct();
-        PaginationBuilder paginationBuilder = new PaginationBuilder(numberAllRows);
-        return paginationBuilder;
+        Pagination pagination = new Pagination(numberAllRows);
+        return pagination;
     }
 
     @RequestMapping(value = "/home")
     public String home(Model model, HttpServletRequest request,
-                       @ModelAttribute("paginator")PaginationBuilder paginationBuilder){
+                       @ModelAttribute("paginator") Pagination pagination){
         String info = request.getParameter("info");
         model.addAttribute("info", info);
-        paginationBuilder.updateNumberFirstSamplingElement();
-        int numberOfPages = paginationBuilder.getNumberOfPages();
+        pagination.updateNumberFirstSamplingElement();
+        int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
-        List<ProductDTO> productList = productService.listProducts(paginationBuilder);
+        List<ProductDTO> productList = productService.listProducts(pagination);
         model.addAttribute("productList", productList);
         model.addAttribute("url", "/admin/home");
         return "home";

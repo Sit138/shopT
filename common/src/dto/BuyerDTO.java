@@ -2,8 +2,6 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.Buyer;
-
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;

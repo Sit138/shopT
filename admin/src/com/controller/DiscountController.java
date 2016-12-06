@@ -1,14 +1,11 @@
 package com.controller;
 
 import dto.DiscountDTO;
-import model.Discount;
-import model.Product;
 import model.enums.DiscountType;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.ProductService;
-import util.DiscountCalc;
-import util.PaginationBuilder;
+import util.Pagination;
 import service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,18 +28,18 @@ public class DiscountController {
     private DiscountService discountService;
 
     @ModelAttribute("paginator")
-    PaginationBuilder getPaginationBuilder(){
+    Pagination getPagination(){
         int numberAllRows = discountService.numberItemsDiscountHistory();
-        return new PaginationBuilder(numberAllRows);
+        return new Pagination(numberAllRows);
     }
 
     @RequestMapping(value = "/discountHistory")
     public String discountHistory(Model model,
-                                  @ModelAttribute("paginator") PaginationBuilder paginationBuilder){
-        paginationBuilder.updateNumberFirstSamplingElement();
-        int numberOfPages = paginationBuilder.getNumberOfPages();
+                                  @ModelAttribute("paginator") Pagination pagination){
+        pagination.updateNumberFirstSamplingElement();
+        int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
-        List<DiscountDTO> productsDiscount = discountService.selectHistoryProductDiscounts(paginationBuilder);
+        List<DiscountDTO> productsDiscount = discountService.selectHistoryProductDiscounts(pagination);
         model.addAttribute("productsDiscount", productsDiscount);
         model.addAttribute("url", "/admin/discountHistory");
         return "discountHistory";

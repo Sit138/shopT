@@ -1,10 +1,8 @@
 package dto;
 
-import model.enums.DiscountType;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import model.enums.DiscountType;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 

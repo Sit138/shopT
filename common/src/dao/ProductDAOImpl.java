@@ -1,14 +1,19 @@
 package dao;
 
 import dto.ProductDTO;
-import util.PaginationBuilder;
 import model.Product;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.*;
+import org.hibernate.type.BigDecimalType;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
+import util.Pagination;
+
 import java.util.List;
 
 @Repository
@@ -25,9 +30,8 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
-
-        List<ProductDTO> productList = getCurrentSession()
+    public List<ProductDTO> listProducts(Pagination pagination) {
+        return getCurrentSession()
                 .createSQLQuery("SELECT p.id AS id, p.name AS name, p.price AS price, d.id IS NOT NULL AS discounted FROM product p " +
                         "LEFT OUTER JOIN (SELECT * FROM discount WHERE end_date IS NULL) AS d ON p.id = d.product_id ORDER BY p.id")
                 .addScalar("id", IntegerType.INSTANCE)
@@ -35,18 +39,21 @@ public class ProductDAOImpl implements ProductDAO{
                 .addScalar("price", BigDecimalType.INSTANCE)
                 .addScalar("discounted", BooleanType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(ProductDTO.class))
-                .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
-                .setMaxResults(paginationBuilder.getNumberRowsOnPage())
+                .setFirstResult(pagination.getNumberFirstSamplingElement())
+                .setMaxResults(pagination.getNumberRowsOnPage())
                 .list();
-        return productList;
     }
 
     @Override
     public int getNumberAllRowsProduct() {
-        return (Integer) getCurrentSession()
+        /*return (Integer) getCurrentSession()
                 .createSQLQuery("SELECT COUNT(p.id) AS countRows FROM product p")
                 .addScalar("countRows", IntegerType.INSTANCE)
-                .uniqueResult();
+                .uniqueResult();*/
+        return Math.toIntExact((Long) getCurrentSession()
+                .createCriteria(Product.class)
+                .setProjection(Projections.rowCount())
+                .uniqueResult());
     }
 
     @Override

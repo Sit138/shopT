@@ -1,23 +1,15 @@
 package service.test;
 
-import dto.DiscountDTO;
 import dto.ProductDTO;
-import model.Discount;
 import model.enums.DiscountType;
-import model.Product;
-import model.Sale;
-import service.DiscountService;
-import service.ProductService;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import service.SaleService;
+import service.DiscountService;
+import service.ProductService;
 import util.DiscountCalc;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Service
@@ -30,7 +22,6 @@ public class GenerateTestDataService {
     @Autowired
     private DiscountService discountService;
 
-    //++
     public void generateAndSaveProduct(){
         for(int i = 0; i < 50; i++){
             ProductDTO product = new ProductDTO();
@@ -41,7 +32,6 @@ public class GenerateTestDataService {
         }
     }
 
-    //++
     public void generateAndSaveDiscount(){
         Calendar calendar = new GregorianCalendar(2016, 10, 5);
         Calendar calendarNow = new GregorianCalendar();
@@ -57,9 +47,6 @@ public class GenerateTestDataService {
 
             calendar.add(Calendar.HOUR_OF_DAY, 1);
         }
-
-
-
     }
 
 }

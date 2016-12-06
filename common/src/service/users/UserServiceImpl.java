@@ -8,6 +8,8 @@ import model.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @Service
@@ -27,14 +29,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void saveOrUpdate(UserDTO userDTO){
-        User user;
-        // TODO: Kirill зачем это все? сразу почему бы не поискать юзера нужного?
-        if(getUserDTOById(userDTO.getId()) == null){
+                User user = userDAO.getUserById(userDTO.getId());
+        if(user == null){
             user = new User();
-        } else {
-            user = userDAO.getUserById(userDTO.getId());
         }
-
         Role role = roleDAO.getRoleByName(userDTO.getNameRole());
         user.setUserName(userDTO.getUserName());
         user.setPassword(userDTO.getPassword());
@@ -54,10 +52,10 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteUser(id);
     }
 
-    // TODO: Kirill похоже не нужен
+    /*// TODO: Kirill похоже не нужен
     @Override
     public UserDTO getUserDTOById(int id) {
         return userDAO.getUserDTOById(id);
-    }
+    }*/
 
 }

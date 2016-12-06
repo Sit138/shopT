@@ -6,7 +6,7 @@ import model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import util.PaginationBuilder;
+import util.Pagination;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDAO productDAO;
 
     @Override
-    public List<ProductDTO> listProducts(PaginationBuilder paginationBuilder) {
-        return productDAO.listProducts(paginationBuilder);
+    public List<ProductDTO> listProducts(Pagination pagination) {
+        return productDAO.listProducts(pagination);
     }
 
     @Override

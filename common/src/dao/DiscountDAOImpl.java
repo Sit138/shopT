@@ -6,8 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
-import util.PaginationBuilder;
-
+import util.Pagination;
 import java.util.Date;
 import java.util.List;
 
@@ -51,14 +50,14 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(PaginationBuilder paginationBuilder) {
+    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {
         return getCurrentSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
-                .setFirstResult(paginationBuilder.getNumberFirstSamplingElement())
-                .setMaxResults(paginationBuilder.getNumberRowsOnPage())
+                .setFirstResult(pagination.getNumberFirstSamplingElement())
+                .setMaxResults(pagination.getNumberRowsOnPage())
                 .list();
     }
 

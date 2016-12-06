@@ -1,13 +1,13 @@
 package dao;
 
 import dto.ProductDTO;
-import util.PaginationBuilder;
+import util.Pagination;
 import model.Product;
 import java.util.List;
 
 public interface ProductDAO {
 
-    List<ProductDTO> listProducts(PaginationBuilder paginationBuilder);
+    List<ProductDTO> listProducts(Pagination pagination);
 
     int getNumberAllRowsProduct();
 
