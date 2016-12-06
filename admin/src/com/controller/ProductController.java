@@ -28,7 +28,6 @@ public class ProductController {
 
     @RequestMapping(value = {"/", "/index"})
     public String index(){
-        System.out.println("TYPE = === > " + DiscountType.Auto.ordinal());
         return "index";
     }
 
@@ -67,15 +66,6 @@ public class ProductController {
         if(bindingResult.hasErrors()){
             return "productForm";
         }
-       /* if(productService.getProduct(id) == null){
-            productEntity = new Product();
-        } else {
-            productEntity = productService.getProduct(id);
-        }
-
-        System.out.println("ID = " + productDTO.getId());
-        productEntity.setName(productDTO.getName());
-        productEntity.setPrice(productDTO.getPrice());*/
         productService.saveOrUpdate(productDTO);
         return "redirect:/home";
     }

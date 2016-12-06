@@ -16,15 +16,13 @@ public class User {
     @Setter(AccessLevel.NONE)
     private int id;
 
-    // TODO: Kirill ну конечно юзер нейм
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String userName;
 
-    // TODO: Kirill а это тогда юзер пассворд
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
 
-    @Column(name = "enabled")
+    @Column(name = "user_enabled")
     private boolean enabled;
 
     @ManyToOne

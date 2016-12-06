@@ -4,6 +4,7 @@ import dto.users.RoleDTO;
 import model.security.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
@@ -19,9 +20,6 @@ public class RoleDAOImpl implements RoleDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    // TODO: Kirill это для кого? ++
-    // TODO: Kirill и это? ++
-
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
@@ -35,9 +33,8 @@ public class RoleDAOImpl implements RoleDAO {
     public List<RoleDTO> getListRoles() {
         return getCurrentSession()
                 // TODO: Kirill не надо писать скл когда можно легко использовать hql или criteria
-                .createSQLQuery("SELECT r.id AS id, r.name_role AS nameRole FROM role r")
-                .addScalar("id", IntegerType.INSTANCE)
-                .addScalar("nameRole", StringType.INSTANCE)
+                // поправил, где очень толсто, продолжаю изучать
+                .createQuery("select r.id as id, r.nameRole as nameRole from Role r")
                 .setResultTransformer(Transformers.aliasToBean(RoleDTO.class))
                 .list();
     }
@@ -45,8 +42,8 @@ public class RoleDAOImpl implements RoleDAO {
     @Override
     public Role getRoleByName(String role) {
         return (Role) getCurrentSession()
-                .createQuery("from Role r where r.nameRole = :nameRole")
-                .setParameter("nameRole", role)
+                .createCriteria(Role.class)
+                .add(Restrictions.like("nameRole", role))
                 .uniqueResult();
     }
 

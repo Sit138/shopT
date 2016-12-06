@@ -59,8 +59,6 @@ public class DiscountController {
         public String newDiscount(HttpServletRequest request,
                                   @RequestParam("valDisc") byte value){
         int productId = Integer.parseInt(request.getParameter("id"));
-        //Product product = productService.getProduct(id);
-        //Discount discount = DiscountCalc.createDiscount(DiscountType.Manual, value);
         discountService.addProductDiscount(productId, value, DiscountType.Manual);
         return "redirect:/home";
     }

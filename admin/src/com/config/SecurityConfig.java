@@ -22,10 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled FROM user_account WHERE username=?")
-                .authoritiesByUsernameQuery("SELECT u.username, r.name_role FROM user_account u " +
+                .usersByUsernameQuery("SELECT user_name, user_password, user_enabled FROM user_account WHERE user_name=?")
+                .authoritiesByUsernameQuery("SELECT u.user_name, r.name_role FROM user_account u " +
                                             "LEFT OUTER JOIN role r ON u.role_id = r.id " +
-                                            "WHERE u.username = ?");
+                                            "WHERE u.user_name = ?");
     }
 
     @Override

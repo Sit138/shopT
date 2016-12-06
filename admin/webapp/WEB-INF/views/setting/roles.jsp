@@ -26,13 +26,13 @@
                             --
                         </c:when>
                         <c:otherwise>
-                            <a href="/admin/setting/deleteRole?id=${roleDTO.id}">Удалить</a>
+                            <a href="<%=request.getContextPath()%>/setting/deleteRole?id=${roleDTO.id}">Удалить</a>
                         </c:otherwise>
                     </c:choose>
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <a href="/admin/setting/newRole">Добавить новую роль</a>
+    <a href="<%=request.getContextPath()%>/setting/newRole">Добавить новую роль</a>
 </body>
 </html>

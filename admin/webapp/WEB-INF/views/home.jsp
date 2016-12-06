@@ -51,7 +51,7 @@
                         </form:form>
                     </c:when>
                     <c:otherwise>
-                        <td>Активна</td>
+                        <td>-</td>
                         <form:form action="newDisc?id=${product.id}">
                             <td><input type="number" name="valDisc"><input value="Добавить" type="submit"></td>
                         </form:form>
