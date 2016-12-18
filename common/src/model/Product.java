@@ -24,7 +24,7 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)// TODO: Kirill почти все каскады ни к чему
     private Set<Discount> discounts = new HashSet<Discount>();
 
     public Product(){
@@ -32,7 +32,7 @@ public class Product {
 
     public void addProductDiscont(Discount discount){
         discount.setProduct(this);
-        getDiscounts().add(discount);
+        getDiscounts().add(discount);// TODO: Kirill стандартного equals() hashCode() достаточно для корректной работы этого?
     }
 
 }

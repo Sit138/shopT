@@ -23,6 +23,7 @@ public class Role {
 
     // TODO: Kirill странный мапинг коллекции, странный каскад
     // решил оставить, я добавляю юзеру роль и сохраняю роль, потому каскад (можно обсудить)
+    // ну так приходи со своими "можно обсудить" сразу и потом удаляй отсюда это все. а то какие то диалоги получаются
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 

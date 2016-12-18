@@ -23,7 +23,7 @@ public class Buyer {
     private int id;
 
     @Column(name = "name")
-    private String name;
+    private String name;// TODO: Kirill разве у тебя имя уникально для buyer?  если нет, то приложение дырявее некуда сейчас.
 
     @Column(name = "password")
     private String password;

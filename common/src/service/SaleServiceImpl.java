@@ -27,7 +27,7 @@ public class SaleServiceImpl implements SaleService {
     @Override
     @Transactional
     public void save(String buyerName, Basket basket) {
-        Buyer buyer = buyerDAO.getByName(buyerName);
+        Buyer buyer = buyerDAO.getByName(buyerName);// TODO: Kirill а не нашел если? сохраним продажу без покупателя
         Sale sale = new Sale(buyer, basket);
         saleDAO.save(sale);
     }

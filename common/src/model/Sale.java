@@ -27,7 +27,8 @@ public class Sale {
     private Date date;
 
     @Column(name = "amount")
-    private int amount;
+    private int amount;// TODO: Kirill что это значит? как апдейтится?
+    // логика увеличения этого числа не должна быть связана с добавлением в soldProducts?
 
     @Column(name = "total_sum")
     private BigDecimal totalSum;

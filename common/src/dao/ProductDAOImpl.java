@@ -72,7 +72,7 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public Product getProduct(int id) {
+    public Product getProduct(int id) {// TODO: Kirill что-то надо изменить в этом методе
         Product product = getCurrentSession().get(Product.class, id);
         if (product != null){
             Hibernate.initialize(product.getDiscounts());
