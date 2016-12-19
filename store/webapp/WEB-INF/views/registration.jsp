@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Регистрация</title>
@@ -20,7 +19,18 @@
         <tr>
             <th>Имя:</th>
             <td><form:input path="name"/></td>
-            <td><form:errors path="name" cssClass="error"></form:errors> </td>
+            <c:choose>
+                <c:when test="${errorSave != null}">
+                    <td class="error">
+                        ${errorSave}
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td>
+                        <form:errors path="name" cssClass="error"></form:errors>
+                    </td>
+                </c:otherwise>
+            </c:choose>
         </tr>
         <tr>
             <th>Пароль:</th>

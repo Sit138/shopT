@@ -28,7 +28,7 @@ public class SaleController {
     public String sale(Model model){
         List<SaleDTO> sales = saleService.list();
         model.addAttribute("sales", sales);
-        model.addAttribute("stateSale", SaleState.list());
+        model.addAttribute("stateSale", SaleState.saleStates);
         return "sale";
     }
 
