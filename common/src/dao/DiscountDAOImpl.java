@@ -33,7 +33,7 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public int numberItemsDiscountHistory() {
+    public int numberItemsDiscountHistory() {// TODO: Kirill вот даже проджекшн называется count, но ты решил что твой термин лучше?  
         return Math.toIntExact((Long) getCurrentSession()
                 .createCriteria(Discount.class)
                 .setProjection(Projections.rowCount())
@@ -41,8 +41,8 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public List<Integer> getIdWithoutDiscount() {
-        return (List<Integer>) getCurrentSession()
+    public List<Integer> getIdWithoutDiscount() {// TODO: Kirill какие айди? снаружи это выглядит как репозиторийСкидок.дайАйдишкиБезСкидок
+        return (List<Integer>) getCurrentSession()//ты ж вроде запихал в продукт набор скидок
                 .createSQLQuery("SELECT p.id FROM product p " +
                         "WHERE p.id NOT IN (SELECT product_id FROM discount " +
                         "WHERE end_date ISNULL);")
@@ -50,7 +50,7 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {
+    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?
         return getCurrentSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
@@ -67,7 +67,7 @@ public class DiscountDAOImpl implements DiscountDAO {
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id " +
-                        "where d.endDate is null and d.addType = 'Auto'")
+                        "where d.endDate is null and d.addType = 'Auto'")// TODO: Kirill плохо так делать
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
                 .uniqueResult();
 

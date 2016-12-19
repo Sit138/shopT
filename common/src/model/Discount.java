@@ -30,7 +30,7 @@ public class Discount {
     private Date endDate;
 
     // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление ++
-    @Column(name = "add_type")
+    @Column(name = "add_type")// TODO: Kirill type?
     @Enumerated(EnumType.STRING)
     private DiscountType addType;
 

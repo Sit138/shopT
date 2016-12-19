@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void saveOrUpdate(UserDTO userDTO){
-                User user = userDAO.getUserById(userDTO.getId());
+        User user = userDAO.getUserById(userDTO.getId());
         if(user == null){
             user = new User();
         }
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDTO.getPassword());
         user.setEnabled(userDTO.isEnabled());
         role.addUser(user);
-        roleDAO.saveOrUpdate(role);
+        roleDAO.saveOrUpdate(role);// TODO: Kirill все равно это стремак какой-то - сохранять пользователя через соъранение роли с каскадом.
     }
 
     @Override

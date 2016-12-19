@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 
+// TODO: Kirill почему ты используешь везде имя вместо айди?
 @Repository
 public class BuyerDAOImpl implements BuyerDAO {
 
@@ -21,7 +22,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }// TODO: Kirill getSession()
 
     @Override
     public void save(Buyer buyer) {
@@ -31,7 +32,7 @@ public class BuyerDAOImpl implements BuyerDAO {
     @Override
     public Buyer getByName(String name) {
         return (Buyer) getCurrentSession().createCriteria(Buyer.class)
-                .add(Restrictions.like("name", name))
+                .add(Restrictions.like("name", name))// TODO: Kirill ну откуда ты этот дурацкий лайк взял?
                 .uniqueResult();
     }
 
@@ -39,7 +40,7 @@ public class BuyerDAOImpl implements BuyerDAO {
     public void updateBalance(String buyerName, BigDecimal value) {
         getCurrentSession()
                 .createQuery("update Buyer b set b.balance = b.balance + :value " +
-                             "where b.name = :buyerName")
+                             "where b.name = :buyerName")// TODO: Kirill а что тут не лайк? а как я должен это понять из интерфейса который ты предоставляешь для своего дао?
                 .setParameter("buyerName", buyerName)
                 .setParameter("value", value)
                 .executeUpdate();
@@ -48,7 +49,7 @@ public class BuyerDAOImpl implements BuyerDAO {
     @Override
     public BigDecimal getBalanceByName(String buyerName) {
         return (BigDecimal) getCurrentSession().createQuery("select b.balance as balance " +
-                "from Buyer b where b.name = :buyerName")
+                "from Buyer b where b.name = :buyerName")// TODO: Kirill или тут..
                 .setParameter("buyerName", buyerName)
                 .uniqueResult();
     }
