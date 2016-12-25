@@ -23,6 +23,10 @@ public class Pagination {
 
     public void updateNumberFirstSamplingElement(){
         this.numberFirstSamplingElement = pageNumber * numberRowsOnPage;
+        // TODO: Kirill зачем апдейт с присвоением?
+        // зачем я вызывать это должен из контроллера,
+        // либо делай это при установке одного из множителей,
+        // либо просто в гетере возвращай результат умножения
     }
 
     public int getNumberRowsOnPage() {

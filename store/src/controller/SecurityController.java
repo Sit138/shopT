@@ -44,7 +44,7 @@ public class SecurityController {
         if(bindingResult.hasErrors()){
             return "registration";
         }
-        Buyer buyer = new Buyer(buyerDTO);
+        Buyer buyer = new Buyer(buyerDTO);// TODO: Kirill .....  
         buyerService.save(buyer);
         return "redirect:/login";
     }

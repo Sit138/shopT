@@ -33,7 +33,7 @@ import java.util.Properties;
 @Import({SecurityConfig.class})
 public class ApplicationContextConfig {
 
-    @Bean
+    @Bean // TODO: Kirill а этот бин зачем?  
     public MyTask task(){
         return new MyTask();
     }

@@ -40,6 +40,7 @@ public class RoleController {
         if(bindingResult.hasErrors()){
             return "setting/roleForm";
         }
+        // TODO: Kirill этому не место в контроллере
         Role role = new Role();
         role.setNameRole(roleDTO.getNameRole());
         roleService.saveOrUpdate(role);
