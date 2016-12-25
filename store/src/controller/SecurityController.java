@@ -40,13 +40,22 @@ public class SecurityController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid @ModelAttribute BuyerDTO buyerDTO, BindingResult bindingResult){
+    public String registration(@Valid @ModelAttribute BuyerDTO buyerDTO,
+                               BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "registration";
         }
         Buyer buyer = new Buyer(buyerDTO);// TODO: Kirill .....  
         buyerService.save(buyer);
         return "redirect:/login";
+        try {
+            Buyer buyer = new Buyer(buyerDTO);
+            buyerService.save(buyer);
+            return "redirect:/login";
+        } catch (Exception e){
+            model.addAttribute("errorSave", "Пользователь с таким логином уже существует!");
+            return "registration";
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package dao;
 
 import dto.DiscountDTO;
 import model.Discount;
+import model.enums.DiscountType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -67,7 +68,8 @@ public class DiscountDAOImpl implements DiscountDAO {
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id " +
-                        "where d.endDate is null and d.addType = 'Auto'")// TODO: Kirill плохо так делать
+                        "where d.endDate is null and d.addType = :typeDisc")// TODO: Kirill плохо так делать
+                .setParameter("typeDisc", DiscountType.Auto)
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
                 .uniqueResult();
 

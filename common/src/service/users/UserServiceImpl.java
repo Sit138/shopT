@@ -37,8 +37,10 @@ public class UserServiceImpl implements UserService {
         user.setUserName(userDTO.getUserName());
         user.setPassword(userDTO.getPassword());
         user.setEnabled(userDTO.isEnabled());
-        role.addUser(user);
-        roleDAO.saveOrUpdate(role);// TODO: Kirill все равно это стремак какой-то - сохранять пользователя через соъранение роли с каскадом.
+        user.setRoleId(role.getId());
+        //role.addUser(user);
+        //roleDAO.saveOrUpdate(role);// TODO: Kirill все равно это стремак какой-то - сохранять пользователя через соъранение роли с каскадом.
+        userDAO.saveOrUpdate(user);
     }
 
     @Override
@@ -52,10 +54,5 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteUser(id);
     }
 
-    /*// TODO: Kirill похоже не нужен
-    @Override
-    public UserDTO getUserDTOById(int id) {
-        return userDAO.getUserDTOById(id);
-    }*/
 
 }

@@ -24,7 +24,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
 @Configuration
 @ComponentScan({"dao", "service", "com.controller", "com.scheduler"})
 @EnableTransactionManagement
@@ -71,11 +70,9 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
 
-    // TODO: Kirill та-даааааам! ++
     @Autowired
     SessionFactory sessionFactory;
 
-    // TODO: Kirill ну и так далее ++
     @Bean(name = "productDAO")
     public ProductDAO getProductDAO(){
         return new ProductDAOImpl(sessionFactory);
@@ -106,7 +103,7 @@ public class ApplicationContextConfig {
         properties.put("hibernate.show_sql", "true");
         // TODO: Kirill и format_sql еще полезно может быть
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.format_sql", "true");
         return properties;
     }

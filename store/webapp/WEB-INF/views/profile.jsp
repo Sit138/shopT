@@ -17,6 +17,14 @@
         <div id="content">
             <table>
                 <tr>
+                    <td>
+                        <img src="<%=request.getContextPath()%>/image?type=avatar&id=${buyer.id}" style="height: 100px;"/>
+                    </td>
+                    <td>
+                        <a href="<%=request.getContextPath()%>/avaForm">Загрузить аватар</a>
+                    </td>
+                </tr>
+                <tr>
                     <th>Имя: </th>
                     <td>${buyer.name}</td>
                 </tr>

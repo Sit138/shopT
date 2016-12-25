@@ -16,6 +16,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -52,7 +54,6 @@ public class ApplicationContextConfig {
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
-        // TODO: Kirill все таки тут не пэкэдж указывается? ++
         sessionFactoryBuilder.scanPackages("model", "com.scheduler");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
@@ -64,11 +65,9 @@ public class ApplicationContextConfig {
         return transactionManager;
     }
 
-    // TODO: Kirill та-даааааам! ++
     @Autowired
     SessionFactory sessionFactory;
 
-    // TODO: Kirill ну и так далее ++
     @Bean(name = "productDAO")
     public ProductDAO getProductDAO(){
         return new ProductDAOImpl(sessionFactory);
@@ -99,12 +98,25 @@ public class ApplicationContextConfig {
         return new SaleDAOImpl(sessionFactory);
     }
 
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipart = new CommonsMultipartResolver();
+        multipart.setMaxUploadSize(3 * 1024 * 1024);
+        return multipart;
+    }
+
+    @Bean
+    public MultipartFilter multipartFilter() {
+        MultipartFilter multipartFilter = new MultipartFilter();
+        multipartFilter.setMultipartResolverBeanName("multipartResolver");
+        return multipartFilter;
+    }
+
     private Properties getHibernateProperties(){
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
-        // TODO: Kirill и format_sql еще полезно может быть ++
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.format_sql", "true");
         return properties;
     }

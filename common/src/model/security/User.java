@@ -1,6 +1,5 @@
 package model.security;
 
-import dto.users.UserDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +24,12 @@ public class User {
     @Column(name = "user_enabled")
     private boolean enabled;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;
+    private Role role;*/
+
+    @Column(name = "role_id")
+    private int roleId;
 
 }
 
