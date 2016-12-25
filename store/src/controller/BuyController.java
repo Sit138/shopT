@@ -38,11 +38,13 @@ public class BuyController {
         int productSaleId = Integer.parseInt(request.getParameter("id"));
         ProductDTO product = productService.getProductDTOById(productSaleId);
         Basket basket = (Basket) request.getSession().getAttribute("basket");
+        // TODO: Kirill похоже это бизнес логика
         if(basket == null){
             basket = new Basket();
         }
         byte discount = product.isDiscounted() ? discountService.getValueByProductId(productSaleId) : 0;
         basket.addProduct(product, count, discount);
+        //---------------------------------
         request.getSession().setAttribute("basket", basket);
         return "redirect:/product";
     }
@@ -52,11 +54,13 @@ public class BuyController {
                                 @RequestParam(value = "amount") int amount){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         int productId = Integer.parseInt(request.getParameter("id"));
+        // TODO: Kirill и вообще в Корзине у тебя набор функций таких, это не просто pojo класс у тебя для передачи инфы
+        // об отложенных продуктах туда и обратно. Надо подумать над улучшением.
         basket.deleteProduct(productId, amount);
         return "redirect:/basket";
     }
 
-    @RequestMapping(value = "/order")
+    @RequestMapping(value = "/order")// TODO: Kirill метод какой?
     public String order(HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         try {
@@ -64,9 +68,9 @@ public class BuyController {
             BigDecimal buyerBalance = buyerService.getBalanceByName(buyerName);
             BigDecimal basketCost = basket.getCost();
             if(basket.getCost().compareTo(buyerBalance) == -1){
-                buyerService.updateBalance(buyerName, basketCost.negate());
-                saleService.save(buyerName, basket);
-                basket.clear();
+                buyerService.updateBalance(buyerName, basketCost.negate());// TODO: Kirill вот тут все исполнилось
+                saleService.save(buyerName, basket);// а тут искючение. Что получится в итоге? денег нет как и заказа.
+                basket.clear();//все потому что бизнес логика не там где должна быть
                 return "redirect:/profile";
             } else {
                 return "redirect:/cashier";

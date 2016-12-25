@@ -33,8 +33,7 @@ public class SaleController {
     }
 
     @RequestMapping(value = "/sale/orderInfo", method = RequestMethod.GET)
-    public String orderInformation(Model model,
-                                   @RequestParam("saleId") int saleId){
+    public String orderInformation(Model model, @RequestParam("saleId") int saleId){
         List<SoldProductDTO> orderProducts = saleService.getOrderInfo(saleId);
         model.addAttribute("orderProducts", orderProducts);
         model.addAttribute("saleId", saleId);
@@ -46,7 +45,7 @@ public class SaleController {
     public String updateState(HttpServletRequest request,
                               @RequestParam("state") String state,
                               @RequestParam("totalSum") BigDecimal totalSum){
-        int saleId = Integer.parseInt(request.getParameter("saleId"));
+        int saleId = Integer.parseInt(request.getParameter("saleId"));// TODO: Kirill null or "asdf"  
         SaleState newState = SaleState.parse(state);
         if(newState.equals(SaleState.CANCELED)){
             String buyerName = buyerService.getNameBySaleId(saleId);
