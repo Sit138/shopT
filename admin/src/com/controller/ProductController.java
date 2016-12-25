@@ -60,8 +60,8 @@ public class ProductController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProduct(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult){
-        Product productEntity;
-        int id = productDTO.getId();
+        //Product productEntity;
+        //int id = productDTO.getId();
         if(bindingResult.hasErrors()){
             return "productForm";
         }
