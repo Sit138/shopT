@@ -89,8 +89,11 @@ public class ProductDAOImpl implements ProductDAO{
 
     @Override
     public void deleteProduct(int id) {
-        Product productToDelete = getProduct(id);
-        getCurrentSession().delete(productToDelete);
+        /*Product productToDelete = getProduct(id);
+        getCurrentSession().delete(productToDelete);*/
+        getCurrentSession().createQuery("delete from Product where id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override

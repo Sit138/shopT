@@ -29,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
         return getCurrentSession()
                 .createQuery("select u.id as id, u.userName as userName, u.password as password, " +
                              "r.nameRole as nameRole, u.enabled as enabled " +
-                             "from User u left outer join u.role r on r.id = u.role.id " +
+                             "from User u left outer join Role r on r.id = u.roleId " +
                              "order by u.id asc")
                 .setResultTransformer(Transformers.aliasToBean(UserDTO.class))
                 .list();
@@ -38,22 +38,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void deleteUser(int id) {
         getCurrentSession()
-                .createSQLQuery("DELETE FROM user_account WHERE id = :id")
+                .createQuery("delete from User WHERE id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
     }
-
-    /*@Override
-    public UserDTO getUserDTOById(int id) {
-        return (UserDTO) getCurrentSession()
-                .createQuery("select u.id as id, u.userName as userName, u.password as password, " +
-                        "r.nameRole as nameRole, u.enabled as enabled " +
-                        "from User u left outer join u.role r on r.id = u.role.id " +
-                        "where u.id = :id")
-                .setParameter("id", id)
-                .setResultTransformer(Transformers.aliasToBean(UserDTO.class))
-                .uniqueResult();
-    }*/
 
     @Override
     public User getUserById(int id) {

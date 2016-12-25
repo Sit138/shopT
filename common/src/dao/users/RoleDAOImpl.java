@@ -42,16 +42,16 @@ public class RoleDAOImpl implements RoleDAO {
     public Role getRoleByName(String role) {
         return (Role) getCurrentSession()
                 .createCriteria(Role.class)
-                .add(Restrictions.like("nameRole", role))// TODO: Kirill какой нафик лайк? По-твоему вместо manager подойдет,
+                .add(Restrictions.eq("nameRole", role))// TODO: Kirill какой нафик лайк? По-твоему вместо manager подойдет,
                 // например, content_manager или какой там еще у тебя будет
+                //нет. Заменил на equal
                 .uniqueResult();
     }
 
     @Override
     public void deleteRole(int id) {
-        getCurrentSession()
-                .createSQLQuery("DELETE FROM role WHERE id = :id")// TODO: Kirill sql
-                .setParameter("id", id)
-                .executeUpdate();
+        getCurrentSession().
+                createQuery("delete from Role where id = :id")
+                .setParameter("id", id).executeUpdate();
     }
 }
