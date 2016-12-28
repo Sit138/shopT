@@ -3,7 +3,6 @@ package service;
 import dto.Basket;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.Sale;
 import model.enums.SaleState;
 
 import java.util.List;

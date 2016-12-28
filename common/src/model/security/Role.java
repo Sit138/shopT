@@ -21,17 +21,10 @@ public class Role {
     @Column(name = "name_role")
     private String nameRole;
 
-    /*// TODO: Kirill странный мапинг коллекции, странный каскад
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
+    // TODO: Kirill странный мапинг коллекции, странный каскад
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
     private Set<User> users = new HashSet<User>();
 
-    public Set<User> getUsers() {
-        return users;
-    }
 
-    public void addUser(User user){
-        user.setRole(this);
-        getUsers().add(user);
-    }*/
 
 }

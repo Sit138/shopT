@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -19,20 +18,18 @@ public class RoleDAOImpl implements RoleDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    private Session getCurrentSession() {
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
     public void saveOrUpdate(Role role) {
-        getCurrentSession().saveOrUpdate(role);
+        getSession().saveOrUpdate(role);
     }
 
     @Override
     public List<RoleDTO> getListRoles() {
-        return getCurrentSession()
-                // TODO: Kirill не надо писать скл когда можно легко использовать hql или criteria
-                // поправил, где очень толсто, продолжаю изучать
+        return getSession()
                 .createQuery("select r.id as id, r.nameRole as nameRole from Role r")
                 .setResultTransformer(Transformers.aliasToBean(RoleDTO.class))
                 .list();
@@ -40,17 +37,15 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role getRoleByName(String role) {
-        return (Role) getCurrentSession()
+        return (Role) getSession()
                 .createCriteria(Role.class)
-                .add(Restrictions.eq("nameRole", role))// TODO: Kirill какой нафик лайк? По-твоему вместо manager подойдет,
-                // например, content_manager или какой там еще у тебя будет
-                //нет. Заменил на equal
+                .add(Restrictions.eq("nameRole", role))
                 .uniqueResult();
     }
 
     @Override
     public void deleteRole(int id) {
-        getCurrentSession().
+        getSession().
                 createQuery("delete from Role where id = :id")
                 .setParameter("id", id).executeUpdate();
     }

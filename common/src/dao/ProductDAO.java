@@ -11,8 +11,6 @@ public interface ProductDAO {
 
     int getNumberAllRowsProduct();
 
-    ProductDTO getProductDTOById(int id);
-
     Product getProduct(int id);
 
     void saveOrUpdate(Product product);

@@ -2,6 +2,7 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.Product;
 import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,5 +21,14 @@ public class ProductDTO {
     private BigDecimal price;
 
     private boolean discounted;
+
+    public ProductDTO(){}
+
+    public ProductDTO(Product product){
+        this.id = product.getId();
+        this.name = product.getName();
+        this.price = product.getPrice();
+        this.discounted = product.isDiscounted();
+    }
 
 }

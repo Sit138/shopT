@@ -18,7 +18,7 @@
         </table>
     </form:form>
     <c:if test="${not empty avatar}">
-        <img src="<%=request.getContextPath()%>/image?type=avatar&id=${buyerId}" style="height: 100px;"/>
+        <img src="<%=request.getContextPath()%>/image?avatar=${buyerId}" style="height: 100px;"/>
         ${avatar}
     </c:if>
 </body>

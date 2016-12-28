@@ -46,8 +46,8 @@ public class SecurityController {
             return "registration";
         }
         try {
-            Buyer buyer = new Buyer(buyerDTO); // TODO: Kirill .....
-            buyerService.save(buyer);
+            //Buyer buyer = new Buyer(buyerDTO); // TODO: Kirill .....//убрал в сервис
+            buyerService.save(buyerDTO);
             return "redirect:/login";
         } catch (Exception e){
             model.addAttribute("errorSave", "Пользователь с таким логином уже существует!");

@@ -12,6 +12,7 @@ import service.BuyerService;
 import service.ImageService;
 import service.ImageServiceImpl;
 import util.CurrentUser;
+import util.PropertyApp;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,7 +33,7 @@ public class ImageController {
     public String uploadAva(@RequestParam("avatar") MultipartFile avatar,
                             HttpServletRequest request){
         BuyerDTO buyer = buyerService.getByNameDTO(CurrentUser.getCurrentUserName());
-        String uploadFolder = "store/avatar/" + buyer.getId() + "/";
+        String uploadFolder = PropertyApp.PATH_AVATAR_UPLOAD + buyer.getId() + "/";
         String fileName = String.valueOf(ImageType.AVATAR).toLowerCase();
         imageService.save(avatar, uploadFolder, fileName);
         request.getSession().setAttribute("avatar", avatar.getOriginalFilename());

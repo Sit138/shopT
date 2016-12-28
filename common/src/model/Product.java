@@ -24,6 +24,9 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "discounted")
+    private boolean discounted;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)// TODO: Kirill почти все каскады ни к чему
     private Set<Discount> discounts = new HashSet<Discount>();
 

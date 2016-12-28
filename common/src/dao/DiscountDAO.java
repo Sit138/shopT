@@ -13,8 +13,6 @@ public interface DiscountDAO {
 
     int numberItemsDiscountHistory();
 
-    List<Integer> getIdWithoutDiscount();
-
     DiscountDTO getNowAutoDiscountProduct();
 
     byte getValueByProductId(int id);

@@ -12,11 +12,11 @@ public enum SaleState {
 
     public static List<SaleState> list(){
         return Arrays.asList(values());
-    }// TODO: Kirill values() копирует значения каждый раз при обращении
+    }// TODO: Kirill values() копирует значения каждый раз при обращении::вынес в статик переменную
 
     public static SaleState parse(String state){
         SaleState st = null;
-        for (SaleState s : list()){// TODO: Kirill какой тест?
+        for (SaleState s : list()){// TODO: Kirill какой тест?::не знаю))исправил
             if(s.name().equals(state)){
                 st = s;
                 break;

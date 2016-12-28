@@ -29,7 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO getProductDTOById(int id) {
-        return productDAO.getProductDTOById(id);
+        Product productEntity = productDAO.getProduct(id);
+        return new ProductDTO(productEntity);
     }
 
     @Override

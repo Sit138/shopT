@@ -1,7 +1,6 @@
 package com.controller.users;
 
 import dto.users.RoleDTO;
-import model.security.Role;
 import service.users.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,10 +39,8 @@ public class RoleController {
         if(bindingResult.hasErrors()){
             return "setting/roleForm";
         }
-        // TODO: Kirill этому не место в контроллере
-        Role role = new Role();
-        role.setNameRole(roleDTO.getNameRole());
-        roleService.saveOrUpdate(role);
+        // TODO: Kirill этому не место в контроллере::убрал
+        roleService.saveOrUpdate(roleDTO);
         return "redirect:/setting/roles";
     }
 

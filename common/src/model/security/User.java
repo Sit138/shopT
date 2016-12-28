@@ -24,12 +24,9 @@ public class User {
     @Column(name = "user_enabled")
     private boolean enabled;
 
-    /*@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-    private Role role;*/
-
-    @Column(name = "role_id")
-    private int roleId;
+    private Role role;
 
 }
 

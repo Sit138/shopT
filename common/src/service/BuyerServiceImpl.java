@@ -17,7 +17,8 @@ public class BuyerServiceImpl implements BuyerService {
     private BuyerDAO buyerDAO;
 
     @Override
-    public void save(Buyer buyer) {
+    public void save(BuyerDTO buyerDTO) {
+        Buyer buyer = new Buyer(buyerDTO);
         buyerDAO.save(buyer);
     }
 
@@ -38,6 +39,7 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public BuyerDTO getByNameDTO(String name) {
-        return buyerDAO.getByNameDTO(name);
+        Buyer buyerEntity = buyerDAO.getByName(name);
+        return new BuyerDTO(buyerEntity);
     }
 }

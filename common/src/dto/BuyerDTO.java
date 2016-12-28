@@ -2,6 +2,8 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.Buyer;
+
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,4 +25,16 @@ public class BuyerDTO {
 
     private Date registrationDate;
 
+    public BuyerDTO(Buyer buyer){
+        this.id = buyer.getId();
+        this.name = buyer.getName();
+        this.password = buyer.getPassword();
+        this.enabled = buyer.isEnabled();
+        this.balance = buyer.getBalance();
+        this.registrationDate = buyer.getRegistrationDate();
+    }
+
+    public BuyerDTO() {
+
+    }
 }

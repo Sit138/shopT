@@ -3,7 +3,6 @@ package com.controller;
 import dto.ProductDTO;
 import service.DiscountService;
 import util.Pagination;
-import model.Product;
 import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,8 +59,6 @@ public class ProductController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProduct(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult){
-        //Product productEntity;
-        //int id = productDTO.getId();
         if(bindingResult.hasErrors()){
             return "productForm";
         }
@@ -78,7 +75,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteProduct(HttpServletRequest request, Model model){
+    public String deleteProduct(HttpServletRequest request){
         int product_id = Integer.parseInt(request.getParameter("id"));
         try {
             productService.deleteProduct(product_id);

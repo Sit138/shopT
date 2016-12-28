@@ -19,13 +19,13 @@ public class DiscountDAOImpl implements DiscountDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    private Session getCurrentSession() {
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
     public void insertEndDateDiscount(Date endDateDiscount, int productId) {
-        getCurrentSession().createQuery(
+        getSession().createQuery(
                 "update Discount d set d.endDate = :endDateDiscount " +
                         "where d.endDate is null and d.product.id = :productId")
                 .setParameter("endDateDiscount", endDateDiscount)
@@ -35,24 +35,15 @@ public class DiscountDAOImpl implements DiscountDAO {
 
     @Override
     public int numberItemsDiscountHistory() {// TODO: Kirill вот даже проджекшн называется count, но ты решил что твой термин лучше?  
-        return Math.toIntExact((Long) getCurrentSession()
+        return Math.toIntExact((Long) getSession()
                 .createCriteria(Discount.class)
                 .setProjection(Projections.rowCount())
                 .uniqueResult());
     }
 
     @Override
-    public List<Integer> getIdWithoutDiscount() {// TODO: Kirill какие айди? снаружи это выглядит как репозиторийСкидок.дайАйдишкиБезСкидок
-        return (List<Integer>) getCurrentSession()//ты ж вроде запихал в продукт набор скидок
-                .createSQLQuery("SELECT p.id FROM product p " +
-                        "WHERE p.id NOT IN (SELECT product_id FROM discount " +
-                        "WHERE end_date ISNULL);")
-                .list();
-    }
-
-    @Override
     public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?
-        return getCurrentSession()
+        return getSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc")
@@ -64,11 +55,11 @@ public class DiscountDAOImpl implements DiscountDAO {
 
     @Override
     public DiscountDTO getNowAutoDiscountProduct() {
-        return (DiscountDTO) getCurrentSession()
+        return (DiscountDTO) getSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +
                         "from Discount d left outer join d.product p on p.id=d.product.id " +
-                        "where d.endDate is null and d.addType = :typeDisc")// TODO: Kirill плохо так делать
+                        "where d.endDate is null and d.addType = :typeDisc")// TODO: Kirill плохо так делать::исправил
                 .setParameter("typeDisc", DiscountType.Auto)
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
                 .uniqueResult();
@@ -77,7 +68,7 @@ public class DiscountDAOImpl implements DiscountDAO {
 
     @Override
     public byte getValueByProductId(int id) {
-        return (byte) getCurrentSession()
+        return (byte) getSession()
                 .createQuery("select d.value from Discount d " +
                         "where d.product.id = :id and d.endDate is null")
                 .setParameter("id", id)

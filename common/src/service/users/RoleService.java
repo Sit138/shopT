@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoleService {
 
-    void saveOrUpdate(Role role);
+    void saveOrUpdate(RoleDTO roleDTO);
 
     List<RoleDTO> getListRoles();
 

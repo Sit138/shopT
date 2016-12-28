@@ -28,9 +28,9 @@ public class UserDAOImpl implements UserDAO {
     public List<UserDTO> getUserDTOList() {
         return getCurrentSession()
                 .createQuery("select u.id as id, u.userName as userName, u.password as password, " +
-                             "r.nameRole as nameRole, u.enabled as enabled " +
-                             "from User u left outer join Role r on r.id = u.roleId " +
-                             "order by u.id asc")
+                        "r.nameRole as nameRole, u.enabled as enabled " +
+                        "from User u left outer join u.role r on r.id = u.role.id " +
+                        "order by u.id asc")
                 .setResultTransformer(Transformers.aliasToBean(UserDTO.class))
                 .list();
     }

@@ -1,13 +1,10 @@
 package dao;
 
-import dto.BuyerDTO;
 import model.Buyer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
-
 import java.math.BigDecimal;
 
 // TODO: Kirill почему ты используешь везде имя вместо айди?
@@ -20,25 +17,25 @@ public class BuyerDAOImpl implements BuyerDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    private Session getCurrentSession() {
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }// TODO: Kirill getSession()
 
     @Override
     public void save(Buyer buyer) {
-        getCurrentSession().save(buyer);
+        getSession().save(buyer);
     }
 
     @Override
     public Buyer getByName(String name) {
-        return (Buyer) getCurrentSession().createCriteria(Buyer.class)
-                .add(Restrictions.like("name", name))// TODO: Kirill ну откуда ты этот дурацкий лайк взял?
+        return (Buyer) getSession().createCriteria(Buyer.class)
+                .add(Restrictions.eq("name", name))// TODO: Kirill ну откуда ты этот дурацкий лайк взял?
                 .uniqueResult();
     }
 
     @Override
     public void updateBalance(String buyerName, BigDecimal value) {
-        getCurrentSession()
+        getSession()
                 .createQuery("update Buyer b set b.balance = b.balance + :value " +
                              "where b.name = :buyerName")// TODO: Kirill а что тут не лайк? а как я должен это понять из интерфейса который ты предоставляешь для своего дао?
                 .setParameter("buyerName", buyerName)
@@ -48,7 +45,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 
     @Override
     public BigDecimal getBalanceByName(String buyerName) {
-        return (BigDecimal) getCurrentSession().createQuery("select b.balance as balance " +
+        return (BigDecimal) getSession().createQuery("select b.balance as balance " +
                 "from Buyer b where b.name = :buyerName")// TODO: Kirill или тут..
                 .setParameter("buyerName", buyerName)
                 .uniqueResult();
@@ -56,7 +53,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 
     @Override
     public String getNameBySaleId(int saleId) {
-        return (String) getCurrentSession()
+        return (String) getSession()
                 .createQuery("select b.name from Sale s " +
                              "left outer join s.buyer b on b.id = s.buyer.id " +
                              "where s.id = :saleId")
@@ -64,14 +61,4 @@ public class BuyerDAOImpl implements BuyerDAO {
                 .uniqueResult();
     }
 
-    @Override
-    public BuyerDTO getByNameDTO(String name){
-        return (BuyerDTO) getCurrentSession().createQuery("select b.id as id, b.name as name, " +
-                "b.password as password, b.enabled as enabled, b.balance as balance, " +
-                "b.registrationDate as registrationDate " +
-                "from Buyer b where b.name = :username")
-                .setParameter("username", name)
-                .setResultTransformer(Transformers.aliasToBean(BuyerDTO.class))
-                .uniqueResult();
-    }
 }

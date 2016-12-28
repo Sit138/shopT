@@ -42,7 +42,10 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     @Transactional
     public void insertEndDateDiscount(Date endDateDiscount, int productId) {
-            discountDAO.insertEndDateDiscount(endDateDiscount, productId);
+        Product product = productDAO.getProduct(productId);
+        product.setDiscounted(false);
+        productDAO.saveOrUpdate(product);
+        discountDAO.insertEndDateDiscount(endDateDiscount, productId);
     }
 
     @Override
@@ -56,6 +59,7 @@ public class DiscountServiceImpl implements DiscountService {
         Product product = productDAO.getProduct(productId);
         Discount discount = DiscountCalc.createDiscount(type, value);
         product.addProductDiscont(discount);
+        product.setDiscounted(true);
         productDAO.saveOrUpdate(product);
     }
 

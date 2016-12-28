@@ -1,13 +1,12 @@
 package service;
 
 import dto.BuyerDTO;
-import model.Buyer;
 
 import java.math.BigDecimal;
 
 public interface BuyerService {
 
-    void save(Buyer buyer);
+    void save(BuyerDTO buyerDTO);
 
     BuyerDTO getByNameDTO(String name);
 
