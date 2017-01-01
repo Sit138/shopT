@@ -1,6 +1,6 @@
 package dao;
 
-import model.Buyer;
+import entity.Buyer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

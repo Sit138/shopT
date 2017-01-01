@@ -1,7 +1,7 @@
 package service.test;
 
 import dto.ProductDTO;
-import model.enums.DiscountType;
+import util.enums.DiscountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

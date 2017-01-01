@@ -1,4 +1,4 @@
-package model.security;
+package entity.security;
 
 import lombok.AccessLevel;
 import lombok.Getter;

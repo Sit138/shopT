@@ -1,7 +1,7 @@
 package dao.users;
 
 import dto.users.RoleDTO;
-import model.security.Role;
+import entity.security.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

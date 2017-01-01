@@ -1,6 +1,6 @@
 package com.scheduler;
 
-import model.enums.DiscountType;
+import util.enums.DiscountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import service.DiscountService;

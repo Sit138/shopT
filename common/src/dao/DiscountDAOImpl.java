@@ -1,8 +1,8 @@
 package dao;
 
 import dto.DiscountDTO;
-import model.Discount;
-import model.enums.DiscountType;
+import entity.Discount;
+import util.enums.DiscountType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;

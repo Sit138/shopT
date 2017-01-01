@@ -1,4 +1,4 @@
-package model.enums;
+package util.enums;
 
 import java.util.Arrays;
 import java.util.EnumSet;

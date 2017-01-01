@@ -1,6 +1,6 @@
 package controller;
 
-import dto.Basket;
+import model.Basket;
 import dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,7 +60,7 @@ public class BuyController {
         return "redirect:/basket";
     }
 
-    @RequestMapping(value = "/order")// TODO: Kirill метод какой?
+    @RequestMapping(value = "/order", method = RequestMethod.GET)// TODO: Kirill метод какой?
     public String order(HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         try {

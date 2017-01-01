@@ -1,11 +1,11 @@
-package model.security;
+package entity.security;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "user_account")
 @Getter @Setter
 public class User {

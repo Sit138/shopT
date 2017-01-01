@@ -1,8 +1,10 @@
-package dto;
+package model;
 
+import dto.ProductDTO;
+import dto.SoldProductDTO;
 import lombok.Getter;
 import lombok.Setter;
-import model.SoldProduct;
+import entity.SoldProduct;
 import java.math.BigDecimal;
 import java.util.*;
 

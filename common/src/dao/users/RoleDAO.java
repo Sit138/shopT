@@ -1,7 +1,7 @@
 package dao.users;
 
 import dto.users.RoleDTO;
-import model.security.Role;
+import entity.security.Role;
 import java.util.List;
 
 public interface RoleDAO {

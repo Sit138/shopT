@@ -1,4 +1,4 @@
-package model.enums;
+package util.enums;
 
 public enum  ImageType {
 

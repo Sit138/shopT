@@ -1,10 +1,9 @@
 package com.controller;
 
 import dto.DiscountDTO;
-import model.enums.DiscountType;
+import util.enums.DiscountType;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import service.ProductService;
 import util.Pagination;
 import service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;

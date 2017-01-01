@@ -2,7 +2,7 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.enums.SaleState;
+import util.enums.SaleState;
 import java.math.BigDecimal;
 import java.util.Date;
 

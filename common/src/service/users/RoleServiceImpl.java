@@ -2,7 +2,7 @@ package service.users;
 
 import dao.users.RoleDAO;
 import dto.users.RoleDTO;
-import model.security.Role;
+import entity.security.Role;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

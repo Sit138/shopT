@@ -1,7 +1,7 @@
 package controller;
 
 import dto.BuyerDTO;
-import model.enums.ImageType;
+import util.enums.ImageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

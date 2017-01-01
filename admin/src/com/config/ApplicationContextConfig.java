@@ -59,7 +59,7 @@ public class ApplicationContextConfig {
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
         // TODO: Kirill все таки тут не пэкэдж указывается? ++
-        sessionFactoryBuilder.scanPackages("model", "com.scheduler");
+        sessionFactoryBuilder.scanPackages("entity", "com.scheduler");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
     }

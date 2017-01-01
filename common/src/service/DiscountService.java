@@ -2,7 +2,7 @@ package service;
 
 import dto.DiscountDTO;
 import util.Pagination;
-import model.enums.DiscountType;
+import util.enums.DiscountType;
 import java.util.Date;
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package service;
 
-import dto.Basket;
+import model.Basket;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.enums.SaleState;
+import util.enums.SaleState;
 
 import java.util.List;
 

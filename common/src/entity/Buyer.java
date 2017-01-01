@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 import dto.BuyerDTO;
 import lombok.AccessLevel;
@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Buyer")
 @Table(name = "buyer")
 @Getter @Setter
 public class Buyer {
@@ -22,10 +23,12 @@ public class Buyer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", unique = true, length = 15)
+    @Length(min = 3, max = 15)
     private String name;// TODO: Kirill разве у тебя имя уникально для buyer?  если нет, то приложение дырявее некуда сейчас.
 
-    @Column(name = "password")
+    @Column(name = "password", length = 15)
+    @Length(min = 6, max = 15)
     private String password;
 
     @Column(name = "enabled")

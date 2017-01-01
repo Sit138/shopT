@@ -5,9 +5,9 @@ import dao.ProductDAO;
 import dto.DiscountDTO;
 import util.DiscountCalc;
 import util.Pagination;
-import model.Discount;
-import model.enums.DiscountType;
-import model.Product;
+import entity.Discount;
+import util.enums.DiscountType;
+import entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +58,7 @@ public class DiscountServiceImpl implements DiscountService {
     public void addProductDiscount(int productId, byte value, DiscountType type) {
         Product product = productDAO.getProduct(productId);
         Discount discount = DiscountCalc.createDiscount(type, value);
-        product.addProductDiscont(discount);
+        product.addProductDiscount(discount);
         product.setDiscounted(true);
         productDAO.saveOrUpdate(product);
     }

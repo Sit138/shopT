@@ -1,14 +1,16 @@
-package model;
+package entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Product")
 @Table(name = "product")
 @Getter @Setter
 public class Product {
@@ -18,7 +20,8 @@ public class Product {
     @Setter(AccessLevel.NONE)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 15)
+    @Length(min = 3, max = 15)
     private String name;
 
     @Column(name = "price")
@@ -27,13 +30,13 @@ public class Product {
     @Column(name = "discounted")
     private boolean discounted;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)// TODO: Kirill почти все каскады ни к чему
-    private Set<Discount> discounts = new HashSet<Discount>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")// TODO: Kirill почти все каскады ни к чему
+    private Set<Discount> discounts = new HashSet<>();
 
     public Product(){
     }
 
-    public void addProductDiscont(Discount discount){
+    public void addProductDiscount(Discount discount){
         discount.setProduct(this);
         getDiscounts().add(discount);// TODO: Kirill стандартного equals() hashCode() достаточно для корректной работы этого?
     }

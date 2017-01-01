@@ -1,7 +1,7 @@
 package util;
 
-import model.Discount;
-import model.enums.DiscountType;
+import entity.Discount;
+import util.enums.DiscountType;
 
 import java.util.Date;
 

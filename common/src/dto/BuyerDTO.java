@@ -2,7 +2,7 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import model.Buyer;
+import entity.Buyer;
 
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;

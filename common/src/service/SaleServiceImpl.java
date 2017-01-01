@@ -2,12 +2,12 @@ package service;
 
 import dao.BuyerDAO;
 import dao.SaleDAO;
-import dto.Basket;
+import model.Basket;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.Buyer;
-import model.Sale;
-import model.enums.SaleState;
+import entity.Buyer;
+import entity.Sale;
+import util.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

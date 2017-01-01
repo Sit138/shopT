@@ -2,7 +2,7 @@ package com.controller;
 
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.enums.SaleState;
+import util.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

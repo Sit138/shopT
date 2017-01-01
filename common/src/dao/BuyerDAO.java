@@ -1,6 +1,6 @@
 package dao;
 
-import model.Buyer;
+import entity.Buyer;
 import java.math.BigDecimal;
 
 public interface BuyerDAO {

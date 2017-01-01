@@ -3,13 +3,12 @@ package service.users;
 import dao.users.RoleDAO;
 import dao.users.UserDAO;
 import dto.users.UserDTO;
-import model.security.Role;
-import model.security.User;
+import entity.security.Role;
+import entity.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @Service

@@ -2,8 +2,8 @@ package dao;
 
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.Sale;
-import model.enums.SaleState;
+import entity.Sale;
+import util.enums.SaleState;
 import java.util.List;
 
 public interface SaleDAO {

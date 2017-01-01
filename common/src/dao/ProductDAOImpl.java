@@ -1,7 +1,7 @@
 package dao;
 
 import dto.ProductDTO;
-import model.Product;
+import entity.Product;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

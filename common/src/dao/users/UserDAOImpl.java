@@ -1,7 +1,7 @@
 package dao.users;
 
 import dto.users.UserDTO;
-import model.security.User;
+import entity.security.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;

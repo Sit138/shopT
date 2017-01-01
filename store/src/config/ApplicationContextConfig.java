@@ -54,7 +54,7 @@ public class ApplicationContextConfig {
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
-        sessionFactoryBuilder.scanPackages("model", "com.scheduler");
+        sessionFactoryBuilder.scanPackages("entity", "com.scheduler");
         sessionFactoryBuilder.addProperties(getHibernateProperties());
         return sessionFactoryBuilder.buildSessionFactory();
     }

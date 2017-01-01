@@ -1,7 +1,7 @@
 package dao.users;
 
 import dto.users.UserDTO;
-import model.security.User;
+import entity.security.User;
 import java.util.List;
 
 public interface UserDAO {

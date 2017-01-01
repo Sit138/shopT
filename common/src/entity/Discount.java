@@ -1,13 +1,13 @@
-package model;
+package entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import model.enums.DiscountType;
+import util.enums.DiscountType;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Entity(name = "Discount")
 @Table(name = "discount")
 @Getter @Setter
 public class Discount {

@@ -2,7 +2,7 @@ package dao;
 
 import dto.ProductDTO;
 import util.Pagination;
-import model.Product;
+import entity.Product;
 import java.util.List;
 
 public interface ProductDAO {

@@ -45,7 +45,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/setting/deleteRole", method = RequestMethod.GET)
-    public String deleteRole(HttpServletRequest request, Model model){
+    public String deleteRole(HttpServletRequest request){
         int roleId = Integer.parseInt(request.getParameter("id"));
         roleService.deleteRole(roleId);
         return "redirect:/setting/roles";

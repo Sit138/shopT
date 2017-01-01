@@ -1,10 +1,10 @@
-package model;
+package entity;
 
-import dto.Basket;
+import model.Basket;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import model.enums.SaleState;
+import util.enums.SaleState;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Sale")
 @Table(name = "sale")
 @Getter @Setter
 public class Sale {

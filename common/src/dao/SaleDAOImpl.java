@@ -2,8 +2,8 @@ package dao;
 
 import dto.SaleDTO;
 import dto.SoldProductDTO;
-import model.Sale;
-import model.enums.SaleState;
+import entity.Sale;
+import util.enums.SaleState;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;

@@ -1,7 +1,6 @@
 package com.controller;
 
 import dto.ProductDTO;
-import service.DiscountService;
 import util.Pagination;
 import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private DiscountService discountService;
-
     @RequestMapping(value = {"/", "/index"})
     public String index(){
         return "index";
@@ -32,8 +28,7 @@ public class ProductController {
     @ModelAttribute("paginator")
     Pagination getPagination(){
         int numberAllRows = productService.getNumberAllRowsProduct();
-        Pagination pagination = new Pagination(numberAllRows);
-        return pagination;
+        return new Pagination(numberAllRows);
     }
 
     @RequestMapping(value = "/home")
