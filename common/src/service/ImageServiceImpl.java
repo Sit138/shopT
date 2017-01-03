@@ -1,11 +1,13 @@
 package service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class ImageServiceImpl implements ImageService {
 
     @Override

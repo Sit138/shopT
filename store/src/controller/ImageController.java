@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import service.BuyerService;
 import service.ImageService;
-import service.ImageServiceImpl;
 import util.CurrentUser;
 import util.PropertyApp;
 
@@ -19,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ImageController {
 
-    private ImageService imageService = new ImageServiceImpl();
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private BuyerService buyerService;

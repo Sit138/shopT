@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import service.BasketService;
 import service.BuyerService;
 import service.ProductService;
 import service.SaleService;
@@ -27,6 +28,9 @@ public class StoreController {
     @Autowired
     private SaleService saleService;
 
+    @Autowired
+    private BasketService basketService;
+
     @ModelAttribute("paginator")
     Pagination getPagination(){
         int numberAllRows = productService.getNumberAllRowsProduct();
@@ -34,7 +38,7 @@ public class StoreController {
         return pagination;
     }
 
-    @RequestMapping(value = {"/product", "/"})
+    @RequestMapping(value = {"/product", "/"}, method = RequestMethod.GET)
     public String shopClient(Model model,
                              @ModelAttribute("paginator") Pagination pagination, HttpServletRequest request){
         model.addAttribute("client", "Магазин");
@@ -47,14 +51,14 @@ public class StoreController {
         return "product";
     }
 
-    @RequestMapping(value = "/basket")
+    @RequestMapping(value = "/basket", method = RequestMethod.GET)
     public String basket(Model model, HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
-        model.addAttribute("totalSum", basket.getCost());
+        model.addAttribute("totalSum", basketService.getCost(basket));
         return "basket";
     }
 
-    @RequestMapping(value = "/profile")
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Model model){
         BuyerDTO buyer = buyerService.getByNameDTO(CurrentUser.getCurrentUserName());
         model.addAttribute("buyer", buyer);

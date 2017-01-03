@@ -24,7 +24,7 @@ public class SaleController {
     @Autowired
     private BuyerService buyerService;
 
-    @RequestMapping(value = "/sale")
+    @RequestMapping(value = "/sale", method = RequestMethod.GET)
     public String sale(Model model){
         List<SaleDTO> sales = saleService.list();
         model.addAttribute("sales", sales);

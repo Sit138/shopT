@@ -4,7 +4,6 @@ import model.Basket;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
 import util.enums.SaleState;
-
 import java.util.List;
 
 public interface SaleService {
@@ -18,5 +17,7 @@ public interface SaleService {
     List<SaleDTO> list();
 
     void updateState(int saleId, SaleState state);
+
+    void order(String buyerName, Basket basket);
 }
 

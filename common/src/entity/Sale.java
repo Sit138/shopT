@@ -48,13 +48,13 @@ public class Sale {
 
     public Sale(){}
 
-    public Sale(Buyer buyer, Basket basket){
+    /*public Sale(Buyer buyer, Basket basket){
         this.date = new Date();
         this.amount = basket.getCountProducts();
         this.totalSum = basket.getCost();
         this.state = SaleState.SENT;
         this.soldProducts = basket.getConversionToSoldProduct();
         this.buyer = buyer;
-    }
+    }*/
 
 }

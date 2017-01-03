@@ -24,13 +24,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/setting/users")
+    @RequestMapping(value = "/setting/users", method = RequestMethod.GET)
     public String usersPage(Model model){
         model.addAttribute("userDTOList", userService.getUserDTOList());
         return "setting/users";
     }
 
-    @RequestMapping(value = "/setting/newUser")
+    @RequestMapping(value = "/setting/newUser", method = RequestMethod.GET)
     public String newUser(Model model){
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);

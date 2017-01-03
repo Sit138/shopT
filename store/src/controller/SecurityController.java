@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.BuyerService;
-
 import javax.validation.Valid;
 
 @Controller
@@ -45,7 +44,6 @@ public class SecurityController {
             return "registration";
         }
         try {
-            //Buyer buyer = new Buyer(buyerDTO); // TODO: Kirill .....//убрал в сервис
             buyerService.save(buyerDTO);
             return "redirect:/login";
         } catch (Exception e){

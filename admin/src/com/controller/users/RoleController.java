@@ -19,14 +19,14 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/setting/roles")
+    @RequestMapping(value = "/setting/roles", method = RequestMethod.GET)
     public String rolesPage(Model model){
         List<RoleDTO> roleDTOList = roleService.getListRoles();
         model.addAttribute("roleDTOList", roleDTOList);
         return "setting/roles";
     }
 
-    @RequestMapping(value = "/setting/newRole")
+    @RequestMapping(value = "/setting/newRole", method = RequestMethod.GET)
     public String newRole(Model model){
         RoleDTO roleDTO = new RoleDTO();
         model.addAttribute("roleDTO", roleDTO);

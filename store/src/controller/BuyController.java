@@ -1,17 +1,13 @@
 package controller;
 
 import model.Basket;
-import dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import service.BuyerService;
-import service.DiscountService;
-import service.ProductService;
-import service.SaleService;
+import service.*;
 import util.CurrentUser;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -21,31 +17,24 @@ import java.math.BigDecimal;
 public class BuyController {
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private DiscountService discountService;
-
-    @Autowired
     private SaleService saleService;
 
     @Autowired
     private BuyerService buyerService;
 
+    @Autowired
+    private BasketService basketService;
+
     @RequestMapping(value = "/put", method = RequestMethod.POST)
     public String putInBasket(HttpServletRequest request,
                               @RequestParam(value = "count") int count){
         int productSaleId = Integer.parseInt(request.getParameter("id"));
-        ProductDTO product = productService.getProductDTOById(productSaleId);
         Basket basket = (Basket) request.getSession().getAttribute("basket");
-        // TODO: Kirill похоже это бизнес логика
         if(basket == null){
             basket = new Basket();
+            request.getSession().setAttribute("basket", basket);
         }
-        byte discount = product.isDiscounted() ? discountService.getValueByProductId(productSaleId) : 0;
-        basket.addProduct(product, count, discount);
-        //---------------------------------
-        request.getSession().setAttribute("basket", basket);
+        basketService.addProduct(basket, productSaleId, count);
         return "redirect:/product";
     }
 
@@ -54,9 +43,7 @@ public class BuyController {
                                 @RequestParam(value = "amount") int amount){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         int productId = Integer.parseInt(request.getParameter("id"));
-        // TODO: Kirill и вообще в Корзине у тебя набор функций таких, это не просто pojo класс у тебя для передачи инфы
-        // об отложенных продуктах туда и обратно. Надо подумать над улучшением.
-        basket.deleteProduct(productId, amount);
+        basketService.deleteProduct(basket, productId, amount);
         return "redirect:/basket";
     }
 
@@ -66,11 +53,9 @@ public class BuyController {
         try {
             String buyerName = CurrentUser.getCurrentUserName();
             BigDecimal buyerBalance = buyerService.getBalanceByName(buyerName);
-            BigDecimal basketCost = basket.getCost();
-            if(basket.getCost().compareTo(buyerBalance) == -1){
-                buyerService.updateBalance(buyerName, basketCost.negate());// TODO: Kirill вот тут все исполнилось
-                saleService.save(buyerName, basket);// а тут искючение. Что получится в итоге? денег нет как и заказа.
-                basket.clear();//все потому что бизнес логика не там где должна быть
+            BigDecimal basketCost = basketService.getCost(basket);
+            if(basketCost.compareTo(buyerBalance) == -1){
+                saleService.order(buyerName, basket);
                 return "redirect:/profile";
             } else {
                 return "redirect:/cashier";

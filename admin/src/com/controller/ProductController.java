@@ -20,7 +20,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = {"/", "/index"})
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(){
         return "index";
     }

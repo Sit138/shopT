@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.BuyerService;
 import util.CurrentUser;
-
 import java.math.BigDecimal;
 
 @Controller

@@ -11,7 +11,7 @@ import util.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,11 +24,21 @@ public class SaleServiceImpl implements SaleService {
     @Autowired
     private BuyerDAO buyerDAO;
 
+    @Autowired
+    private BasketService basketService;
+
     @Override
     @Transactional
     public void save(String buyerName, Basket basket) {
-        Buyer buyer = buyerDAO.getByName(buyerName);// TODO: Kirill а не нашел если? сохраним продажу без покупателя
-        Sale sale = new Sale(buyer, basket);
+        Buyer buyer = buyerDAO.getByName(buyerName);
+        if (buyer == null) return;
+        Sale sale = new Sale();
+        sale.setDate(new Date());
+        sale.setAmount(basketService.getCountProducts(basket));
+        sale.setTotalSum(basketService.getCost(basket));
+        sale.setState(SaleState.SENT);
+        sale.setSoldProducts(basketService.getConversionToSoldProduct(basket));
+        sale.setBuyer(buyer);
         saleDAO.save(sale);
     }
 
@@ -51,5 +61,17 @@ public class SaleServiceImpl implements SaleService {
     @Transactional
     public void updateState(int saleId, SaleState state) {
         saleDAO.updateState(saleId, state);
+    }
+
+    @Override
+    @Transactional
+    public void order(String buyerName, Basket basket) {
+        try {
+            save(buyerName, basket);
+            buyerDAO.updateBalance(buyerName, basketService.getCost(basket).negate());
+        } catch (Exception e){
+            return;
+        }
+        basketService.clear(basket);
     }
 }
