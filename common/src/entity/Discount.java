@@ -29,8 +29,7 @@ public class Discount {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    // TODO: Kirill не надо комментарием с пояснением, сделай так чтоб не забыть никогда. Перечисление ++
-    @Column(name = "add_type")// TODO: Kirill type?
+    @Column(name = "add_type")// TODO: Kirill type?::Скидка с типом добавления - AUTO, MANUAL
     @Enumerated(EnumType.STRING)
     private DiscountType addType;
 

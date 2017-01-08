@@ -26,7 +26,7 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {
-        return discountDAO.selectHistoryProductDiscounts(pagination);
+        return discountDAO.getHistoryProductDiscounts(pagination);
     }
 
     @Override

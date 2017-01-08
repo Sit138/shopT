@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -30,9 +29,10 @@ public class Product {
     @Column(name = "discounted")
     private boolean discounted;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")// TODO: Kirill почти все каскады ни к чему
-    private Set<Discount> discounts = new HashSet<>();
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)// TODO: Kirill почти все каскады ни к чему
+    private Set<Discount> discounts = new HashSet<>(); //:: здесь используется, т.к. сохранение происходит через сохранения продукта
+                                                        //соответственно каскад нужен. если так неприемлимо, то можно конечно изменить
+                                                        //:: оставил в аналогичных случаях
     public Product(){
     }
 
@@ -40,5 +40,6 @@ public class Product {
         discount.setProduct(this);
         getDiscounts().add(discount);// TODO: Kirill стандартного equals() hashCode() достаточно для корректной работы этого?
     }
+
 
 }

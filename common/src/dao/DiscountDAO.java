@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DiscountDAO {
 
-    List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination);
+    List<DiscountDTO> getHistoryProductDiscounts(Pagination pagination);
 
     void insertEndDateDiscount(Date endDateDiscount, int productId);
 

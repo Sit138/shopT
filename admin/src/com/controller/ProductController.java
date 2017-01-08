@@ -20,15 +20,15 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String index(){
-        return "index";
-    }
-
     @ModelAttribute("paginator")
     Pagination getPagination(){
         int numberAllRows = productService.getNumberAllRowsProduct();
         return new Pagination(numberAllRows);
+    }
+
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String index(){
+        return "index";
     }
 
     @RequestMapping(value = "/home")
@@ -36,7 +36,6 @@ public class ProductController {
                        @ModelAttribute("paginator") Pagination pagination){
         String info = request.getParameter("info");
         model.addAttribute("info", info);
-        pagination.updateNumberFirstSamplingElement();
         int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
         List<ProductDTO> productList = productService.listProducts(pagination);

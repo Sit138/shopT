@@ -2,7 +2,6 @@ package service;
 
 import entity.SoldProduct;
 import model.Basket;
-
 import java.math.BigDecimal;
 import java.util.Set;
 

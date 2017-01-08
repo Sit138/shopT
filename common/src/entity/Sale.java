@@ -1,6 +1,5 @@
 package entity;
 
-import model.Basket;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +25,10 @@ public class Sale {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "amount")
-    private int amount;// TODO: Kirill что это значит? как апдейтится?
+    @Column(name = "positions")
+    private int positions;// TODO: Kirill что это значит? как апдейтится?
     // логика увеличения этого числа не должна быть связана с добавлением в soldProducts?
+    // :: == общее количество товаров (позиций) в корзине в момент покупки, изменил название
 
     @Column(name = "total_sum")
     private BigDecimal totalSum;
@@ -47,14 +47,5 @@ public class Sale {
     private Buyer buyer;
 
     public Sale(){}
-
-    /*public Sale(Buyer buyer, Basket basket){
-        this.date = new Date();
-        this.amount = basket.getCountProducts();
-        this.totalSum = basket.getCost();
-        this.state = SaleState.SENT;
-        this.soldProducts = basket.getConversionToSoldProduct();
-        this.buyer = buyer;
-    }*/
 
 }

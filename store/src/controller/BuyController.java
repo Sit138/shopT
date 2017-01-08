@@ -47,7 +47,7 @@ public class BuyController {
         return "redirect:/basket";
     }
 
-    @RequestMapping(value = "/order", method = RequestMethod.GET)// TODO: Kirill метод какой?
+    @RequestMapping(value = "/order", method = RequestMethod.GET)// TODO: Kirill метод какой? ++
     public String order(HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         try {

@@ -31,7 +31,7 @@ public class SaleDAOImpl implements SaleDAO {
     @Override
     public List<SaleDTO> getByBuyerId(int buyerId) {
         return  getSession().createQuery("select s.id as id, s.date as date, " +
-                "s.amount as amount, s.totalSum as totalSum, s.state as state " +
+                "s.positions as positions, s.totalSum as totalSum, s.state as state " +
                 "from Sale s where s.buyer.id = :buyerId")
                 .setParameter("buyerId", buyerId)
                 .setResultTransformer(Transformers.aliasToBean(SaleDTO.class))
@@ -53,7 +53,7 @@ public class SaleDAOImpl implements SaleDAO {
     public List<SaleDTO> list() {
         return (List<SaleDTO>) getSession().
                 createQuery("select s.id as id, s.date as date, " +
-                        "s.amount as amount, s.totalSum as totalSum, s.state as state from Sale s")
+                        "s.positions as positions, s.totalSum as totalSum, s.state as state from Sale s")
                 .setResultTransformer(Transformers.aliasToBean(SaleDTO.class))
                 .list();
     }

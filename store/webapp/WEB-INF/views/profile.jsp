@@ -55,7 +55,7 @@
                             <a href="<%=request.getContextPath()%>/profile/orderInfo?saleId=${sale.id}">${sale.id}</a>
                         </td>
                         <td>${sale.date}</td>
-                        <td>${sale.amount}</td>
+                        <td>${sale.positions}</td>
                         <td>${sale.totalSum}</td>
                         <td>${sale.state}</td>
                     </tr>

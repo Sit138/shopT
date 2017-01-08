@@ -42,7 +42,7 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?
+    public List<DiscountDTO> getHistoryProductDiscounts(Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?:: :D
         return getSession()
                 .createQuery("select d.value as value, d.startDate as startDate, d.endDate as endDate, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.addType as addType " +

@@ -9,7 +9,7 @@ public interface BuyerDAO {
 
     Buyer getByName(String name);
 
-    void updateBalance(String buyerName, BigDecimal deposit);
+    void addToBalance(String buyerName, BigDecimal value);
 
     BigDecimal getBalanceByName(String buyerName);
 

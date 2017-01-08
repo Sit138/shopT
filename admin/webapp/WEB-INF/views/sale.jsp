@@ -25,7 +25,7 @@
                 <a href="<%=request.getContextPath()%>/sale/orderInfo?saleId=${sale.id}">${sale.id}</a>
             </td>
             <td>${sale.date}</td>
-            <td>${sale.amount}</td>
+            <td>${sale.positions}</td>
             <td>${sale.totalSum}</td>
             <form:form action="updateState?saleId=${sale.id}" method="POST">
                 <td>

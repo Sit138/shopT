@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/setting/deleteUser", method = RequestMethod.GET)
-    public String deleteUser(HttpServletRequest request, Model model){
+    public String deleteUser(HttpServletRequest request){
         int userId = Integer.parseInt(request.getParameter("id"));
         userService.deleteUser(userId);
         return "redirect:/setting/users";

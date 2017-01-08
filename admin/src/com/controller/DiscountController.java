@@ -30,7 +30,6 @@ public class DiscountController {
     @RequestMapping(value = "/discountHistory")
     public String discountHistory(Model model,
                                   @ModelAttribute("paginator") Pagination pagination){
-        pagination.updateNumberFirstSamplingElement();
         int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
         List<DiscountDTO> productsDiscount = discountService.selectHistoryProductDiscounts(pagination);

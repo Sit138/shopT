@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 
-// TODO: Kirill почему ты используешь везде имя вместо айди?
+// TODO: Kirill почему ты используешь везде имя вместо айди?::Сейчас имя уникально, пока оставил (сделаю через ID)
 @Repository
 public class BuyerDAOImpl implements BuyerDAO {
 
@@ -34,7 +34,7 @@ public class BuyerDAOImpl implements BuyerDAO {
     }
 
     @Override
-    public void updateBalance(String buyerName, BigDecimal value) {
+    public void addToBalance(String buyerName, BigDecimal value) {
         getSession()
                 .createQuery("update Buyer b set b.balance = b.balance + :value " +
                              "where b.name = :buyerName")// TODO: Kirill а что тут не лайк? а как я должен это понять из интерфейса который ты предоставляешь для своего дао?

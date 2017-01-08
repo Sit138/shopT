@@ -23,7 +23,7 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public void updateBalance(String buyerName, BigDecimal deposit) {
-        buyerDAO.updateBalance(buyerName, deposit);
+        buyerDAO.addToBalance(buyerName, deposit);
     }
 
     @Override

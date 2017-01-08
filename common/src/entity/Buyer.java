@@ -26,6 +26,7 @@ public class Buyer {
     @Column(name = "name", unique = true, length = 15)
     @Length(min = 3, max = 15)
     private String name;// TODO: Kirill разве у тебя имя уникально для buyer?  если нет, то приложение дырявее некуда сейчас.
+                            //Поправил
 
     @Column(name = "password", length = 15)
     @Length(min = 6, max = 15)

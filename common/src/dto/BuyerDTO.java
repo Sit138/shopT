@@ -3,7 +3,6 @@ package dto;
 import lombok.Getter;
 import lombok.Setter;
 import entity.Buyer;
-
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -35,6 +34,5 @@ public class BuyerDTO {
     }
 
     public BuyerDTO() {
-
     }
 }

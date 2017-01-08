@@ -34,7 +34,7 @@ public class SaleServiceImpl implements SaleService {
         if (buyer == null) return;
         Sale sale = new Sale();
         sale.setDate(new Date());
-        sale.setAmount(basketService.getCountProducts(basket));
+        sale.setPositions(basketService.getCountProducts(basket));
         sale.setTotalSum(basketService.getCost(basket));
         sale.setState(SaleState.SENT);
         sale.setSoldProducts(basketService.getConversionToSoldProduct(basket));
@@ -68,7 +68,7 @@ public class SaleServiceImpl implements SaleService {
     public void order(String buyerName, Basket basket) {
         try {
             save(buyerName, basket);
-            buyerDAO.updateBalance(buyerName, basketService.getCost(basket).negate());
+            buyerDAO.addToBalance(buyerName, basketService.getCost(basket).negate());
         } catch (Exception e){
             return;
         }

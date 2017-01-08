@@ -57,7 +57,7 @@ public class ProductDAOImpl implements ProductDAO{
         if (product != null) {
             Hibernate.initialize(product.getDiscounts());
         }
-            return product;
+        return product;
     }
 
     @Override

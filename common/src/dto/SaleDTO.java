@@ -13,7 +13,7 @@ public class SaleDTO {
 
     private Date date;
 
-    private int amount;
+    private int positions;
 
     private BigDecimal totalSum;
 

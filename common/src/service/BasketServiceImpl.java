@@ -19,9 +19,6 @@ public class BasketServiceImpl implements BasketService {
     @Autowired
     private DiscountService discountService;
 
-    @Autowired
-    private BuyerService buyerService;
-
     @Override
     public void addProduct(Basket basket, int productId, int amount) {
         if(basket == null){

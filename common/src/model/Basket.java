@@ -1,11 +1,8 @@
 package model;
 
-import dto.ProductDTO;
 import dto.SoldProductDTO;
 import lombok.Getter;
 import lombok.Setter;
-import entity.SoldProduct;
-import java.math.BigDecimal;
 import java.util.*;
 
 @Getter @Setter

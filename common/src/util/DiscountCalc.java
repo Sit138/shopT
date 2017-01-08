@@ -2,7 +2,6 @@ package util;
 
 import entity.Discount;
 import util.enums.DiscountType;
-
 import java.util.Date;
 
 public class DiscountCalc {

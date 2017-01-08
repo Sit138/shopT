@@ -40,9 +40,8 @@ public class StoreController {
 
     @RequestMapping(value = {"/product", "/"}, method = RequestMethod.GET)
     public String shopClient(Model model,
-                             @ModelAttribute("paginator") Pagination pagination, HttpServletRequest request){
+                             @ModelAttribute("paginator") Pagination pagination){
         model.addAttribute("client", "Магазин");
-        pagination.updateNumberFirstSamplingElement();
         int numberOfPages = pagination.getNumberOfPages();
         model.addAttribute("numberOfPages", numberOfPages);
         List<ProductDTO> productList = productService.listProducts(pagination);
