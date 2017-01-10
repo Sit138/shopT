@@ -21,17 +21,17 @@ public class Discount {
     @Column(name = "value")
     private byte value;
 
-    @Column(name = "start_date")
+    @Column(name = "start_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
+    private Date startAt;
 
-    @Column(name = "end_date")
+    @Column(name = "end_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
+    private Date endAt;
 
-    @Column(name = "add_type")// TODO: Kirill type?::Скидка с типом добавления - AUTO, MANUAL
+    @Column(name = "type")// TODO: Kirill type?::Скидка с типом добавления - AUTO, MANUAL
     @Enumerated(EnumType.STRING)
-    private DiscountType addType;
+    private DiscountType type;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -40,11 +40,11 @@ public class Discount {
     public Discount() {
     }
 
-    public Discount(byte value, Date startDate, DiscountType discountType) {
+    public Discount(byte value, Date startAt, DiscountType discountType) {
         this.value = value;
-        this.startDate = startDate;
-        this.endDate = null;
-        this.addType = discountType;
+        this.startAt = startAt;
+        this.endAt = null;
+        this.type = discountType;
     }
 
 }

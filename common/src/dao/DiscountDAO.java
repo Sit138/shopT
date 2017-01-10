@@ -11,7 +11,7 @@ public interface DiscountDAO {
 
     void insertEndDateDiscount(Date endDateDiscount, int productId);
 
-    int numberItemsDiscountHistory();
+    int countItemsDiscountHistory();
 
     DiscountDTO getNowAutoDiscountProduct();
 

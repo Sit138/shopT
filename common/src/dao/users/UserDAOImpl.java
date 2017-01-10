@@ -15,18 +15,18 @@ public class UserDAOImpl implements UserDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    private Session getCurrentSession() {
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
     public void saveOrUpdate(User user) {
-        getCurrentSession().saveOrUpdate(user);
+        getSession().saveOrUpdate(user);
     }
 
     @Override
     public List<UserDTO> getUserDTOList() {
-        return getCurrentSession()
+        return getSession()
                 .createQuery("select u.id as id, u.userName as userName, u.password as password, " +
                         "r.nameRole as nameRole, u.enabled as enabled " +
                         "from User u left outer join u.role r on r.id = u.role.id " +
@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(int id) {
-        getCurrentSession()
+        getSession()
                 .createQuery("delete from User WHERE id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserById(int id) {
-        return getCurrentSession()
+        return getSession()
                 .get(User.class, id);
     }
 }

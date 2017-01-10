@@ -36,7 +36,7 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public int numberItemsDiscountHistory() {
-        return discountDAO.numberItemsDiscountHistory();
+        return discountDAO.countItemsDiscountHistory();
     }
 
     @Override

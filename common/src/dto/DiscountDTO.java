@@ -11,9 +11,9 @@ public class DiscountDTO {
 
     private byte value;
 
-    private Timestamp startDate;
+    private Timestamp startAt;
 
-    private Timestamp endDate;
+    private Timestamp endAt;
 
     private int productId;
 
@@ -21,6 +21,6 @@ public class DiscountDTO {
 
     private BigDecimal productPrice;
 
-    private DiscountType addType;
+    private DiscountType type;
 
 }

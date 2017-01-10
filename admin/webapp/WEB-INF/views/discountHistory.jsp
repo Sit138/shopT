@@ -31,19 +31,19 @@
                     <td>${productsDiscount.productName}</td>
                     <td><fmt:formatNumber value="${productsDiscount.value}" type="number" maxFractionDigits="2"/></td>
                     <td>
-                        <fmt:formatDate value="${productsDiscount.startDate}" pattern="dd/MM/yyyy HH:mm:ss"/>
+                        <fmt:formatDate value="${productsDiscount.startAt}" pattern="dd/MM/yyyy HH:mm:ss"/>
                     </td>
                     <c:choose>
-                        <c:when test="${productsDiscount.endDate == null}">
+                        <c:when test="${productsDiscount.endAt == null}">
                             <td>Активна</td>
                         </c:when>
                         <c:otherwise>
                             <td>
-                                <fmt:formatDate value="${productsDiscount.endDate}" pattern="dd/MM/yyyy HH:mm:ss"/>
+                                <fmt:formatDate value="${productsDiscount.endAt}" pattern="dd/MM/yyyy HH:mm:ss"/>
                             </td>
                         </c:otherwise>
                     </c:choose>
-                    <td>${productsDiscount.addType}</td>
+                    <td>${productsDiscount.type}</td>
                 </tr>
         </c:forEach>
     </table>

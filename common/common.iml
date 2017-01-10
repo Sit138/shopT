@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
-          <factory-entry name="EntityPersistance" value="3dfe82ff-131d-4c2f-a02f-54ae3d7d014e" />
+          <factory-entry name="EntityPersistance" value="82546469-a7bb-4882-97f9-6637bf5943f8" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/persistance.xml" />
       </configuration>

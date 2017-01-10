@@ -32,7 +32,7 @@ public class ProductDAOImpl implements ProductDAO{
     public List<ProductDTO> listProducts(Pagination pagination) {
         return getSession()
                 .createSQLQuery("SELECT p.id AS id, p.name AS name, p.price AS price, d.id IS NOT NULL AS discounted FROM product p " +
-                        "LEFT OUTER JOIN (SELECT * FROM discount WHERE end_date IS NULL) AS d ON p.id = d.product_id ORDER BY p.id")
+                        "LEFT OUTER JOIN (SELECT * FROM discount WHERE end_at IS NULL) AS d ON p.id = d.product_id ORDER BY p.id")
                 .addScalar("id", IntegerType.INSTANCE)
                 .addScalar("name", StringType.INSTANCE)
                 .addScalar("price", BigDecimalType.INSTANCE)
@@ -52,11 +52,8 @@ public class ProductDAOImpl implements ProductDAO{
     }
 
     @Override
-    public Product getProduct(int id) {// TODO: Kirill что-то надо изменить в этом методе
+    public Product getProduct(int id) {// TODO: Kirill что-то надо изменить в этом методе ++
         Product product = getSession().get(Product.class, id);
-        if (product != null) {
-            Hibernate.initialize(product.getDiscounts());
-        }
         return product;
     }
 
@@ -76,7 +73,7 @@ public class ProductDAOImpl implements ProductDAO{
     public int getRandomIdWithoutDisc() {
         return (int) getSession()
                 .createQuery("select p.id from Product p " +
-                        "where p.id not in (select d.product.id from Discount d where d.endDate is null) " +
+                        "where p.id not in (select d.product.id from Discount d where d.endAt is null) " +
                         "order by rand()")
                 .setMaxResults(1).uniqueResult();
     }
