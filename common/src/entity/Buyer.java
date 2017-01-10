@@ -4,10 +4,12 @@ import dto.BuyerDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,7 +43,8 @@ public class Buyer {
     @Column(name = "registration_date")
     private Date registrationDate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer")
+    @Cascade(CascadeType.SAVE_UPDATE)
     @LazyCollection(LazyCollectionOption.TRUE)
     private Set<Sale> sales = new HashSet<>();
 

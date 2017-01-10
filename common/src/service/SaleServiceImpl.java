@@ -68,7 +68,8 @@ public class SaleServiceImpl implements SaleService {
     public void order(String buyerName, Basket basket) {
         try {
             save(buyerName, basket);
-            buyerDAO.addToBalance(buyerName, basketService.getCost(basket).negate());
+            Buyer buyer = buyerDAO.getByName(buyerName);
+            buyerDAO.addToBalance(buyer.getId(), basketService.getCost(basket).negate());
         } catch (Exception e){
             return;
         }

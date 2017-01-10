@@ -34,20 +34,20 @@ public class BuyerDAOImpl implements BuyerDAO {
     }
 
     @Override
-    public void addToBalance(String buyerName, BigDecimal value) {
+    public void addToBalance(int id, BigDecimal value) {
         getSession()
                 .createQuery("update Buyer b set b.balance = b.balance + :value " +
-                             "where b.name = :buyerName")// TODO: Kirill а что тут не лайк? а как я должен это понять из интерфейса который ты предоставляешь для своего дао?
-                .setParameter("buyerName", buyerName)
+                             "where b.id = :id")// TODO: Kirill а что тут не лайк? а как я должен это понять из интерфейса который ты предоставляешь для своего дао?
+                .setParameter("id", id)
                 .setParameter("value", value)
                 .executeUpdate();
     }
 
     @Override
-    public BigDecimal getBalanceByName(String buyerName) {
+    public BigDecimal getBalanceById(int id) {
         return (BigDecimal) getSession().createQuery("select b.balance as balance " +
-                "from Buyer b where b.name = :buyerName")// TODO: Kirill или тут..
-                .setParameter("buyerName", buyerName)
+                "from Buyer b where b.id = :id")// TODO: Kirill или тут..
+                .setParameter("id", id)
                 .uniqueResult();
     }
 

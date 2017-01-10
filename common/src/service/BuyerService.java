@@ -8,11 +8,11 @@ public interface BuyerService {
 
     void save(BuyerDTO buyerDTO);
 
-    BuyerDTO getByNameDTO(String name);
+    BuyerDTO getDTOByName(String name);
 
-    void updateBalance(String buyerName, BigDecimal deposit);
+    void addToBalance(int id, BigDecimal value);
 
-    BigDecimal getBalanceByName(String buyerName);
+    BigDecimal getBalanceById(int id);
 
     String getNameBySaleId(int saleId);
 

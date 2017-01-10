@@ -1,5 +1,6 @@
 package controller;
 
+import dto.BuyerDTO;
 import model.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,8 @@ public class BuyController {
         Basket basket = (Basket) request.getSession().getAttribute("basket");
         try {
             String buyerName = CurrentUser.getCurrentUserName();
-            BigDecimal buyerBalance = buyerService.getBalanceByName(buyerName);
+            BuyerDTO buyerDTO = buyerService.getDTOByName(buyerName);
+            BigDecimal buyerBalance = buyerService.getBalanceById(buyerDTO.getId());
             BigDecimal basketCost = basketService.getCost(basket);
             if(basketCost.compareTo(buyerBalance) == -1){
                 saleService.order(buyerName, basket);

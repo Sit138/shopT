@@ -1,5 +1,6 @@
 package controller;
 
+import dto.BuyerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,8 @@ public class CashController {
 
     @RequestMapping(value = "/deposit", method = RequestMethod.POST)
     public String deposit(@RequestParam("deposit") BigDecimal deposit){
-        buyerService.updateBalance(CurrentUser.getCurrentUserName(), deposit);
+        BuyerDTO buyerDTO = buyerService.getDTOByName(CurrentUser.getCurrentUserName());
+        buyerService.addToBalance(buyerDTO.getId(), deposit);
         return "redirect:/profile";
     }
 

@@ -9,9 +9,9 @@ public interface BuyerDAO {
 
     Buyer getByName(String name);
 
-    void addToBalance(String buyerName, BigDecimal value);
+    void addToBalance(int id, BigDecimal value);
 
-    BigDecimal getBalanceByName(String buyerName);
+    BigDecimal getBalanceById(int id);
 
     String getNameBySaleId(int saleId);
 

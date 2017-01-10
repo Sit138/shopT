@@ -32,7 +32,7 @@ public class ImageController {
     @RequestMapping(value = "/uploadAva", method = RequestMethod.POST)
     public String uploadAva(@RequestParam("avatar") MultipartFile avatar,
                             HttpServletRequest request){
-        BuyerDTO buyer = buyerService.getByNameDTO(CurrentUser.getCurrentUserName());
+        BuyerDTO buyer = buyerService.getDTOByName(CurrentUser.getCurrentUserName());
         String uploadFolder = PropertyApp.PATH_AVATAR_UPLOAD + buyer.getId() + "/";
         String fileName = String.valueOf(ImageType.AVATAR).toLowerCase();
         imageService.save(avatar, uploadFolder, fileName);

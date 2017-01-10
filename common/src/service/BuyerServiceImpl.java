@@ -22,13 +22,13 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public void updateBalance(String buyerName, BigDecimal deposit) {
-        buyerDAO.addToBalance(buyerName, deposit);
+    public void addToBalance(int id, BigDecimal value) {
+        buyerDAO.addToBalance(id, value);
     }
 
     @Override
-    public BigDecimal getBalanceByName(String buyerName) {
-        return buyerDAO.getBalanceByName(buyerName);
+    public BigDecimal getBalanceById(int id) {
+        return buyerDAO.getBalanceById(id);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public BuyerDTO getByNameDTO(String name) {
+    public BuyerDTO getDTOByName(String name) {
         Buyer buyerEntity = buyerDAO.getByName(name);
         return new BuyerDTO(buyerEntity);
     }

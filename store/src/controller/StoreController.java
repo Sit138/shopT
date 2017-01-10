@@ -59,7 +59,7 @@ public class StoreController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Model model){
-        BuyerDTO buyer = buyerService.getByNameDTO(CurrentUser.getCurrentUserName());
+        BuyerDTO buyer = buyerService.getDTOByName(CurrentUser.getCurrentUserName());
         model.addAttribute("buyer", buyer);
         List<SaleDTO> sales = saleService.getByBuyerId(buyer.getId());
         model.addAttribute("sales", sales);

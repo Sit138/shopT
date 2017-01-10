@@ -1,5 +1,6 @@
 package com.controller;
 
+import dto.BuyerDTO;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
 import util.enums.SaleState;
@@ -54,8 +55,8 @@ public class SaleController {
         }
         SaleState newState = SaleState.parse(state);
         if(newState.equals(SaleState.CANCELED)){
-            String buyerName = buyerService.getNameBySaleId(saleId);
-            buyerService.updateBalance(buyerName, totalSum);
+            BuyerDTO buyerDTO = buyerService.getDTOByName(buyerService.getNameBySaleId(saleId));
+            buyerService.addToBalance(buyerDTO.getId(), totalSum);
         }
         saleService.updateState(saleId, newState);
         return "redirect:/sale";

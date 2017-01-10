@@ -1,11 +1,14 @@
 package service;
 
+import dao.DiscountDAO;
+import dao.ProductDAO;
 import dto.ProductDTO;
 import dto.SoldProductDTO;
 import entity.SoldProduct;
 import model.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,18 +17,19 @@ import java.util.Set;
 public class BasketServiceImpl implements BasketService {
 
     @Autowired
-    private ProductService productService;
+    private ProductDAO productDAO;
 
     @Autowired
-    private DiscountService discountService;
+    private DiscountDAO discountDAO;
 
     @Override
+    @Transactional(readOnly = true)
     public void addProduct(Basket basket, int productId, int amount) {
         if(basket == null){
             basket = new Basket();
         }
-        ProductDTO productDTO = productService.getProductDTOById(productId);
-        byte discount = productDTO.isDiscounted() ? discountService.getValueByProductId(productId) : 0;
+        ProductDTO productDTO = new ProductDTO(productDAO.getProduct(productId));
+        byte discount = productDTO.isDiscounted() ? discountDAO.getValueByProductId(productId) : 0;
         if(isBasketProduct(basket, productDTO)){
             addToExistingProduct(basket, productDTO, amount);
         } else {
