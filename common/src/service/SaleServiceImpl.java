@@ -28,7 +28,7 @@ public class SaleServiceImpl implements SaleService {
     private BasketService basketService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void save(String buyerName, Basket basket) {
         Buyer buyer = buyerDAO.getByName(buyerName);
         if (buyer == null) return;
@@ -58,13 +58,13 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateState(int saleId, SaleState state) {
         saleDAO.updateState(saleId, state);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void order(String buyerName, Basket basket) {
         try {
             save(buyerName, basket);

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
         userDAO.saveOrUpdate(user);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrUpdate(UserDTO userDTO){
         User user = userDAO.getUserById(userDTO.getId());
         if(user == null){

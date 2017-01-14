@@ -54,7 +54,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addProductDiscount(int productId, byte value, DiscountType type) {
         Product product = productDAO.getProduct(productId);
         Discount discount = DiscountCalc.createDiscount(type, value);

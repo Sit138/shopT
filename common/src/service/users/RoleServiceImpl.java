@@ -17,7 +17,7 @@ public class RoleServiceImpl implements RoleService{
     private RoleDAO roleDAO;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrUpdate(RoleDTO roleDTO) {
         Role role = new Role();
         role.setNameRole(roleDTO.getNameRole());
