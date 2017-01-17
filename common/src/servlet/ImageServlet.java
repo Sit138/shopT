@@ -13,9 +13,19 @@ public class ImageServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("image/jpeg");
-        String uploadsDir = PropertyApp.PATH_AVATAR_UPLOAD;
+        String uploadsDir, path;
         if(request.getParameter("avatar") != null){
-            String path = uploadsDir + request.getParameter("avatar") +  "/avatar.png";
+            uploadsDir = PropertyApp.PATH_AVATAR_UPLOAD;
+            path = uploadsDir + request.getParameter("avatar") +  "/avatar.png";
+            try {
+                write(path, response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (request.getParameter("prod") != null){
+            uploadsDir = PropertyApp.PATH_PRODUCT_IMAGE;
+            path = uploadsDir + request.getParameter("prod") + "/" + request.getParameter("num") + ".png";
             try {
                 write(path, response);
             } catch (IOException e) {

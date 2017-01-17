@@ -8,6 +8,7 @@ import java.util.Properties;
 public class PropertyApp {
 
     public static final String PATH_AVATAR_UPLOAD = getPathStorage("PATH_AVATAR_UPLOADS");
+    public static final String PATH_PRODUCT_IMAGE = getPathStorage("PATH_PRODUCT_IMAGE");
 
     public static String getPathStorage(String resourceName){
         String pathStorage = null;

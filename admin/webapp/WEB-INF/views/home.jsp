@@ -33,7 +33,7 @@
                     ${status.index + (paginator.pageNumber*paginator.numberRowsOnPage)}
                 </td>
                 <td>
-                    ${product.name}
+                    <a href="<%=request.getContextPath()%>/upload?prod=${product.id}">${product.name}</a>
                 </td>
                 <td>
                     ${product.price}

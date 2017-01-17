@@ -34,7 +34,8 @@ public class ImageController {
                             HttpServletRequest request){
         BuyerDTO buyer = buyerService.getDTOByName(CurrentUser.getCurrentUserName());
         String uploadFolder = PropertyApp.PATH_AVATAR_UPLOAD + buyer.getId() + "/";
-        String fileName = String.valueOf(ImageType.AVATAR).toLowerCase();
+        /*String fileName = String.valueOf(ImageType.AVATAR).toLowerCase();*/
+        String fileName = "avatar";
         imageService.save(avatar, uploadFolder, fileName);
         request.getSession().setAttribute("avatar", avatar.getOriginalFilename());
         request.getSession().setAttribute("buyerId", buyer.getId());
