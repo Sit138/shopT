@@ -25,7 +25,7 @@ public class ImageServlet extends HttpServlet {
         }
         if (request.getParameter("prod") != null){
             uploadsDir = PropertyApp.PATH_PRODUCT_IMAGE;
-            path = uploadsDir + request.getParameter("prod") + "/" + request.getParameter("num") + ".png";
+            path = uploadsDir + request.getParameter("prod") + "/" + request.getParameter("num");
             try {
                 write(path, response);
             } catch (IOException e) {

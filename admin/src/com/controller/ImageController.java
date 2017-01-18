@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import service.ImageService;
 import util.PropertyApp;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +19,19 @@ public class ImageController {
     private ImageService imageService;
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public String showUploadForm(Model model, HttpServletRequest request){
+    public String showUploadForm(Model model, HttpServletRequest request)  {
         List<MultipartFile> upload = Arrays.asList();
         model.addAttribute("uploadList", upload);
-        model.addAttribute("productId", request.getParameter("prod"));
+        String productId = request.getParameter("prod");
+        model.addAttribute("productId", productId);
+        List<String> listImage = null;
+        listImage = imageService.fileNameList(PropertyApp.PATH_PRODUCT_IMAGE + productId + "/");
+        model.addAttribute("listImage", listImage);
+        if(listImage != null){
+            model.addAttribute("listSize", listImage.size());
+        } else {
+            model.addAttribute("listSize", 0);
+        }
         return "upload";
     }
 
@@ -31,6 +41,13 @@ public class ImageController {
         String uploadFolder = PropertyApp.PATH_PRODUCT_IMAGE + productId + "/";
         imageService.save(uploadFiles, uploadFolder);
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/deleteAll", method = RequestMethod.GET)
+    public String deleteAll(HttpServletRequest request){
+        String productId = request.getParameter("prod");
+        imageService.delete(PropertyApp.PATH_PRODUCT_IMAGE + productId + "/");
+        return "redirect:/upload?prod=" + productId;
     }
 
 }

@@ -35,5 +35,19 @@
         <input type="hidden" value="${productId}" name="productId">
     </form:form>
     <input type="hidden" value="0" name="count" id="count">
+
+    <h3>Количество изображений в каталоге - ${listSize} :
+        <a href="<%=request.getContextPath()%>/deleteAll?prod=${productId}">Удалить все</a></h3>
+    <table border="2px">
+        <c:forEach var="image" items="${listImage}">
+            <tr>
+                <th>Имя файла</th>
+                <td>${image}</td>
+                <td><img src="<%=request.getContextPath()%>/image?prod=${productId}&num=${image}" style="height: 100px;"/></td>
+                <td><a href="#">Удалить</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+
 </body>
 </html>

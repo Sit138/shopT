@@ -38,7 +38,7 @@ public class StoreController {
         return pagination;
     }
 
-    @RequestMapping(value = {"/product", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/product", "/"})
     public String shopClient(Model model,
                              @ModelAttribute("paginator") Pagination pagination){
         model.addAttribute("client", "Магазин");
