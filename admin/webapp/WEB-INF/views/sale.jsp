@@ -6,11 +6,14 @@
     <title>Продажи</title>
     <style>
         <%@include file="css/main.css" %>
+        <%@include file="css/pagination.css"%>
     </style>
 </head>
 <body>
 <%@include file="include/header.html"%>
 <h1>Продажи</h1>
+<form:form modelAttribute="paginator" action="${url}" id="filterForm">
+    <%@include file="include/paginationFilterHeader.html"%>
 <table border="1px">
     <tr>
         <th>Id</th>
@@ -49,5 +52,7 @@
         </tr>
     </c:forEach>
 </table>
+    <%@include file="include/paginationFilterFooter.html"%>
+</form:form>
 </body>
 </html>

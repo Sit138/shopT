@@ -36,6 +36,7 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")// TODO: Kirill почти все каскады ни к чему
     @Cascade(CascadeType.SAVE_UPDATE)
     private Set<Discount> discounts = new HashSet<>();
+
     public Product(){
     }
 

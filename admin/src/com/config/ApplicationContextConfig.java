@@ -98,6 +98,11 @@ public class ApplicationContextConfig {
         return new SaleDAOImpl(sessionFactory);
     }
 
+    @Bean(name = "commentDAO")
+    public CommentDAO getCommentDAO(){
+        return new CommentDAOImpl(sessionFactory);
+    }
+
     private Properties getHibernateProperties(){
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");

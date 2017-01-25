@@ -38,7 +38,7 @@
                                          style="height: 100px;"/>
                                 </td>
                                 <td <c:if test="${product.discounted}">style="background-color: #B3B3FF" </c:if>>
-                                        ${product.name}
+                                    <a href="<%=request.getContextPath()%>/productInfo?id=${product.id}">${product.name}</a>
                                 </td>
 
                                 <td>

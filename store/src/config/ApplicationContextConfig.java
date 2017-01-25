@@ -98,6 +98,11 @@ public class ApplicationContextConfig {
         return new SaleDAOImpl(sessionFactory);
     }
 
+    @Bean(name = "commentDAO")
+    public CommentDAO getCommentDAO(){
+        return new CommentDAOImpl(sessionFactory);
+    }
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipart = new CommonsMultipartResolver();

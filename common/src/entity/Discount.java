@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import util.enums.DiscountType;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity(name = "Discount")

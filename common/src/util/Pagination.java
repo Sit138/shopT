@@ -8,7 +8,11 @@ public class Pagination {
     private int numberFirstSamplingElement;
     private int numberAllRows;
 
-    public Pagination(){}
+    public Pagination(){
+        this.numberRowsOnPage = 10;
+        this.pageNumber = 0;
+        this.numberFirstSamplingElement = pageNumber * numberRowsOnPage;
+    }
 
     public Pagination(int numberAllRows){
         this.numberRowsOnPage = 10;

@@ -7,6 +7,7 @@ import dto.SaleDTO;
 import dto.SoldProductDTO;
 import entity.Buyer;
 import entity.Sale;
+import util.Pagination;
 import util.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,8 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public List<SaleDTO> list() {
-        return saleDAO.list();
+    public List<SaleDTO> list(Pagination pagination) {
+        return saleDAO.list(pagination);
     }
 
     @Override
@@ -74,5 +75,10 @@ public class SaleServiceImpl implements SaleService {
             return;
         }
         basketService.clear(basket);
+    }
+
+    @Override
+    public int countItemsSaleHistory() {
+        return saleDAO.countItemsSaleHistory();
     }
 }

@@ -3,6 +3,7 @@ package dao;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
 import entity.Sale;
+import util.Pagination;
 import util.enums.SaleState;
 import java.util.List;
 
@@ -14,8 +15,10 @@ public interface SaleDAO {
 
     List<SoldProductDTO> getOrderInfo(int saleId);
 
-    List<SaleDTO> list();
+    List<SaleDTO> list(Pagination pagination);
 
     void updateState(int saleId, SaleState state);
+
+    int countItemsSaleHistory();
 
 }

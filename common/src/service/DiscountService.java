@@ -14,10 +14,8 @@ public interface DiscountService {
 
     DiscountDTO getNowAutoDiscountProduct();
 
-    int numberItemsDiscountHistory();
+    int countItemsDiscountHistory();
 
     void insertEndDateDiscount(Date endDateDiscount, int productId);
-
-    byte getValueByProductId(int id);
 
 }

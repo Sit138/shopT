@@ -40,7 +40,7 @@ public class ImageController {
                        @RequestParam("productId") int productId){
         String uploadFolder = PropertyApp.PATH_PRODUCT_IMAGE + productId + "/";
         imageService.save(uploadFiles, uploadFolder);
-        return "redirect:/home";
+        return "redirect:/upload?prod=" + productId;
     }
 
     @RequestMapping(value = "/deleteAll", method = RequestMethod.GET)

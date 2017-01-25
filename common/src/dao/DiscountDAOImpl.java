@@ -2,6 +2,7 @@ package dao;
 
 import dto.DiscountDTO;
 import entity.Discount;
+import org.springframework.stereotype.Repository;
 import util.enums.DiscountType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,7 @@ import util.Pagination;
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public class DiscountDAOImpl implements DiscountDAO {
 
     private SessionFactory sessionFactory;

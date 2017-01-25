@@ -23,7 +23,7 @@ public class DiscountController {
 
     @ModelAttribute("paginator")
     Pagination getPagination(){
-        int numberAllRows = discountService.numberItemsDiscountHistory();
+        int numberAllRows = discountService.countItemsDiscountHistory();
         return new Pagination(numberAllRows);
     }
 

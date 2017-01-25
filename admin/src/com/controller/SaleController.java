@@ -3,6 +3,8 @@ package com.controller;
 import dto.BuyerDTO;
 import dto.SaleDTO;
 import dto.SoldProductDTO;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import util.Pagination;
 import util.enums.SaleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +27,19 @@ public class SaleController {
     @Autowired
     private BuyerService buyerService;
 
-    @RequestMapping(value = "/sale", method = RequestMethod.GET)
-    public String sale(Model model){
-        List<SaleDTO> sales = saleService.list();
+    @ModelAttribute("paginator")
+    Pagination getPagination(){
+        int numberAllRows = saleService.countItemsSaleHistory();
+        return new Pagination(numberAllRows);
+    }
+
+    @RequestMapping(value = "/sale")
+    public String sale(Model model,
+                       @ModelAttribute("paginator") Pagination pagination){
+        int numberOfPages = pagination.getNumberOfPages();
+        model.addAttribute("numberOfPages", numberOfPages);
+        model.addAttribute("url", "/admin/sale");
+        List<SaleDTO> sales = saleService.list(pagination);
         model.addAttribute("sales", sales);
         model.addAttribute("stateSale", SaleState.saleStates);
         return "sale";

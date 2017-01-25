@@ -35,7 +35,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public int numberItemsDiscountHistory() {
+    public int countItemsDiscountHistory() {
         return discountDAO.countItemsDiscountHistory();
     }
 
@@ -46,11 +46,6 @@ public class DiscountServiceImpl implements DiscountService {
         product.setDiscounted(false);
         productDAO.saveOrUpdate(product);
         discountDAO.insertEndDateDiscount(endDateDiscount, productId);
-    }
-
-    @Override
-    public byte getValueByProductId(int id) {
-        return discountDAO.getValueByProductId(id);
     }
 
     @Override
