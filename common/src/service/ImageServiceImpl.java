@@ -106,6 +106,22 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void delete(String path, String fileName) {
-
+        List<File> files = fileList(path);
+        if(files != null){
+            files.stream()
+                    .filter(File::isFile)
+                    .filter(f -> f.getName().equals(fileName))
+                    .forEach(File::delete);
+        }
+        List<File> newFiles = fileList(path);
+        if (newFiles != null){
+            int count = 1;
+            for(File file : newFiles){
+                if (file.exists()){
+                    file.renameTo(new File(path + count + ".png"));
+                    count++;
+                }
+            }
+        }
     }
 }

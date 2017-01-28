@@ -51,7 +51,7 @@
                 <input type="submit" value="Добавить">
             </form:form>
         </div>
-
+    <a href="<%=request.getContextPath()%>/product">Перейти к списку продуктов</a>
     </div>
 </div>
 </body>

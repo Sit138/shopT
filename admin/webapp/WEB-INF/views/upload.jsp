@@ -44,10 +44,10 @@
                 <th>Имя файла</th>
                 <td>${image}</td>
                 <td><img src="<%=request.getContextPath()%>/image?prod=${productId}&num=${image}" style="height: 100px;"/></td>
-                <td><a href="#">Удалить</a></td>
+                <td><a href="<%=request.getContextPath()%>/deleteFile?prod=${productId}&num=${image}">Удалить</a></td>
             </tr>
         </c:forEach>
     </table>
-
+    <a href="<%=request.getContextPath()%>/home">Вернуться к списку товаров</a>
 </body>
 </html>

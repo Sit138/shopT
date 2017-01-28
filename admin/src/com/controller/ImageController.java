@@ -50,4 +50,13 @@ public class ImageController {
         return "redirect:/upload?prod=" + productId;
     }
 
+    @RequestMapping(value = "deleteFile", method = RequestMethod.GET)
+    public String deleteFile(HttpServletRequest request){
+        String productId = request.getParameter("prod");
+        String fileName = request.getParameter("num");
+        String filePath = PropertyApp.PATH_PRODUCT_IMAGE + productId + "/";
+        imageService.delete(filePath, fileName);
+        return "redirect:/upload?prod=" + productId;
+    }
+
 }
