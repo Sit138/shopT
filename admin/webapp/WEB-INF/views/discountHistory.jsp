@@ -14,8 +14,14 @@
     <%@include file="include/header.html"%>
 
     <h1>История скидок</h1>
-    <form:form modelAttribute="paginator" action="${url}" id="filterForm">
-    <%@include file="include/paginationFilterHeader.html"%>
+    <form:form modelAttribute="paginator" action="${url}" id="filterForm" method="POST">
+        С
+        <input name="startAt" value="<fmt:formatDate value="${startAt}" pattern="yyyy-MM-dd"/>" type="date">
+        До
+        <input name="endAt" value="<fmt:formatDate value="${endAt}" pattern="yyyy-MM-dd"/>" type="date">
+        <%@include file="include/paginationFilterHeader.html"%>
+        <%@include file="include/paginationFilterFooter.html"%>
+    </form:form>
 
     <table border="1px">
         <tr>
@@ -47,7 +53,6 @@
                 </tr>
         </c:forEach>
     </table>
-    <%@include file="include/paginationFilterFooter.html"%>
-    </form:form>
+
 </body>
 </html>

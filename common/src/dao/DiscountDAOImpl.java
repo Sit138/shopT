@@ -44,12 +44,16 @@ public class DiscountDAOImpl implements DiscountDAO {
     }
 
     @Override
-    public List<DiscountDTO> getHistoryProductDiscounts(Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?:: :D
+    public List<DiscountDTO> getHistoryProductDiscounts(Date dateFrom, Date dateTo, Pagination pagination) {// TODO: Kirill чем этот метод отличается от других что он именно select?:: :D
         return getSession()
                 .createQuery("select d.value as value, d.startAt as startAt, d.endAt as endAt, " +
                         "d.product.id as productId, d.product.name as productName, d.product.price as productPrice, d.type as type " +
-                        "from Discount d left outer join d.product p on p.id=d.product.id order by d.id desc")
+                        "from Discount d left outer join d.product p on p.id = d.product.id " +
+                        "where d.startAt between :dateFrom and :dateTo " +
+                        "order by d.id desc")
                 .setResultTransformer(Transformers.aliasToBean(DiscountDTO.class))
+                .setParameter("dateFrom", dateFrom)
+                .setParameter("dateTo", dateTo)
                 .setFirstResult(pagination.getNumberFirstSamplingElement())
                 .setMaxResults(pagination.getNumberRowsOnPage())
                 .list();

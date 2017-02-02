@@ -10,7 +10,7 @@ public interface DiscountService {
 
     void addProductDiscount(int productId, byte value, DiscountType type);
 
-    List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination);
+    List<DiscountDTO> getHistoryProductDiscounts(Date dateFrom, Date dateTo, Pagination pagination);
 
     DiscountDTO getNowAutoDiscountProduct();
 

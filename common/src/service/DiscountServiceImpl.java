@@ -25,8 +25,8 @@ public class DiscountServiceImpl implements DiscountService {
     private ProductDAO productDAO;
 
     @Override
-    public List<DiscountDTO> selectHistoryProductDiscounts(Pagination pagination) {
-        return discountDAO.getHistoryProductDiscounts(pagination);
+    public List<DiscountDTO> getHistoryProductDiscounts(Date dateFrom, Date dateTo, Pagination pagination) {
+        return discountDAO.getHistoryProductDiscounts(dateFrom, dateTo, pagination);
     }
 
     @Override
