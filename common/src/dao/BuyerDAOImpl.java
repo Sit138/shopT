@@ -1,11 +1,16 @@
 package dao;
 
+import dto.BuyerDTO;
 import entity.Buyer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
+import java.util.List;
 
 // TODO: Kirill почему ты используешь везде имя вместо айди?::Сейчас имя уникально, пока оставил (сделаю через ID)
 @Repository
@@ -31,6 +36,20 @@ public class BuyerDAOImpl implements BuyerDAO {
         return (Buyer) getSession().createCriteria(Buyer.class)
                 .add(Restrictions.eq("name", name))// TODO: Kirill ну откуда ты этот дурацкий лайк взял?
                 .uniqueResult();
+    }
+
+    @Override
+    public List<BuyerDTO> list() {
+        return getSession()
+                .createQuery("select b.id as id, " +
+                                    "b.balance as balance, " +
+                                    "b.name as name, " +
+                                    "b.enabled as enabled, " +
+                                    "b.password as password, " +
+                                    "b.registrationDate as registrationDate " +
+                            "from Buyer b")
+                .setResultTransformer(Transformers.aliasToBean(BuyerDTO.class))
+                .list();
     }
 
     @Override

@@ -97,7 +97,9 @@ public class StoreController {
     @RequestMapping(value = "/basket", method = RequestMethod.GET)
     public String basket(Model model, HttpServletRequest request){
         Basket basket = (Basket) request.getSession().getAttribute("basket");
-        model.addAttribute("totalSum", basketService.getCost(basket));
+        if(basket != null){
+            model.addAttribute("totalSum", basketService.getCost(basket));
+        }
         return "basket";
     }
 
