@@ -11,6 +11,8 @@ public interface BuyerService {
 
     BuyerDTO getDTOByName(String name);
 
+    BuyerDTO getById(int id);
+
     List<BuyerDTO> list();
 
     void addToBalance(int id, BigDecimal value);

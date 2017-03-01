@@ -23,6 +23,7 @@ public class Comment {
     private String message;
 
     @Column(name = "creation_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "product_id")

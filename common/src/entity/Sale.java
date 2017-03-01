@@ -26,6 +26,7 @@ public class Sale {
     private int id;
 
     @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Column(name = "positions")

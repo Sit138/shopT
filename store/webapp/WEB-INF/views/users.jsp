@@ -21,7 +21,12 @@
                     <tr>
                         <td>
                             <img src="<%=request.getContextPath()%>/image?avatar=${buyer.id}" style="height: 100px;"/>
-                            <br><a href="#">Написать</a>
+                            <br>
+                            <form:form action="newMessage" method="post">
+                                <input type="hidden" value="${buyer.id}" name="recipientId">
+                                <input type="submit" value="Написать">
+                            </form:form>
+                            <%--<br><a href="<%=request.getContextPath()%>/newMessage?">Написать</a>--%>
                         </td>
                         <td>${buyer.name}</td>
                     </tr>

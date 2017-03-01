@@ -39,6 +39,11 @@ public class BuyerDAOImpl implements BuyerDAO {
     }
 
     @Override
+    public Buyer getById(int id) {
+        return getSession().get(Buyer.class, id);
+    }
+
+    @Override
     public List<BuyerDTO> list() {
         return getSession()
                 .createQuery("select b.id as id, " +

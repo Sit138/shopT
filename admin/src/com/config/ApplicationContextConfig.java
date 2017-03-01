@@ -103,6 +103,11 @@ public class ApplicationContextConfig {
         return new CommentDAOImpl(sessionFactory);
     }
 
+    @Bean(name = "dialogDAO")
+    public DialogDAO getDialogDAO(){
+        return new DialogDAOImpl(sessionFactory);
+    }
+
     private Properties getHibernateProperties(){
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");

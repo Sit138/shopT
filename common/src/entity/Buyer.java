@@ -41,12 +41,17 @@ public class Buyer {
     private BigDecimal balance;
 
     @Column(name = "registration_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer")
     @Cascade(CascadeType.SAVE_UPDATE)
     @LazyCollection(LazyCollectionOption.TRUE)
     private Set<Sale> sales = new HashSet<>();
+
+    @OneToMany(mappedBy = "primaryKey.buyer")
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private Set<BuyerDialog> buyerDialogs = new HashSet<>();
 
     public Buyer(){}
 

@@ -17,3 +17,7 @@
 #cell {
     border-bottom: solid #333333;
 }
+
+.error {
+    color: red;
+}
