@@ -10,6 +10,7 @@
     </style>
 </head>
 <body>
+<h1>Мои диалоги</h1>
 <div id="container">
     <div id="menu">
         <jsp:include page="menuUser.jsp"/>

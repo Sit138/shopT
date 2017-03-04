@@ -12,10 +12,10 @@ public class BuyerDTO {
 
     private int id;
 
-    @Size(min = 3, max = 15, message = "Поле \"Имя пользователя\" должно содержать от 5 до 15 знаков")
+    @Size(min = 3, max = 15, message = "Имя пользователя должно содержать от 5 до 15 знаков")
     private String name;
 
-    @Size(min = 6, max = 15, message = "Поле \"Пароль\" должно содержать от 6 до 15 знаков")
+    @Size(min = 6, max = 15, message = "Пароль должен содержать от 6 до 15 знаков")
     private String password;
 
     private boolean enabled;
