@@ -13,6 +13,6 @@ public interface DialogDAO {
 
     Dialog getById(int id);
 
-    List<DialogDTO> listBy(int buyerId);
+    List<DialogDTO> listDTOBy(int buyerId);
 
 }

@@ -9,6 +9,8 @@ public interface MessageService {
 
     void save(MessageDTO messageDTO, int recepientId);
 
-    List<DialogDTO> listBy(int buyerId);
+    List<DialogDTO> listDialogDTOBy(int buyerId);
+
+    List<MessageDTO> listMessageDTOBy(int dialogId);
 
 }

@@ -9,9 +9,11 @@ import org.hibernate.type.BooleanType;
 import org.hibernate.type.DateType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class DialogDAOImpl implements DialogDAO {
 
     private SessionFactory sessionFactory;
@@ -48,7 +50,7 @@ public class DialogDAOImpl implements DialogDAO {
     }
 
     @Override
-    public List<DialogDTO> listBy(int buyerId) {
+    public List<DialogDTO> listDTOBy(int buyerId) {
         return getSession()
                 .createSQLQuery("SELECT lastMessage.dialogId AS dialogId, " +
                         "       lastMessage.lastMessage AS lastMessageId, " +

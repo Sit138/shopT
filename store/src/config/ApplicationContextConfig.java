@@ -108,6 +108,11 @@ public class ApplicationContextConfig {
         return new DialogDAOImpl(sessionFactory);
     }
 
+    @Bean(name = "messageDAO")
+    public MessageDAO getMessageDAO(){
+        return new MessageDAOImpl(sessionFactory);
+    }
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipart = new CommonsMultipartResolver();

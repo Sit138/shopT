@@ -2,6 +2,7 @@ package service;
 
 import dao.BuyerDAO;
 import dao.DialogDAO;
+import dao.MessageDAO;
 import dto.DialogDTO;
 import dto.MessageDTO;
 import entity.Buyer;
@@ -15,16 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private DialogDAO dialogDAO;
 
     @Autowired
+    private MessageDAO messageDAO;
+
+    @Autowired
     private BuyerDAO buyerDAO;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(MessageDTO messageDTO, int recepientId) {
         final int senderId = messageDTO.getSenderId();
         Dialog dialog;
@@ -41,9 +46,13 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<DialogDTO> listBy(int buyerId) {
-        return dialogDAO.listBy(buyerId);
+    public List<DialogDTO> listDialogDTOBy(int buyerId) {
+        return dialogDAO.listDTOBy(buyerId);
+    }
+
+    @Override
+    public List<MessageDTO> listMessageDTOBy(int dialogId) {
+        return messageDAO.listDTOBy(dialogId);
     }
 
     private Dialog createDialog(int senderId, int recepientId){
@@ -55,8 +64,12 @@ public class MessageServiceImpl implements MessageService {
         BuyerDialog buyerDialogForRecepient = new BuyerDialog();
         buyerDialogForSender.setDialog(dialog);
         buyerDialogForSender.setBuyer(sender);
+        buyerDialogForSender.setEnabled(true);
+        buyerDialogForSender.setReadAll(true);
         buyerDialogForRecepient.setDialog(dialog);
         buyerDialogForRecepient.setBuyer(recepient);
+        buyerDialogForRecepient.setEnabled(true);
+        buyerDialogForRecepient.setReadAll(true);
         sender.getBuyerDialogs().add(buyerDialogForSender);
         recepient.getBuyerDialogs().add(buyerDialogForRecepient);
         dialog.getBuyerDialogs().add(buyerDialogForSender);

@@ -2,4 +2,5 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="EntityPersistance"/>
+    <persistence-unit name="persistenceUnit"/>
 </persistence>

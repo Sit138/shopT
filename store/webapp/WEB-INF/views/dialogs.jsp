@@ -16,8 +16,12 @@
         <jsp:include page="menuUser.jsp"/>
     </div>
     <div id="content">
-        <c:forEach items="${dialogs}" var="dialog">
-            <div <c:choose>
+        <c:forEach items="${dialogs}" var="dialog" varStatus="status">
+            <form:form action="message" name="form${status.index}">
+                <input type="hidden" name="interlocutorName" value="${dialog.interlocutorName}">
+                <input type="hidden" name="dialogId" value="${dialog.dialogId}">
+            </form:form>
+            <div onclick="document.forms['form${status.index}'].submit();" <c:choose>
                     <c:when test="${dialog.readAll}">style="border: solid"</c:when>
                     <c:otherwise>style="border: solid red"</c:otherwise>
                 </c:choose>style="">

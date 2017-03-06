@@ -55,10 +55,20 @@ public class UserController {
         return "redirect:/profile";
     }
 
-    @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public String message(Model model){
-        model.addAttribute("dialogs", messageService.listBy(
+    @RequestMapping(value = "/dialogs", method = RequestMethod.GET)
+    public String dialogs(Model model){
+        model.addAttribute("dialogs", messageService.listDialogDTOBy(
                 buyerService.getDTOByName(CurrentUser.getCurrentUserName()).getId()));
+        return "dialogs";
+    }
+
+    @RequestMapping(value = "/message")
+    public String message(Model model,
+                          @RequestParam("interlocutorName") String interlocutorName,
+                          @RequestParam("dialogId") int dialogId){
+        model.addAttribute("interlocutorName", interlocutorName);
+        model.addAttribute("dialogId", dialogId);
+        model.addAttribute("messages", messageService.listMessageDTOBy(dialogId));
         return "message";
     }
 }
