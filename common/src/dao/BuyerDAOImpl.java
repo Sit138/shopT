@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 // TODO: Kirill почему ты используешь везде имя вместо айди?::Сейчас имя уникально, пока оставил (сделаю через ID)
-@Repository
+@Repository(value = "buyerDAO")
 public class BuyerDAOImpl implements BuyerDAO {
 
     private SessionFactory sessionFactory;

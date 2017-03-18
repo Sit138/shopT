@@ -12,7 +12,7 @@ import util.Pagination;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+@Repository(value = "discountDAO")
 public class DiscountDAOImpl implements DiscountDAO {
 
     private SessionFactory sessionFactory;

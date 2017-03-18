@@ -9,7 +9,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Repository
+@Repository(value = "roleDAO")
 public class RoleDAOImpl implements RoleDAO {
 
     private SessionFactory sessionFactory;

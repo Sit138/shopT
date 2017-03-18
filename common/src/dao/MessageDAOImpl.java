@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository(value = "messageDAO")
 public class MessageDAOImpl implements MessageDAO {
 
     private SessionFactory sessionFactory;

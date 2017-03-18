@@ -12,7 +12,7 @@ import util.Pagination;
 
 import java.util.List;
 
-@Repository
+@Repository(value = "commentDAO")
 public class CommentDAOImpl implements CommentDAO {
 
     private SessionFactory sessionFactory;

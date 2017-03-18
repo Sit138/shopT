@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository(value = "dialogDAO")
 public class DialogDAOImpl implements DialogDAO {
 
     private SessionFactory sessionFactory;

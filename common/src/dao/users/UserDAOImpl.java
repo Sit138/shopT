@@ -5,8 +5,11 @@ import entity.security.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
+@Repository(value = "userDAO")
 public class UserDAOImpl implements UserDAO {
 
     private SessionFactory sessionFactory;

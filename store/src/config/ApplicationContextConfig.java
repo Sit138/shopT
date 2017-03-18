@@ -1,13 +1,7 @@
 package config;
 
-import dao.*;
-import dao.users.RoleDAO;
-import dao.users.RoleDAOImpl;
-import dao.users.UserDAO;
-import dao.users.UserDAOImpl;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +14,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
 import javax.sql.DataSource;
 import java.util.Properties;
-
 
 @Configuration
 @ComponentScan({"dao", "service", "controller"})
@@ -63,54 +55,6 @@ public class ApplicationContextConfig {
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
         return transactionManager;
-    }
-
-    @Autowired
-    SessionFactory sessionFactory;
-
-    @Bean(name = "productDAO")
-    public ProductDAO getProductDAO(){
-        return new ProductDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "discountDAO")
-    public DiscountDAO getDiscountDAO(){
-        return new DiscountDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "roleDAO")
-    public RoleDAO getRoleDAO(){
-        return new RoleDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "userDAO")
-    public UserDAO getUserDAO(){
-        return new UserDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "buyerDAO")
-    public BuyerDAO getBuyerDAO(){
-        return new BuyerDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "saleDAO")
-    public SaleDAO getSaleDAO(){
-        return new SaleDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "commentDAO")
-    public CommentDAO getCommentDAO(){
-        return new CommentDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "dialogDAO")
-    public DialogDAO getDialogDAO(){
-        return new DialogDAOImpl(sessionFactory);
-    }
-
-    @Bean(name = "messageDAO")
-    public MessageDAO getMessageDAO(){
-        return new MessageDAOImpl(sessionFactory);
     }
 
     @Bean(name = "multipartResolver")

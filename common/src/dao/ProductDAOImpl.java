@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import util.Pagination;
 import java.util.List;
 
-@Repository
+@Repository(value = "productDAO")
 public class ProductDAOImpl implements ProductDAO{
 
     private SessionFactory sessionFactory;

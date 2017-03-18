@@ -13,7 +13,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Repository
+@Repository(value = "saleDAO")
 public class SaleDAOImpl implements SaleDAO {
 
     private SessionFactory sessionFactory;
