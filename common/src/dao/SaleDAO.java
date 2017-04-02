@@ -7,9 +7,9 @@ import util.Pagination;
 import util.enums.SaleState;
 import java.util.List;
 
-public interface SaleDAO {
+public interface SaleDAO extends GeneralDAO<Sale> {
 
-    void save(Sale sale);
+    //void save(Sale sale);
 
     List<SaleDTO> getByBuyerId(int buyerId);
 

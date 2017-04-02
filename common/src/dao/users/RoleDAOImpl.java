@@ -1,5 +1,6 @@
 package dao.users;
 
+import dao.GeneralDAOImpl;
 import dto.users.RoleDTO;
 import entity.security.Role;
 import org.hibernate.Session;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository(value = "roleDAO")
-public class RoleDAOImpl implements RoleDAO {
+public class RoleDAOImpl extends GeneralDAOImpl<Role> implements RoleDAO {
 
-    private SessionFactory sessionFactory;
+   /* private SessionFactory sessionFactory;
 
     public RoleDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -20,7 +21,7 @@ public class RoleDAOImpl implements RoleDAO {
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }*/
 
     @Override
     public void saveOrUpdate(Role role) {

@@ -1,10 +1,11 @@
 package dao.users;
 
+import dao.GeneralDAO;
 import dto.users.UserDTO;
 import entity.security.User;
 import java.util.List;
 
-public interface UserDAO {
+public interface UserDAO extends GeneralDAO<User> {
 
     void saveOrUpdate(User user);
 

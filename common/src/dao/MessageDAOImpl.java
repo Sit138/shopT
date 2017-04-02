@@ -1,6 +1,7 @@
 package dao;
 
 import dto.MessageDTO;
+import entity.Message;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository(value = "messageDAO")
-public class MessageDAOImpl implements MessageDAO {
+public class MessageDAOImpl extends GeneralDAOImpl<Message> implements MessageDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public MessageDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -19,7 +20,7 @@ public class MessageDAOImpl implements MessageDAO {
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }*/
 
 
     @Override

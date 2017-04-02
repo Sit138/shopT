@@ -1,5 +1,6 @@
 package dao.users;
 
+import dao.GeneralDAOImpl;
 import dto.users.UserDTO;
 import entity.security.User;
 import org.hibernate.Session;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository(value = "userDAO")
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends GeneralDAOImpl<User> implements UserDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public UserDAOImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
@@ -20,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }*/
 
     @Override
     public void saveOrUpdate(User user) {

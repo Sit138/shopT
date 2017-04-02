@@ -5,7 +5,7 @@ import util.Pagination;
 import entity.Product;
 import java.util.List;
 
-public interface ProductDAO {
+public interface ProductDAO extends GeneralDAO<Product> {
 
     List<ProductDTO> listProducts(Pagination pagination);
 

@@ -13,9 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 @Repository(value = "discountDAO")
-public class DiscountDAOImpl implements DiscountDAO {
+public class DiscountDAOImpl extends GeneralDAOImpl<Discount> implements DiscountDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public DiscountDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -23,7 +23,7 @@ public class DiscountDAOImpl implements DiscountDAO {
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }*/
 
     @Override
     public void insertEndDateDiscount(Date endDateDiscount, int productId) {

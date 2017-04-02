@@ -5,9 +5,9 @@ import entity.Comment;
 import util.Pagination;
 import java.util.List;
 
-public interface CommentDAO {
+public interface CommentDAO extends GeneralDAO<Comment> {
 
-    void save(Comment comment);
+    //void save(Comment comment);
 
     List<CommentDTO> list(int productId, Pagination pagination);
 

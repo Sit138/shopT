@@ -5,9 +5,9 @@ import entity.Buyer;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface BuyerDAO {
+public interface BuyerDAO extends GeneralDAO<Buyer> {
 
-    void save(Buyer buyer);
+    //void save(Buyer buyer);
 
     Buyer getByName(String name);
 

@@ -16,17 +16,17 @@ import util.Pagination;
 import java.util.List;
 
 @Repository(value = "productDAO")
-public class ProductDAOImpl implements ProductDAO{
+public class ProductDAOImpl extends GeneralDAOImpl<Product> implements ProductDAO{
 
-    private SessionFactory sessionFactory;
+    //private SessionFactory sessionFactory;
 
-    public ProductDAOImpl(SessionFactory sessionFactory){
+    /*public ProductDAOImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
-    }
+    }*/
 
-    private Session getSession() {
+    /*private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
+    }*/
 
     @Override
     public List<ProductDTO> listProducts(Pagination pagination) {

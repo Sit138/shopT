@@ -14,9 +14,9 @@ import java.util.List;
 
 // TODO: Kirill почему ты используешь везде имя вместо айди?::Сейчас имя уникально, пока оставил (сделаю через ID)
 @Repository(value = "buyerDAO")
-public class BuyerDAOImpl implements BuyerDAO {
+public class BuyerDAOImpl extends GeneralDAOImpl<Buyer> implements BuyerDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public BuyerDAOImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
@@ -29,7 +29,7 @@ public class BuyerDAOImpl implements BuyerDAO {
     @Override
     public void save(Buyer buyer) {
         getSession().save(buyer);
-    }
+    }*/
 
     @Override
     public Buyer getByName(String name) {

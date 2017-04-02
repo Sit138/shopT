@@ -13,9 +13,9 @@ import util.Pagination;
 import java.util.List;
 
 @Repository(value = "commentDAO")
-public class CommentDAOImpl implements CommentDAO {
+public class CommentDAOImpl extends GeneralDAOImpl<Comment> implements CommentDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public CommentDAOImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
@@ -28,7 +28,7 @@ public class CommentDAOImpl implements CommentDAO {
     @Override
     public void save(Comment comment) {
         getSession().save(comment);
-    }
+    }*/
 
     @Override
     public List<CommentDTO> list(int productId, Pagination pagination) {

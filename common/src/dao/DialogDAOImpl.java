@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository(value = "dialogDAO")
-public class DialogDAOImpl implements DialogDAO {
+public class DialogDAOImpl extends GeneralDAOImpl<Dialog> implements DialogDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public DialogDAOImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
@@ -29,7 +29,7 @@ public class DialogDAOImpl implements DialogDAO {
     @Override
     public void save(Dialog dialog) {
         getSession().save(dialog);
-    }
+    }*/
 
     @Override
     public Integer getIdBy(int senderId, int recepientId) {

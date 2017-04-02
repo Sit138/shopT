@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository(value = "saleDAO")
-public class SaleDAOImpl implements SaleDAO {
+public class SaleDAOImpl extends GeneralDAOImpl<Sale> implements SaleDAO {
 
-    private SessionFactory sessionFactory;
+    /*private SessionFactory sessionFactory;
 
     public SaleDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -29,7 +29,7 @@ public class SaleDAOImpl implements SaleDAO {
     @Override
     public void save(Sale sale) {
         getSession().save(sale);
-    }
+    }*/
 
     @Override
     public List<SaleDTO> getByBuyerId(int buyerId) {
